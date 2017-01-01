@@ -48,7 +48,7 @@ Source1: %{archivebasename}-extras.tar.gz
 Patch0: %{archivebasename}-rpm.patch
 
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
-BuildRequires: npm
+BuildRequires: npm git desktop-file-utils
 
 %description
 Riot is a front-end client implementing the decentralized, secure, messaging and
