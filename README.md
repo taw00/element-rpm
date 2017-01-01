@@ -1,7 +1,7 @@
 # Riot - a matrix messaging client    
 ## *Native builds for Fedora, CentOS, and Red Hat Enterprise Linux.*
 
-_**Warning:**_ Current builds are for bleeding edge versions of Riot. I will probably change this at some future date and build for two (bleeding edge and "stable").
+> _**Warning:**_ Current builds are for bleeding edge versions of Riot. I will probably change this at some future date and build for two (bleeding edge and "stable").
 
 Riot is a fantastic client for communicating using the Matrix communication protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
 
