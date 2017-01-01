@@ -1,5 +1,5 @@
 # riot-rpms
-Riot (riot-web or riot.im/app) matrix.org messaging client built for Fedora Linux, CentOS, and Red Hat Enterprise Linux
+Riot (riot-web or riot.im/app) matrix.org messaging client built for Fedora, CentOS, and Red Hat Enterprise Linux
 
 Riot is a fantastic client for communicating using the Matrix.org protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
 
@@ -44,6 +44,10 @@ Note: Riot can also be run as SaaS at <https://riot.im/app>
 ## I installed it, now I want to ensure I get future updates!
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. I do this as a hobby, but I will try to be timely with my updates.
+
+## Disclaimer
+
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- Vector Creations Ltd. -- but I do thank them for their contribution.
 
 ## Questions or comments...
 
