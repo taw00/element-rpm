@@ -10,6 +10,13 @@ Included directly here are SRPMs and specfiles so you can rebuild Riot if you li
 
 All *.src.rpm packages should be signed with my GPG key: <https://keybase.io/toddwarner/key.asc>
 
+#### More about...
+
+* Riot: <https://riot.im/>
+* Matrix.org: <https://matrix.org/>
+* TechCrunch review: <https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/>
+* Slant description: <https://www.slant.co/options/12764/~matrix-review>
+
 ## I just want to install Riot!
 
 It's easy to install and run Riot...
@@ -40,4 +47,4 @@ Once you have followed the repository and installation instructions above, you s
 
 ## Questions or comments...
 
-Contact: **t0dd@protonmail.com**
+Contact: **t0dd@protonmail.com** or find me at **@t0dd:matrix.org** after you installed Riot!
