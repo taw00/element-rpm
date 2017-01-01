@@ -1,12 +1,8 @@
-# riot-rpms
-Riot - a matrix.org messaging client built for Fedora, CentOS, and Red Hat Enterprise Linux
+# Riot - a matrix.org messaging client - native builds for Fedora, CentOS, and Red Hat Enterprise Linux.
 
 Riot is a fantastic client for communicating using the Matrix.org protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
 
-Included directly here are SRPMs and specfiles so you can rebuild Riot if you like. But binaries have been built for these platforms (see below on how to install and run Riot on your desktop). 
-
-* x86_64, i686 on Fedora 24, 25, 26
-* x86_64 on CentOS 7 (which works for RHEL7 as well)
+Included directly here in this github repository are SRPMs and specfiles so you can rebuild Riot if you are so inclined. But binaries have also been built. See below on how to install and run Riot on your desktop. 
 
 All *.src.rpm packages should be signed with my GPG key: <https://keybase.io/toddwarner/key.asc>
 
@@ -20,6 +16,12 @@ All *.src.rpm packages should be signed with my GPG key: <https://keybase.io/tod
 ## I just want to install Riot!
 
 It's easy to install and run Riot...
+
+Currently available for these platforms...
+
+* x86_64, i686 on Fedora 24, 25, 26
+* x86_64 on CentOS 7 (which works for RHEL7 as well)
+
 
 ### For Fedora...
 ```
