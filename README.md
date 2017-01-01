@@ -1,5 +1,5 @@
 # riot-rpms
-Riot (riot-web or riot.im/app) matrix.org messaging client built for Fedora, CentOS, and Red Hat Enterprise Linux
+Riot - a matrix.org messaging client built for Fedora, CentOS, and Red Hat Enterprise Linux
 
 Riot is a fantastic client for communicating using the Matrix.org protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
 
