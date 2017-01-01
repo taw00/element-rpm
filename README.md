@@ -18,14 +18,16 @@ It's easy to install and run Riot...
 ```
 sudo dnf install -y dnf-plugins-core
 sudo dnf copr enable taw/Riot
+sudo dnf install -y riot-web
 ```
 
 ### For CentOS or RHEL...
 ```
 sudo yum install -y yum-plugin-copr
-sudo dnf copr enable taw/Riot
+sudo yum copr enable taw/Riot
+sudo yum install -y riot-web
 ```
 
 ### To run Riot...
 
-Search and run "Riot" from your desktop, or run `riot-web` from the commandline.
+Search for and select "Riot" from your desktop or run `riot-web` from the commandline.
