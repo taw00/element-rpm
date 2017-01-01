@@ -31,3 +31,5 @@ sudo yum install -y riot-web
 ### To run Riot...
 
 Search for and select "Riot" from your desktop or run `riot-web` from the commandline.
+
+Note: Riot can also be run as SaaS at <https://riot.im/app>
