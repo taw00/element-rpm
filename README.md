@@ -1,7 +1,7 @@
-# Riot - a matrix.org messaging client    
+# Riot - a matrix messaging client    
 ## *Native builds for Fedora, CentOS, and Red Hat Enterprise Linux.*
 
-Riot is a fantastic client for communicating using the Matrix.org protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
+Riot is a fantastic client for communicating using the Matrix communication protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
 
 Included directly here in this github repository are source RPM packages and specfiles so you can rebuild Riot if you are so inclined. But runnable binaries have also been built. See below for how to install and run Riot on your linux desktop. 
 
@@ -10,9 +10,8 @@ All \*.src.rpm packages should be signed with [my GPG key](https://keybase.io/to
 #### More about...
 
 * Riot: <https://riot.im/>
-* Matrix.org: <https://matrix.org/>
-* TechCrunch review: <https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/>
-* Slant description: <https://www.slant.co/options/12764/~matrix-review><br />_(unsurprisingly, I personally think Riot is superior to Slack and Rocket)_
+* Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
+* A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Riot is superior to Slack and Rocket Chat._
 
 ## I just want to install Riot!
 
@@ -49,7 +48,7 @@ Once you have followed the repository and installation instructions above, you s
 
 ## Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- Vector Creations Ltd. -- but I do thank them for their contribution.
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- Vector Creations Ltd. (of Amdocs) -- but I do thank them for their contribution.
 
 ## Questions or comments...
 
