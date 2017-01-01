@@ -8,6 +8,8 @@ Included here are SRPMs and specfiles so you can rebuilt it if you like. But bin
 * x86_64, i686 on Fedora 24, 25
 * x86_65, i686 on CentOS 7 (which works for RHEL7 as well)
 
+All *.src.rpm packages should be signed with my GPG key: <https://keybase.io/toddwarner/key.asc>
+
 ## Quick install instructions for the binaries
 
 [soon to be written]
