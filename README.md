@@ -13,7 +13,7 @@ All \*.src.rpm packages should be signed with [my GPG key](https://keybase.io/to
 
 #### More about...
 
-* Riot: <https://riot.im/>
+* Riot: <https://riot.im/> and <https://github.com/vector-im/riot-web>
 * Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
 * A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Riot is superior to Slack and Rocket Chat._
 
