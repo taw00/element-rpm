@@ -15,7 +15,7 @@ All *.src.rpm packages should be signed with my GPG key: <https://keybase.io/tod
 * Riot: <https://riot.im/>
 * Matrix.org: <https://matrix.org/>
 * TechCrunch review: <https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/>
-* Slant description: <https://www.slant.co/options/12764/~matrix-review>
+* Slant description: <https://www.slant.co/options/12764/~matrix-review> _(note, I personally think Riot is superior to Slack and Rocket)_
 
 ## I just want to install Riot!
 
