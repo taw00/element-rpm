@@ -2,7 +2,7 @@
 #        data-transport protocol, Matrix.org
 #
 # https://riot.im/
-# https://github/taw00/riot-web-srpm
+# https://github/taw00/riot-rpm
 #
 # t0dd@protonmail.com
 
