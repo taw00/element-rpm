@@ -1,4 +1,4 @@
-# Riot - decentralized, secure messaging for individuals and groups - a client developed upon the matrix protocol
+# Riot is...<br />·	decentralized, secure messaging for collaborative groups<br />· a client developed upon the matrix protocol
 
 ## *Native builds for Fedora, CentOS, and Red Hat Enterprise Linux.*
 
