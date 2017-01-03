@@ -1,4 +1,5 @@
-# Riot - a matrix messaging client    
+# Riot - decentralized, secure messaging for individuals and groups - a client developed upon the matrix protocol
+
 ## *Native builds for Fedora, CentOS, and Red Hat Enterprise Linux.*
 
 Riot is a fantastic client for communicating using the Matrix communication protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
