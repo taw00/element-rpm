@@ -39,7 +39,7 @@ sudo yum copr enable taw/Riot
 sudo yum install -y riot-web
 ```
 
-**Optional set the metadata_expire value to something other than the default 2d (2 days):**
+**Optional set the metadata_expire value to something other than the default 2d (2 days):**<br />
 _Note: It's the same setting whether Fedora, CentOS, or RHEL._
 
 ```
