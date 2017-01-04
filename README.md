@@ -1,4 +1,5 @@
-# Riot - a matrix messaging client    
+# Riot is...<br />·	decentralized, secure messaging for collaborative groups<br />· a client developed upon the matrix protocol
+
 ## *Native builds for Fedora, CentOS, and Red Hat Enterprise Linux.*
 
 Riot is a fantastic client for communicating using the Matrix communication protocol. But it needed RPMs built for the Red Hat family of linux operating systems. So... here they be!
@@ -7,7 +8,7 @@ _**What is Riot (and Matrix)?**_ In short, Riot is an open source, decentralized
 
 Included directly here in this github repository are source RPM packages and specfiles so you can rebuild Riot if you are so inclined. But runnable binaries have also been built. See below for how to install and run Riot on your linux desktop. 
 
-All \*.src.rpm packages should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [Copr GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
+All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [Copr GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
 
 #### More about...
 
@@ -17,14 +18,13 @@ All \*.src.rpm packages should be signed with [my GPG key](https://keybase.io/to
 
 ## I just want to install Riot!
 
-Currently available for these platforms...
+It's easy to install and run Riot, on these currently supported platforms...
 
-* x86_64, i686 on Fedora 24, 25, 26
-* x86_64 on CentOS 7 (which works for RHEL7 as well)
-
-It's easy to install and run Riot...
+* Fedora: versions 24, 25, 26 -- x86_64, i686
+* CentOS (and RHEL): version 7 -- x86_64 only
 
 ### For Fedora...
+
 ```
 sudo dnf install -y dnf-plugins-core
 sudo dnf copr enable taw/Riot
@@ -32,10 +32,20 @@ sudo dnf install -y riot
 ```
 
 ### For CentOS or RHEL...
+
 ```
 sudo yum install -y yum-plugin-copr
 sudo yum copr enable taw/Riot
 sudo yum install -y riot
+```
+
+**Optional set the metadata_expire value to something other than the default 2d (2 days):**<br />
+_Note: It's the same setting whether Fedora, CentOS, or RHEL._
+
+```
+cat $(/etc/yum.repos.d/_copr_taw-Riot.repo) > temp.repo
+echo "metadata_expire=1d" >> temp.repo
+sudo mv -v temp.repo /etc/yum.repos.d/_copr_taw-Riot.repo
 ```
 
 ## I installed it, now I want to run Riot!
