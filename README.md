@@ -25,8 +25,9 @@ It's easy to install and run Riot, on these currently supported platforms...
 
 ### For Fedora...
 
+If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+
 <!--
-If you prefer to use Copr (Fedora Project) directly, do this...
 ```
 sudo dnf install -y dnf-plugins-core # If you haven't installed it yet
 sudo dnf copr enable taw/Riot
@@ -42,8 +43,9 @@ sudo dnf install -y riot --refresh
 
 ### For CentOS or RHEL...
 
+If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+
 <!--
-If you prefer to use Copr (Fedora Project) directly, do this...
 ```
 sudo yum install -y yum-plugin-copr # If you haven't installed it yet
 sudo yum copr enable taw/Riot
