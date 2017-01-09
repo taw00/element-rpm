@@ -28,7 +28,7 @@ It's easy to install and run Riot, on these currently supported platforms...
 ```
 sudo dnf install -y dnf-plugins-core
 sudo dnf copr enable taw/Riot
-sudo dnf install -y riot
+sudo dnf install -y riot --refresh
 ```
 
 ### For CentOS or RHEL...
@@ -36,6 +36,7 @@ sudo dnf install -y riot
 ```
 sudo yum install -y yum-plugin-copr
 sudo yum copr enable taw/Riot
+sudo yum clean metadata
 sudo yum install -y riot
 ```
 
