@@ -3,6 +3,7 @@
 #
 # https://riot.im/
 # https://github/taw00/riot-rpm
+# https://copr.fedorainfracloud.org/coprs/taw/Riot/
 #
 # t0dd@protonmail.com
 
@@ -10,7 +11,7 @@
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 4
+%define bump 5
 # release bumptag
 %define bumptag .taw
 # % define bumptag % {nil}
@@ -103,8 +104,16 @@ cp -a %{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
 mkdir -p %{buildroot}%{_bindir}
 ln -s %{riotdefaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
 install -D -m644 -p extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
-install -D -m644 -p extras/riot-00-128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
-install -D -m644 -p extras/riot-00-256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
+
+install -D -m644 -p extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
+install -D -m644 -p extras/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
+
 install -D -m644 -p extras/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
 install -D -m644 -p extras/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
 install -D -m644 -p extras/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
@@ -112,7 +121,8 @@ install -D -m644 -p extras/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}
 install -D -m644 -p extras/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
 install -D -m644 -p extras/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
 install -D -m644 -p extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
-install -D -m644 -p extras/riot.highcontrast.src.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
+install -D -m644 -p extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}%{_libdir}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}%{_libdir}/libnode.so
@@ -146,6 +156,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Jan 09 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.5.taw
+- improved icons a bit
+-
 * Wed Jan 04 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.4.taw
 - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
 -

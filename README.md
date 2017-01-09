@@ -6,7 +6,7 @@ Riot is a fantastic client for communicating using the Matrix communication prot
 
 _**What is Riot (and Matrix)?**_ In short, Riot is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
 
-Included directly here in this github repository are source RPM packages and specfiles so you can rebuild Riot if you are so inclined. But runnable binaries have also been built. See below for how to install and run Riot on your linux desktop. 
+Included directly here in this github repository are source RPM packages and specfiles so you can rebuild Riot if you are so inclined. But runnable binaries have also been built. See below for how to install and run Riot on your linux desktop.
 
 All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [Copr GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
 
@@ -25,29 +25,52 @@ It's easy to install and run Riot, on these currently supported platforms...
 
 ### For Fedora...
 
+<!--
+If you prefer to use Copr (Fedora Project) directly, do this...
 ```
-sudo dnf install -y dnf-plugins-core
+sudo dnf install -y dnf-plugins-core # If you haven't installed it yet
 sudo dnf copr enable taw/Riot
+sudo dnf install -y riot --refresh
+```
+-->
+
+```
+cd /etc/yum.repos.d/
+sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messaging-client.fedora.repo
 sudo dnf install -y riot --refresh
 ```
 
 ### For CentOS or RHEL...
 
+<!--
+If you prefer to use Copr (Fedora Project) directly, do this...
 ```
-sudo yum install -y yum-plugin-copr
+sudo yum install -y yum-plugin-copr # If you haven't installed it yet
 sudo yum copr enable taw/Riot
-sudo yum clean metadata
+sudo yum clean expire-cache
+sudo yum install -y riot
+```
+-->
+
+```
+cd /etc/yum.repos.d/
+sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messaging-client.epel.repo
+sudo yum clean expire-cache
 sudo yum install -y riot
 ```
 
+
+<!--
 **Optional set the metadata_expire value to something other than the default 2d (2 days):**<br />
 _Note: It's the same setting whether Fedora, CentOS, or RHEL._
 
+If you prefer to use Copr (Fedora Project) directly, do this...
 ```
 cat $(/etc/yum.repos.d/_copr_taw-Riot.repo) > temp.repo
 echo "metadata_expire=1d" >> temp.repo
 sudo mv -v temp.repo /etc/yum.repos.d/_copr_taw-Riot.repo
 ```
+-->
 
 ## I installed it, now I want to run Riot!
 
