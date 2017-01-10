@@ -1,5 +1,6 @@
 # Riot
-## Native RPM package builds for Fedora, CentOS, and Red Hat Enterprise Linux
+
+> _Native RPM package builds for Fedora, CentOS, and Red Hat Enterprise Linux_
 
 Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
 
