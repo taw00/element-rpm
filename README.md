@@ -1,9 +1,7 @@
 # Riot
 ## Native RPM package builds for Fedora, CentOS, and Red Hat Enterprise Linux
 
-> ## Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups
-
-Riot is a fantastic client for communicating using the Matrix communication protocol, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
+Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
 
 _**What is Riot (and Matrix)?**_ In short, Riot is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
 
