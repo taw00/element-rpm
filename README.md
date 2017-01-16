@@ -27,38 +27,16 @@ It's easy to install and run Riot, on these currently supported platforms...
 
 ### For Fedora...
 
-If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
-
-...otherwise...
-
-<!--
-```
-sudo dnf install -y dnf-plugins-core # If you haven't installed it yet
-sudo dnf copr enable taw/Riot
-sudo dnf install -y riot --refresh
-```
--->
-
 ```
 cd /etc/yum.repos.d/
 sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messaging-client.fedora.repo
 sudo dnf install -y riot --refresh
 ```
 
+...OR... if you prefer to use Copr (Fedora Project) directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+
+
 ### For CentOS or RHEL...
-
-If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
-
-...otherwise...
-
-<!--
-```
-sudo yum install -y yum-plugin-copr # If you haven't installed it yet
-sudo yum copr enable taw/Riot
-sudo yum clean expire-cache
-sudo yum install -y riot
-```
--->
 
 ```
 cd /etc/yum.repos.d/
@@ -67,6 +45,7 @@ sudo yum clean expire-cache
 sudo yum install -y riot
 ```
 
+...OR... if you prefer to use Copr (Fedora Project) directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
 
 <!--
 **Optional set the metadata_expire value to something other than the default 2d (2 days):**<br />
@@ -84,11 +63,22 @@ sudo mv -v temp.repo /etc/yum.repos.d/_copr_taw-Riot.repo
 
 Search for and select "Riot" from your desktop or run `riot` from the commandline.
 
-Note: Riot can also be run as SaaS at <https://riot.im/app>
+Note: If none of this made sense or you couldn't get it to work, Riot can also be run as SaaS from your browser at <https://riot.im/app>
 
 ## I installed it, now I want to ensure I get future updates!
 
-Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. I do this as a hobby, but I will try to be timely with my updates.
+Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
+
+```
+# Fedora...
+sudo dnf upgrade
+```
+```
+# CentOS or RHEL...
+sudo yum update
+```
+
+I do this as a hobby, but I will try to be timely with my updates.
 
 # Disclaimer
 
