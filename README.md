@@ -16,6 +16,8 @@ All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.
 * Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
 * A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Riot is superior to Slack and Rocket Chat._
 
+# tl;dr ...
+
 ## I just want to install Riot!
 
 It's easy to install and run Riot, on these currently supported platforms...
@@ -26,6 +28,8 @@ It's easy to install and run Riot, on these currently supported platforms...
 ### For Fedora...
 
 If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+
+...otherwise...
 
 <!--
 ```
@@ -44,6 +48,8 @@ sudo dnf install -y riot --refresh
 ### For CentOS or RHEL...
 
 If you prefer to use Copr (Fedora Project) directly, follow the instructions at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+
+...otherwise...
 
 <!--
 ```
@@ -84,10 +90,10 @@ Note: Riot can also be run as SaaS at <https://riot.im/app>
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. I do this as a hobby, but I will try to be timely with my updates.
 
-## Disclaimer
+# Disclaimer
 
 I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- Vector Creations Ltd. (of Amdocs) -- but I do thank them for their contribution.
 
-## Questions or comments...
+# Questions or comments...
 
 Contact: **t0dd@protonmail.com** or find me at **@t0dd:matrix.org** after you installed Riot!
