@@ -33,7 +33,7 @@ sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messag
 sudo dnf install -y riot --refresh
 ```
 
-...OR... if you prefer to use Copr (Fedora Project) directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+...OR... if you prefer to use Fedora Project's Copr directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
 
 
 ### For CentOS or RHEL...
