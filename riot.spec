@@ -11,7 +11,7 @@
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 1
+%define bump 0
 # release bumptag
 %define bumptag .taw
 # % define bumptag % {nil}
@@ -27,7 +27,7 @@
 
 Name: riot
 Obsoletes: riot-web
-Version: 0.9.6
+Version: 0.9.7
 Release: 1.%{_release}%{?dist}
 Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
 
@@ -36,8 +36,9 @@ Summary: Riot - Front-end client for the decentralized, secure, messaging and da
 %define namevr %{namev}-%{release}
 %define srcnamev %{_srcname}-%{version}
 %define srcnamevr %{srcnamev}-%{release}
+%define buildtree %{srcnamev}
 %define archivebasename %{srcnamev}
-%define sourcetree %{srcnamev}
+%define extrasarchivename %{name}-extras-desktop
 %define riotdefaultinstalltree /opt/riot
 
 License: Apache-2.0
@@ -50,12 +51,11 @@ URL: http://riot.im/
 #Source0: https://github.com/vector-im/riot-web/releases/tag/v0.9.5
 Source0: %{archivebasename}.tar.gz
 #Source1: %{archivebasename}-extras.tar.gz
-%define extrasarchivename %{name}-extras-desktop
 Source1: %{extrasarchivename}.tar.gz
 # patch for RPM builds - not really needed, but here for possible completeness
 #Patch0: %{archivebasename}-rpm.patch
 
-BuildRoot:     %(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
+BuildRoot: %(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
 BuildRequires: npm git desktop-file-utils
 
 %description
@@ -75,11 +75,11 @@ Riot is free. Riot is secure.
 
 %prep
 # riot upstream stuff
-%setup -q -T -a 0 -c %{sourcetree}
+%setup -q -T -a 0 -c %{buildtree}
 # extra stuff
-#%setup -q -T -D -b 1 -n %{sourcetree}
+#%setup -q -T -D -b 1 -n %{buildtree}
 %setup -q -T -D -a 1
-#%setup -q -T -D -b 1 -c %{sourcetree}
+#%setup -q -T -D -b 1 -c %{buildtree}
 # patches to make an RPM by default though we don't use it. (a completist I am)
 #%patch0 -p1
 
@@ -90,9 +90,9 @@ Riot is free. Riot is secure.
 %build
 # building in riot-VERSION
 # cd to riot-web-VERSION
-cd %{sourcetree}
-npm install
-npm run build
+cd %{buildtree}
+/usr/bin/npm install
+/usr/bin/npm run build
 # builds linux-friendly stuff (we use this) and a default tarball, rpm, or deb (not used)
 %define linuxunpacked electron/dist/linux-unpacked
 %ifarch x86_64 amd64
@@ -108,8 +108,8 @@ node_modules/.bin/build -l tar.gz --ia32
 rm -rf %{buildroot}
 mkdir %{buildroot}
 mkdir -p %{buildroot}%{riotdefaultinstalltree}
-cp -a %{sourcetree}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
-#cp %{sourcetree}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
+cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
+#cp %{archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
 #install -D -m755 -p electron/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
 # a little ugly - the symbolic link creation requires this since it is not "installed"
 mkdir -p %{buildroot}%{_bindir}
@@ -148,7 +148,7 @@ install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot
 %{_libdir}/libnode.so
 #%{_docsdir}/*
 #%{_mandir}/*
-%license %{sourcetree}/LICENSE
+%license %{archivebasename}/LICENSE
 
 
 %post
@@ -167,6 +167,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Feb 05 2017 Todd Warner <t0dd@protonmail.com> 0.9.7-1.0.taw
+- Updated upstream source.
+-
+* Sat Jan 21 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.2.taw
+- Tweaks
+-
 * Mon Jan 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.1.taw
 - Small restructuring
 -
