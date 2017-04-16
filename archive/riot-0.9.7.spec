@@ -27,9 +27,8 @@
 
 Name: riot
 Obsoletes: riot-web
-Version: 0.9.8
-Release: %{_release}%{?dist}
-Packager: Todd Warner <t0dd@protonmail.com>
+Version: 0.9.7
+Release: 1.%{_release}%{?dist}
 Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
 
 %define _srcname riot-web
@@ -39,7 +38,7 @@ Summary: Riot - Front-end client for the decentralized, secure, messaging and da
 %define srcnamevr %{srcnamev}-%{release}
 %define buildtree %{srcnamev}
 %define archivebasename %{srcnamev}
-%define contribarchivename %{name}-extras-desktop
+%define extrasarchivename %{name}-extras-desktop
 %define riotdefaultinstalltree /opt/riot
 
 License: Apache-2.0
@@ -48,10 +47,11 @@ Group: Applications/Internet
 URL: http://riot.im/
 # upstream
 #Source0: https://github.com/vector-im/riot-web
-#Source0: https://github.com/vector-im/riot-web/archive/v%{version}.tar.gz
-#Source0: https://github.com/vector-im/riot-web/releases/tag/v%{version}
+#Source0: https://github.com/vector-im/riot-web/archive/v0.9.5.tar.gz
+#Source0: https://github.com/vector-im/riot-web/releases/tag/v0.9.5
 Source0: %{archivebasename}.tar.gz
-Source1: %{contribarchivename}.tar.gz
+#Source1: %{archivebasename}-extras.tar.gz
+Source1: %{extrasarchivename}.tar.gz
 # patch for RPM builds - not really needed, but here for possible completeness
 #Patch0: %{archivebasename}-rpm.patch
 
@@ -114,25 +114,25 @@ cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree
 # a little ugly - the symbolic link creation requires this since it is not "installed"
 mkdir -p %{buildroot}%{_bindir}
 ln -s %{riotdefaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
-install -D -m644 -p %{contribarchivename}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
+install -D -m644 -p %{extrasarchivename}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
 
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
+install -D -m644 -p %{extrasarchivename}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}%{_libdir}/libffmpeg.so
@@ -167,9 +167,6 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Apr 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.8-0.taw
-- Updated upstream source.
--
 * Sun Feb 05 2017 Todd Warner <t0dd@protonmail.com> 0.9.7-1.0.taw
 - Updated upstream source.
 -
