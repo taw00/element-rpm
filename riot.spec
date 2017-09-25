@@ -27,7 +27,7 @@
 
 Name: riot
 Obsoletes: riot-web
-Version: 0.9.8
+Version: 0.12.6
 Release: %{_release}%{?dist}
 Packager: Todd Warner <t0dd@protonmail.com>
 Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
@@ -94,12 +94,12 @@ cd %{buildtree}
 /usr/bin/npm install
 /usr/bin/npm run build
 # builds linux-friendly stuff (we use this) and a default tarball, rpm, or deb (not used)
-%define linuxunpacked electron/dist/linux-unpacked
+%define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
-%define linuxunpacked electron/dist/linux-unpacked
+%define linuxunpacked electron_app/dist/linux-unpacked
 node_modules/.bin/build -l tar.gz --x64
 %else
-%define linuxunpacked electron/dist/linux-ia32-unpacked
+%define linuxunpacked electron_app/dist/linux-ia32-unpacked
 node_modules/.bin/build -l tar.gz --ia32
 %endif
 
@@ -110,7 +110,7 @@ mkdir %{buildroot}
 mkdir -p %{buildroot}%{riotdefaultinstalltree}
 cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
 #cp %{archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
-#install -D -m755 -p electron/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
+#install -D -m755 -p electron_app/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
 # a little ugly - the symbolic link creation requires this since it is not "installed"
 mkdir -p %{buildroot}%{_bindir}
 ln -s %{riotdefaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
@@ -167,6 +167,13 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 25 2017 Todd Warner <t0dd@protonmail.com> 0.12.6-0.taw
+- Updated upstream source.
+- Updated build tree structure.
+-
+* Tue Apr 25 2017 Todd Warner <t0dd@protonmail.com> 0.9.9-0.taw
+- Updated upstream source.
+-
 * Sun Apr 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.8-0.taw
 - Updated upstream source.
 -
