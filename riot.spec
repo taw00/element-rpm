@@ -27,7 +27,7 @@
 
 Name: riot
 Obsoletes: riot-web
-Version: 0.12.6
+Version: 0.12.7
 Release: %{_release}%{?dist}
 Packager: Todd Warner <t0dd@protonmail.com>
 Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
@@ -167,6 +167,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Oct 24 2017 Todd Warner <t0dd@protonmail.com> 0.12.7-0.taw
+- Updated upstream source.
+-
 * Mon Sep 25 2017 Todd Warner <t0dd@protonmail.com> 0.12.6-0.taw
 - Updated upstream source.
 - Updated build tree structure.
