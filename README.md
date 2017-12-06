@@ -23,6 +23,7 @@ All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.
 It's easy to install and run Riot, on these currently supported platforms...
 
 * Fedora: versions 25, 26, 27 -- x86_64, i686<br />
+  NOTE: Fedora 25 versions will become unsupported in 2018
 * CentOS (and RHEL): version 7 -- x86_64 only
 
 ### For Fedora...
