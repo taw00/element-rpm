@@ -11,7 +11,7 @@
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 0
+%define bump 1
 # release bumptag
 %define bumptag .taw
 # % define bumptag % {nil}
@@ -168,9 +168,10 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Fri Dec 06 2017 Todd Warner <t0dd@protonmail.com> 0.13.3-0.taw
+* Wed Dec 06 2017 Todd Warner <t0dd@protonmail.com> 0.13.3-1.taw
 - Updated upstream source.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
+- Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 -
 * Fri Nov 17 2017 Todd Warner <t0dd@protonmail.com> 0.13.0-1.taw
 - Fedora 27 does not install 7zip-bin-linux when you perform "npm install", so
