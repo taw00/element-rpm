@@ -5,6 +5,7 @@ type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
+# GnuPG fingerprint should be F4ED2CDD2BB3A9DDBEAADE734D017B904F38BDE2
 repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
