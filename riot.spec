@@ -27,7 +27,7 @@
 
 Name: riot
 Obsoletes: riot-web
-Version: 0.13.4
+Version: 0.13.5
 Release: %{_release}%{?dist}
 Packager: Todd Warner <t0dd@protonmail.com>
 Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
@@ -47,13 +47,10 @@ License: Apache-2.0
 Group: Applications/Internet
 URL: http://riot.im/
 # upstream
-#Source0: https://github.com/vector-im/riot-web
-#Source0: https://github.com/vector-im/riot-web/archive/v%{version}.tar.gz
-#Source0: https://github.com/vector-im/riot-web/releases/tag/v%{version}
 Source0: %{archivebasename}.tar.gz
 Source1: %{contribarchivename}.tar.gz
 # patch for RPM builds - not really needed, but here for possible completeness
-#Patch0: %{archivebasename}-rpm.patch
+#Patch0: % {archivebasename}-rpm.patch
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
 BuildRequires: npm git desktop-file-utils
@@ -110,7 +107,7 @@ rm -rf %{buildroot}
 mkdir %{buildroot}
 mkdir -p %{buildroot}%{riotdefaultinstalltree}
 cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
-#cp %{archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
+#cp % {archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
 #install -D -m755 -p electron_app/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
 # a little ugly - the symbolic link creation requires this since it is not "installed"
 mkdir -p %{buildroot}%{_bindir}
@@ -147,8 +144,8 @@ install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot
 %{_bindir}/*
 %{_libdir}/libffmpeg.so
 %{_libdir}/libnode.so
-#%{_docsdir}/*
-#%{_mandir}/*
+#% {_docsdir}/*
+#% {_mandir}/*
 %license %{archivebasename}/LICENSE
 
 
@@ -168,6 +165,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-0.taw
+- Updated upstream source that fixes a security issue with external URL management.
+- https://github.com/vector-im/riot-web/releases/tag/v0.13.5
+-
 * Sat Jan 06 2018 Todd Warner <t0dd@protonmail.com> 0.13.4-0.taw
 - Updated upstream source that fixes one of the default configuration files.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
