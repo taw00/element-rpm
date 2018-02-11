@@ -11,7 +11,7 @@
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 0
+%define bump 1
 # release bumptag
 %define bumptag .taw
 # % define bumptag % {nil}
@@ -105,7 +105,7 @@ node_modules/.bin/build -l tar.gz --ia32
 %install
 rm -rf %{buildroot}
 mkdir %{buildroot}
-mkdir -p %{buildroot}%{riotdefaultinstalltree}
+install -d %{buildroot}%{riotdefaultinstalltree}
 cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
 #cp % {archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
 #install -D -m755 -p electron_app/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
@@ -133,8 +133,14 @@ install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.256x256.png %
 install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
-install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}%{_libdir}/libffmpeg.so
-install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}%{_libdir}/libnode.so
+
+install -d %{buildroot}/usr/lib/riot
+install -d %{buildroot}/etc/ld.so.conf.d
+install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
+install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
+install -D -m644 -p %{contribarchivename}/extras/etc-ld.so.conf.d-riot.conf %{buildroot}/etc/ld.so.conf.d/riot.conf
+#install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}%{_libdir}/libffmpeg.so
+#install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}%{_libdir}/libnode.so
 
 
 %files
@@ -142,8 +148,12 @@ install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot
 %{riotdefaultinstalltree}
 %{_datadir}/*
 %{_bindir}/*
-%{_libdir}/libffmpeg.so
-%{_libdir}/libnode.so
+/etc/ld.so.conf.d/riot.conf
+%dir %attr(755,root,root) /usr/lib/riot
+/usr/lib/riot/libffmpeg.so
+/usr/lib/riot/libnode.so
+#%{_libdir}/libffmpeg.so
+#%{_libdir}/libnode.so
 #% {_docsdir}/*
 #% {_mandir}/*
 %license %{archivebasename}/LICENSE
@@ -165,6 +175,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Feb 11 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-1.taw
+- Adjusted location of libffmpeg and libnode in order to avoid conflicts.
+-
 * Fri Feb 09 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-0.taw
 - Updated upstream source that fixes a security issue with external URL management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
