@@ -8,13 +8,14 @@
 # t0dd@protonmail.com
 
 
+# This will be changing dramatically in 0.14.0...
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 1
+%define bump 2
 # release bumptag
 %define bumptag .taw
-# % define bumptag % {nil}
+#%%define bumptag %%{nil} -- note, you have to double up %%'s in comments or rpmbuild hates you
 # ...the release bumptag is used to convey information about who built the
 # package (or other extra information) and is really only useful during early
 # spins of the RPMs. For example, ".taw" is a reference to the original
@@ -22,8 +23,11 @@
 # For actual releases, you may want to NIL the value above
 %define _release %{bump}%{bumptag}
 
-# We don't want a debuginfo package
+# how are debug info and build_ids managed (I only halfway understand this):
+# https://github.com/rpm-software-management/rpm/blob/master/macros.in
 %define debug_package %{nil}
+%define _unique_build_ids 1
+%define _build_id_links alldebug
 
 Name: riot
 Obsoletes: riot-web
@@ -49,8 +53,6 @@ URL: http://riot.im/
 # upstream
 Source0: %{archivebasename}.tar.gz
 Source1: %{contribarchivename}.tar.gz
-# patch for RPM builds - not really needed, but here for possible completeness
-#Patch0: % {archivebasename}-rpm.patch
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
 BuildRequires: npm git desktop-file-utils
@@ -73,12 +75,7 @@ Riot is free. Riot is secure.
 %prep
 # riot upstream stuff
 %setup -q -T -a 0 -c %{buildtree}
-# extra stuff
-#%setup -q -T -D -b 1 -n %{buildtree}
 %setup -q -T -D -a 1
-#%setup -q -T -D -b 1 -c %{buildtree}
-# patches to make an RPM by default though we don't use it. (a completist I am)
-#%patch0 -p1
 
 # We leave with this structure...
 # ~/rpmbuild/BUILD/riot-VERSION/riot-web-VERSION/
@@ -106,13 +103,15 @@ node_modules/.bin/build -l tar.gz --ia32
 rm -rf %{buildroot}
 mkdir %{buildroot}
 install -d %{buildroot}%{riotdefaultinstalltree}
+install -d -m755 -p %{buildroot}%{_bindir}
+install -d %{buildroot}%{_datadir}/applications
+install -d %{buildroot}/usr/lib/riot
+install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
+
 cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
-#cp % {archivebasename}/LICENSE %{buildroot}%{_datadir}/licenses/LICENSE
-#install -D -m755 -p electron_app/dist/linux-unpacked/riot-web %{buildroot}%{_bindir}/riot
+
 # a little ugly - the symbolic link creation requires this since it is not "installed"
-mkdir -p %{buildroot}%{_bindir}
 ln -s %{riotdefaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
-install -D -m644 -p %{contribarchivename}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 
 install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
 install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
@@ -132,19 +131,19 @@ install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.128x128.png %
 install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
 install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
+install -D -m644 -p %{contribarchivename}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 
-install -d %{buildroot}/usr/lib/riot
-install -d %{buildroot}/etc/ld.so.conf.d
 install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
 install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
 install -D -m644 -p %{contribarchivename}/extras/etc-ld.so.conf.d-riot.conf %{buildroot}/etc/ld.so.conf.d/riot.conf
-#install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}%{_libdir}/libffmpeg.so
-#install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}%{_libdir}/libnode.so
+#install -D -m755 -p %%{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %%{buildroot}%%{_libdir}/libffmpeg.so
+#install -D -m755 -p %%{buildroot}%{riotdefaultinstalltree}/libnode.so %%{buildroot}%%{_libdir}/libnode.so
 
 
 %files
 %defattr(-,root,root,-)
+# We own /opt/riot and everything under it...
 %{riotdefaultinstalltree}
 %{_datadir}/*
 %{_bindir}/*
@@ -152,10 +151,10 @@ install -D -m644 -p %{contribarchivename}/extras/etc-ld.so.conf.d-riot.conf %{bu
 %dir %attr(755,root,root) /usr/lib/riot
 /usr/lib/riot/libffmpeg.so
 /usr/lib/riot/libnode.so
-#%{_libdir}/libffmpeg.so
-#%{_libdir}/libnode.so
-#% {_docsdir}/*
-#% {_mandir}/*
+#%%{_libdir}/libffmpeg.so
+#%%{_libdir}/libnode.so
+#%%{_docsdir}/*
+#%%{_mandir}/*
 %license %{archivebasename}/LICENSE
 
 
@@ -175,6 +174,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Apr 9 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-2.taw
+- Nuked .build_ids in order to avoid conflicts.
+-
 * Sun Feb 11 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-1.taw
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 -
