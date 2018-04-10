@@ -20,7 +20,7 @@ All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.
 
 ## I just want to install Riot!
 
-It's easy to install and run Riot, on these currently supported platforms...
+It's easy to install and run Riot. Currently built for these platforms...
 
 * Fedora: versions 26, 27 -- x86\_64, i686<br />
   NOTE: I will stop building for any version of an OS that is no longer supported
@@ -28,6 +28,8 @@ It's easy to install and run Riot, on these currently supported platforms...
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
+
+_Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
 ```
 cd /etc/yum.repos.d/
@@ -41,6 +43,8 @@ instructions found at this link:
 
 
 ### For CentOS or RHEL...
+
+_Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
 ```
 cd /etc/yum.repos.d/
