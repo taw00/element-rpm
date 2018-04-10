@@ -22,9 +22,10 @@ All \*.src.rpm packages here should be signed with [my GPG key](https://keybase.
 
 It's easy to install and run Riot, on these currently supported platforms...
 
-* Fedora: versions 25, 26, 27 -- x86_64, i686<br />
-  NOTE: Fedora 25 versions are no longer supported, as of January 1, 2018<br />
-* CentOS (and RHEL): version 7 -- x86_64 only
+* Fedora: versions 26, 27 -- x86\_64, i686<br />
+  NOTE: I will stop building for any version of an OS that is no longer supported
+* CentOS (and RHEL): version 7 -- x86\_64 only
+* The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
 
@@ -34,7 +35,9 @@ sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messag
 sudo dnf install -y riot --refresh
 ```
 
-...OR... if you prefer to use Fedora Project's Copr directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
+...OR... if you prefer to use Fedora Project's Copr directly, follow the
+instructions found at this link:
+<https://copr.fedorainfracloud.org/coprs/taw/Riot/>
 
 
 ### For CentOS or RHEL...
@@ -48,17 +51,6 @@ sudo yum install -y riot
 
 ...OR... if you prefer to use Copr (Fedora Project) directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
 
-<!--
-**Optional set the metadata_expire value to something other than the default 2d (2 days):**<br />
-_Note: It's the same setting whether Fedora, CentOS, or RHEL._
-
-If you prefer to use Copr (Fedora Project) directly, do this...
-```
-cat $(/etc/yum.repos.d/_copr_taw-Riot.repo) > temp.repo
-echo "metadata_expire=1d" >> temp.repo
-sudo mv -v temp.repo /etc/yum.repos.d/_copr_taw-Riot.repo
-```
--->
 
 ## I installed it, now I want to run Riot!
 
@@ -80,6 +72,15 @@ sudo yum update
 ```
 
 I do this as a hobby, but I will try to be timely with my updates.
+
+## I live on the edge! Do you have test packages available?
+
+Yes! As of April 10, 2018, I started building test packages!
+
+1. Follow the steps described able to install the repository configure file.  
+   _You will have to refresh it if you have done this before today._
+2. Edit that file &mdash;`riot-messaging-client.fedora.repo` or `riot-messaging-client.epel.repo`&mdash; and "enable=1" the riot-testing repository, and "enable=0" the riot-stable repository.
+
 
 # Disclaimer
 
