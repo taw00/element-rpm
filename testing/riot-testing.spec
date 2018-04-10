@@ -239,7 +239,7 @@ install -D -m644 -p %{srccontribtree}/extras/etc-ld.so.conf.d-riot.conf %{buildr
 %defattr(-,root,root,-)
 %license %{srccodetree}/LICENSE
 # We own /opt/riot and everything under it...
-%dir %{defaultinstalltree}
+%{defaultinstalltree}
 %{_datadir}/*
 %{_bindir}/*
 /etc/ld.so.conf.d/riot.conf
