@@ -31,7 +31,7 @@ Name: riot
 %define _verminor 0
 Version: %{_vermajor}.%{_verminor}
 %define _relmajor 0
-%define _relminor 1
+%define _relminor 2
 # flip-flop the undefine if we are GA
 %undefine _snapshot
 %define _snapshot rc.6
@@ -85,7 +85,7 @@ Summary: Riot - Front-end client for the decentralized, secure, messaging and da
 %define srcroot %{name}-%{_vermajor}
 %define srccodetree %{srcarchive}
 %define srccontribtree %{srccontribarchive}
-%define defaultinstalltree /opt/riot
+%define installtree /opt/riot
 
 Obsoletes: riot-web
 License: Apache-2.0
@@ -128,6 +128,9 @@ mkdir %{srcroot}
 
 %build
 # This section starts us in directory .../BUILD/riot-0.14 (srcroot)
+
+# Clearing npm's cache will hopefully elminate SHA1 integrity issues.
+/usr/bin/npm cache clean --force
 
 # -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
 %define _devel_branch_yn 0
@@ -198,14 +201,14 @@ rm -rf %{buildroot} ; mkdir %{buildroot}
 # Create directories
 install -d %{buildroot}/usr/lib/riot
 install -d -m755 -p %{buildroot}%{_bindir}
-install -d %{buildroot}%{defaultinstalltree}
+install -d %{buildroot}%{installtree}
 install -d %{buildroot}%{_datadir}/applications
 install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 
-cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{defaultinstalltree}
+cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
 
 # a little ugly - symbolic link creation
-ln -s %{defaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
+ln -s %{installtree}/riot-web %{buildroot}%{_bindir}/riot
 
 install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
 install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
@@ -228,18 +231,18 @@ install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.svg         %{bui
 install -D -m644 -p %{srccontribtree}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 
-install -D -m755 -p %{buildroot}%{defaultinstalltree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
-install -D -m755 -p %{buildroot}%{defaultinstalltree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
+install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
+install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
 install -D -m644 -p %{srccontribtree}/extras/etc-ld.so.conf.d-riot.conf %{buildroot}/etc/ld.so.conf.d/riot.conf
-#install -D -m755 -p %%{buildroot}%{defaultinstalltree}/libffmpeg.so %%{buildroot}%%{_libdir}/libffmpeg.so
-#install -D -m755 -p %%{buildroot}%%{defaultinstalltree}/libnode.so %%{buildroot}%%{_libdir}/libnode.so
+#install -D -m755 -p %%{buildroot}%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/libffmpeg.so
+#install -D -m755 -p %%{buildroot}%%{installtree}/libnode.so %%{buildroot}%%{_libdir}/libnode.so
 
 
 %files
 %defattr(-,root,root,-)
 %license %{srccodetree}/LICENSE
 # We own /opt/riot and everything under it...
-%{defaultinstalltree}
+%{installtree}
 %{_datadir}/*
 %{_bindir}/*
 /etc/ld.so.conf.d/riot.conf
@@ -268,6 +271,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-0.2.rc.6.taw0
+- Added an 'npm cache clean --force' to hopefully about cache integrity issues
+  (sha1 integrity checks, namely)
+-
 * Mon Apr 9 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-0.1.rc.6.taw0
 - Release - 7445456 - 0.14-0 RC
 - name-version-release more closely matches industry guidelines:
