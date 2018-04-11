@@ -12,7 +12,7 @@
 # Release bump is the base release number - i.e., we tend to "bump" this often.
 # Recommend including the date for experimental builds
 # for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 2
+%define bump 3
 # release bumptag
 %define bumptag .taw
 #%%define bumptag %%{nil} -- note, you have to double up %%'s in comments or rpmbuild hates you
@@ -82,9 +82,13 @@ Riot is free. Riot is secure.
 # ~/rpmbuild/BUILD/riot-VERSION/riot-extras-desktop/
 
 %build
-# building in riot-VERSION
+# This section starts us in directory .../BUILD/pkg-version_major (srcroot)
 # cd to riot-web-VERSION
 cd %{buildtree}
+
+# Clearing npm's cache will hopefully elminate SHA1 integrity issues.
+/usr/bin/npm cache clean --force
+
 /usr/bin/npm install 
 /usr/bin/npm install 7zip-bin-linux
 /usr/bin/npm run build
@@ -100,8 +104,9 @@ node_modules/.bin/build -l tar.gz --ia32
 
 
 %install
-rm -rf %{buildroot}
-mkdir %{buildroot}
+# This section starts us in directory .../BUILD/pkg-version_major (srcroot)
+rm -rf %{buildroot} ; mkdir %{buildroot}
+
 install -d %{buildroot}%{riotdefaultinstalltree}
 install -d -m755 -p %{buildroot}%{_bindir}
 install -d %{buildroot}%{_datadir}/applications
@@ -174,6 +179,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
+- Added an 'npm cache clean --force' to hopefully about cache integrity issues
+  (sha1 integrity checks, namely)
+-
 * Mon Apr 9 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-2.taw
 - Nuked .build_ids in order to avoid conflicts.
 -
