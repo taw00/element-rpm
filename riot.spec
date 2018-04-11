@@ -1,27 +1,72 @@
 # Riot - Front-end client for the decentralized, secure, messaging and
 #        data-transport protocol, Matrix.
 #
-# https://riot.im/
 # https://github/taw00/riot-rpm
 # https://copr.fedorainfracloud.org/coprs/taw/Riot/
 #
-# t0dd@protonmail.com
+# https://riot.im/
+# https://vector.im
+# https://github.com/vector-im/riot-web
+#
+Packager: Todd Warner <t0dd@protonmail.com>
+Vendor: New Vector
+
+# How RPM names work!
+#
+# name-version-release
+# ...version is (can be many decimals):
+# <vermajor>.<verminor>
+# ...where release is:
+# <pkgrel>[.<extraver>][.<snapinfo>]{dist}[.<minorbump>] ...or, mine...
+# <rel>[.<devrel>][.<devsnap>]{dist}[.<bump>]
+# ...all together now:
+# <name>-<vermajor.<verminor>-<rel>[.<devrel>][.<devsnap>]{dist}[.<bump>]
+# For example:
+# - testing:   riot-0.14.0-0.2.testing.fc27.taw0 [.src.rpm or x86_64.rpm]
+# - producion: riot-0.14.0-1.fc27.taw0 [.src.rpm or x86_64.rpm]
+#
+# https://fedoraproject.org/wiki/Packaging:Versioning
+# https://fedoraproject.org/wiki/Package_Versioning_Examples
 
 
-# This will be changing dramatically in 0.14.0...
-# Release bump is the base release number - i.e., we tend to "bump" this often.
-# Recommend including the date for experimental builds
-# for example 20160405.0, 20160405.1, 20160405.2, 20160406.0, etc
-%define bump 3
-# release bumptag
-%define bumptag .taw
-#%%define bumptag %%{nil} -- note, you have to double up %%'s in comments or rpmbuild hates you
-# ...the release bumptag is used to convey information about who built the
-# package (or other extra information) and is really only useful during early
-# spins of the RPMs. For example, ".taw" is a reference to the original
-# packager, Todd Warner (his initials).
-# For actual releases, you may want to NIL the value above
-%define _release %{bump}%{bumptag}
+Name: riot
+%define _vermajor 0.14
+%define _verminor 0
+Version: %{_vermajor}.%{_verminor}
+
+%define _rel 1
+%define _devrel 0
+# flip-flop if we are GA (undefine on bottom)
+%define _devsnap rc.6
+%undefine _devsnap
+# flip-flop the undefine if we are GA (undefine on bottom)
+%define __relextended %{_devrel}
+%if 0%{?_devsnap:1}
+%define __relextended %{_devrel}.%{_devsnap}
+%endif
+%undefine __relextended
+# flip-flop next two lines if you don't want the minor bump
+%undefine _bump
+%define _bump taw0
+
+
+# ---------------- end of commonly edited elements ----------------------------
+
+# "Release" gets complicated-ish...
+
+%define _release_part %{_rel}%{?dist}
+%if 0%{?__relextended:1}
+# extraver.snapinfo.[dist]...
+%define _release_part %{_rel}.%{__relextended}%{?dist}
+%endif
+
+%define _release %{_release_part}
+%if 0%{?_bump:1}
+%define _release %{_release_part}.%{_bump}
+%endif
+Release: %{_release}
+
+Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -29,42 +74,43 @@
 %define _unique_build_ids 1
 %define _build_id_links alldebug
 
-Name: riot
+# https://fedoraproject.org/wiki/Changes/Harden_All_Packages
+#%%define_hardened_build 0
+
+%define srcarchive %{name}-web-%{version}
+%define srccontribarchive %{name}-extras-desktop
+%if 0%{?_devsnap:1}
+%define srcarchive %{name}-web-%{version}-%{_devsnap}
+%endif
+
+# Unarchived source tree structure (extracted in .../BUILD)
+#   srcroot               riot-0.14
+#      \_srccodetree        \_riot-web-0.14.0
+#      \_srccontribtree     \_riot-extras-desktop
+%define srcroot %{name}-%{_vermajor}
+%define srccodetree %{srcarchive}
+%define srccontribtree %{srccontribarchive}
+%define installtree /opt/riot
+
 Obsoletes: riot-web
-Version: 0.13.5
-Release: %{_release}%{?dist}
-Packager: Todd Warner <t0dd@protonmail.com>
-Summary: Riot - Front-end client for the decentralized, secure, messaging and data-transport protocol, Matrix.
-
-%define _srcname riot-web
-%define namev %{name}-%{version}
-%define namevr %{namev}-%{release}
-%define srcnamev %{_srcname}-%{version}
-%define srcnamevr %{srcnamev}-%{release}
-%define buildtree %{srcnamev}
-%define archivebasename %{srcnamev}
-%define contribarchivename %{name}-extras-desktop
-%define riotdefaultinstalltree /opt/riot
-
 License: Apache-2.0
-
 Group: Applications/Internet
 URL: http://riot.im/
 # upstream
-Source0: %{archivebasename}.tar.gz
-Source1: %{contribarchivename}.tar.gz
+Source0: %{srcarchive}.tar.gz
+Source1: %{srccontribarchive}.tar.gz
 
-BuildRoot: %(mktemp -ud %{_tmppath}/%{namevr}-XXXXXX)
-BuildRequires: npm git desktop-file-utils
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildRequires: nodejs npm git desktop-file-utils
 
 %description
 Riot is a decentralized, secure messaging client for collaborative group
 communication. Riot's core architecture is an implementation of the matrix
 protocol.
 
-Riot is more than a messaging app. Riot is a shared workspace for the web. Riot
-is a place to connect with teams. Riot is a place to to collaborate, to work, to
-discuss your current projects.
+Riot is more than a messaging app. Riot is a shared workspace for the web.
+Riot is a place to connect with teams. Riot is a place to to collaborate, to
+work, to discuss your current projects.
 
 Riot removes the barriers between apps, allowing you to connect teams and
 functionality like never before.
@@ -73,83 +119,135 @@ Riot is free. Riot is secure.
 
 
 %prep
-# riot upstream stuff
-%setup -q -T -a 0 -c %{buildtree}
-%setup -q -T -D -a 1
+# Prep section starts us in directory .../BUILD
+# process riot-web - Source0 - untars in:
+#   .../BUILD/riot-0.14/riot-web-0.14.0-rc.4/
+mkdir %{srcroot}
+%setup -q -T -D -a 0 -n %{srcroot}
+# extra stuff
+%setup -q -T -D -a 1 -n %{srcroot}
 
 # We leave with this structure...
-# ~/rpmbuild/BUILD/riot-VERSION/riot-web-VERSION/
-# ~/rpmbuild/BUILD/riot-VERSION/riot-extras-desktop/
+# ~/rpmbuild/BUILD/riot-0.14/riot-web-0.14.0-rc.4/
+# ~/rpmbuild/BUILD/riot-0.14/riot-extras-desktop/
 
 %build
-# This section starts us in directory .../BUILD/pkg-version_major (srcroot)
-# cd to riot-web-VERSION
-cd %{buildtree}
+# This section starts us in directory .../BUILD/riot-0.14 (srcroot)
 
 # Clearing npm's cache will hopefully elminate SHA1 integrity issues.
 /usr/bin/npm cache clean --force
 
+# -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
+%define _devel_branch_yn 0
+%if %{?_devel_branch_yn}
+# For now we are nuking the code tree and checking it out with git :(
+rm -rf %{srccodetree}
+%define _tag v%{version}-%{_devsnap}
+/usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
+cd %{srccodetree}
+/usr/bin/git checkout tags/%{_tag}
+
+./scripts/fetch-develop.deps.sh
+
+cd matrix-js-sdk
+/usr/bin/git pull
+/usr/bin/npm install 
+/usr/bin/npm run build
+cd ..
+
+cd matrix-react-sdk
+/usr/bin/git pull
+/usr/bin/npm install 
+/usr/bin/npm run build
+cd ..
+
+if [ ! -e node_modules/matrix-js-sdk ]
+then
+  cd node_modules
+  ln -s ../matrix-js-sdk .
+  cd..
+fi
+if [ ! -e node_modules/matrix-react-sdk ]
+  cd node_modules
+  ln -s ../matrix-react-sdk .
+  cd ..
+fi
+
+#mv matrix-js-sdk node_modules/
+#mv matrix-react-sdk node_modules/
+%else
+cd %{srccodetree}
+%endif
+# -- END EXPERIMENTAL BUILD FROM GIT REPO --
+
 /usr/bin/npm install 
 /usr/bin/npm install 7zip-bin-linux
 /usr/bin/npm run build
-# builds linux-friendly stuff (we use this) and a default tarball, rpm, or deb (not used)
+
+#/usr/bin/npm install electron
+#/usr/bin/npm run electron
+
+# builds linux-friendly stuff (we use this) and a default tarball, rpm, or
+# deb (not used)
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
 %define linuxunpacked electron_app/dist/linux-unpacked
-node_modules/.bin/build -l tar.gz --x64
+./node_modules/.bin/build -l tar.gz --x64
 %else
 %define linuxunpacked electron_app/dist/linux-ia32-unpacked
-node_modules/.bin/build -l tar.gz --ia32
+./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
 
 %install
-# This section starts us in directory .../BUILD/pkg-version_major (srcroot)
+# This section starts us in directory .../BUILD/riot-0.14 (srcroot)
 rm -rf %{buildroot} ; mkdir %{buildroot}
 
-install -d %{buildroot}%{riotdefaultinstalltree}
-install -d -m755 -p %{buildroot}%{_bindir}
-install -d %{buildroot}%{_datadir}/applications
+# Create directories
 install -d %{buildroot}/usr/lib/riot
+install -d -m755 -p %{buildroot}%{_bindir}
+install -d %{buildroot}%{installtree}
+install -d %{buildroot}%{_datadir}/applications
 install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 
-cp -a %{archivebasename}/%{linuxunpacked}/* %{buildroot}%{riotdefaultinstalltree}
+cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
 
-# a little ugly - the symbolic link creation requires this since it is not "installed"
-ln -s %{riotdefaultinstalltree}/riot-web %{buildroot}%{_bindir}/riot
+# a little ugly - symbolic link creation
+ln -s %{installtree}/riot-web %{buildroot}%{_bindir}/riot
 
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
 
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
-install -D -m644 -p %{contribarchivename}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
+install -D -m644 -p %{srccontribtree}/extras/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
-install -D -m644 -p %{contribarchivename}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
+install -D -m644 -p %{srccontribtree}/extras/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 
-install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
-install -D -m755 -p %{buildroot}%{riotdefaultinstalltree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
-install -D -m644 -p %{contribarchivename}/extras/etc-ld.so.conf.d-riot.conf %{buildroot}/etc/ld.so.conf.d/riot.conf
-#install -D -m755 -p %%{buildroot}%{riotdefaultinstalltree}/libffmpeg.so %%{buildroot}%%{_libdir}/libffmpeg.so
-#install -D -m755 -p %%{buildroot}%{riotdefaultinstalltree}/libnode.so %%{buildroot}%%{_libdir}/libnode.so
+install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}/usr/lib/riot/libffmpeg.so
+install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}/usr/lib/riot/libnode.so
+install -D -m644 -p %{srccontribtree}/extras/etc-ld.so.conf.d-riot.conf %{buildroot}/etc/ld.so.conf.d/riot.conf
+#install -D -m755 -p %%{buildroot}%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/libffmpeg.so
+#install -D -m755 -p %%{buildroot}%%{installtree}/libnode.so %%{buildroot}%%{_libdir}/libnode.so
 
 
 %files
 %defattr(-,root,root,-)
+%license %{srccodetree}/LICENSE
 # We own /opt/riot and everything under it...
-%{riotdefaultinstalltree}
+%{installtree}
 %{_datadir}/*
 %{_bindir}/*
 /etc/ld.so.conf.d/riot.conf
@@ -160,7 +258,6 @@ install -D -m644 -p %{contribarchivename}/extras/etc-ld.so.conf.d-riot.conf %{bu
 #%%{_libdir}/libnode.so
 #%%{_docsdir}/*
 #%%{_mandir}/*
-%license %{archivebasename}/LICENSE
 
 
 %post
@@ -179,6 +276,16 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw0
+- Release: eaeb495 - 0.14.0
+- Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
+- Changes specific to these builds...
+- name-version-release more closely matches industry guidelines:
+  https://fedoraproject.org/wiki/Packaging:Versioning
+- A lot of spec file cleanup.
+- de16ceaeeea785d812d2e9e2d24581477f2727c812e9628576dc4647db0bae1d  riot-web-0.14.0.tar.gz
+- d2de4f9b2018b04ffae532d68865154feaa017e0ca4a2bc871e64436ef401b70  riot-extras-desktop.tar.gz
+-
 * Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
 - Added an 'npm cache clean --force' to hopefully about cache integrity issues
   (sha1 integrity checks, namely)
