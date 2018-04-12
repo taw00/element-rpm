@@ -108,7 +108,7 @@ Release: %{_release}
   %define _source0 %{_legacy_name}-%{version}-%{_source0_name_extension}
 %endif
 #Source0: %%{_source0}.tar.gz
-Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_legacy_name}-%{version}.tar.gz
+Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
 Source1: %{name}-%{_vermajor}-contrib.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: nodejs npm git desktop-file-utils tree
