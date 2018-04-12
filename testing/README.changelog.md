@@ -1,4 +1,10 @@
 # %changelog
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw0
+- Release: 740b221 - v0.14.1
+- Cleaned up %%files a bit (too broad of inclusion)
+- https://github.com/vector-im/riot-web/releases/tag/v0.14.1
+- 4bbad9b943c08359be241c9014261a3dcc02a283c50659cac7c853473aea8d69  riot-web-0.14.1.tar.gz
+
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw0
 - Added an 'npm cache clean --force' (and more) to hopefully address cache  
   integrity issues (sha1 integrity checks, namely). Very ugly.

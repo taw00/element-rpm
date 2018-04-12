@@ -27,14 +27,14 @@
 
 Name: riot
 %define _legacy_name riot-web
-%define _source0_name_extension rc.6
+%define _source0_name_extension rc.1
 %undefine _source0_name_extension
 Summary: A decentralized, secure messaging client for collaborative group communication
 
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing
-# Apache Software License 2.0 
+# Apache Software License 2.0
 License: ASL 2.0
 Group: Applications/Internet
 URL: https://riot.im/
@@ -43,7 +43,7 @@ URL: https://riot.im/
 # Build the version string
 #
 %define _vermajor 0.14
-%define _verminor 0
+%define _verminor 1
 Version: %{_vermajor}.%{_verminor}
 
 #
@@ -51,7 +51,7 @@ Version: %{_vermajor}.%{_verminor}
 #
 
 # --- set "minorbump" value here!
-%define _minorbump taw0repackaged
+%define _minorbump taw0
 
 # --- set "rel" (GA) or "pkgrel.extraver.snapinfo" (not GA) values here!
 # ...is this *not* a GA release?
@@ -59,7 +59,7 @@ Version: %{_vermajor}.%{_verminor}
 %define _pkgrel 1
 %if ! %{isGA}
   %define _pkgrel 0
-  %define _extraver 2
+  %define _extraver 1
   %define _snapinfo testing
   # ...are we including snapinfo in this non-GA release?
   %if %{includeSnapinfo}
@@ -72,6 +72,7 @@ Version: %{_vermajor}.%{_verminor}
 # ---------------- end of commonly edited elements -------------------------
 
 # This finishes building the release string; do not edit
+# Note that %%{?dist} includes the decimal (e.g. .fc27)
 %define _release %{_pkgrel}%{?dist}
 # ...Set the string format for GA releases.
 %if %{isGA}
@@ -114,11 +115,11 @@ BuildRequires: nodejs npm git desktop-file-utils tree
 
 # Unarchived source tree structure (extracted in .../BUILD)
 #   srcroot               riot-0.14
-#      \_srccodetree        \_riot-web-0.14.0-rc.6
+#      \_srccodetree        \_riot-web-0.14.1 (or eg. riot-web-0.14.1-rc.1)
 #      \_srccontribtree     \_riot-0.14-contrib
 %define srcroot %{name}-%{_vermajor}
 %define srccodetree %{_source0}
-%define srccontribtree %{name}-0.14-contrib
+%define srccontribtree %{name}-%{_vermajor}-contrib
 # /usr/share/riot
 %define installtree %{_datadir}/%{name}
 
@@ -232,6 +233,13 @@ rm -f %{srccodetree}/package-lock.json
 %install
 # Install section starts us in directory .../<_builddir>/<srcroot>
 
+# Cheatsheet for built-in RPM macros:
+#   _datadir = /usr/share
+#   _mandir = /usr/share/man
+#   _sysconfdir = /etc
+#   _libdir = /usr/lib or /usr/lib64 (depending on system)
+#   https://fedoraproject.org/wiki/Packaging:RPMMacros
+
 # Create directories
 install -d %{buildroot}%{_libdir}/%{name}
 install -d -m755 -p %{buildroot}%{_bindir}
@@ -275,7 +283,8 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %license %{srccodetree}/LICENSE
 # We own /usr/share/riot and everything under it...
 %{installtree}
-%{_datadir}/*
+%{_datadir}/icons/*
+%{_datadir}/applications/riot.desktop
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
@@ -296,8 +305,14 @@ umask 007
 
 
 %changelog
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw0
+- Release: 740b221 (git) v0.14.1
+- Cleaned up %%files a bit (too broad of inclusion)
+- https://github.com/vector-im/riot-web/releases/tag/v0.14.1
+- 4bbad9b943c08359be241c9014261a3dcc02a283c50659cac7c853473aea8d69  riot-web-0.14.1.tar.gz
+
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw0
-- Added an 'npm cache clean --force' (and more) to hopefully address cache
+- Added an 'npm cache clean --force' (and more) to hopefully address cache  
   integrity issues (sha1 integrity checks, namely). Very ugly.
 - Refactored the nvrea bits yet again.
 - Fixed /usr/lib versus /usr/lib64
@@ -310,80 +325,80 @@ umask 007
 -   - Made the Summary: compliant (shorter, no ending period, no name repeat
 - Restructured the contrib tarball:
 - 6650f1024f16dcdc289025b16ec4ee245c0c585ea00945e8dcd989196110f4cb  riot-0.14-contrib.tar.gz
--
+
 * Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw0
 - Release - 7445456 - 0.14-0 RC6
-- name-version-release more closely matches industry guidelines:
+- name-version-release more closely matches industry guidelines:  
   https://fedoraproject.org/wiki/Packaging:Versioning
 - A lot of spec file cleanup.
 - Nuked .build_ids in order to avoid conflicts.
 - 1818053ca890b5dce85d4ca4c20c2945cba69c656820baa7fe01b49ed67b94e5  riot-web-0.14.0-rc.6.tar.gz
--
+
 * Sun Feb 11 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-1.taw
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
--
+
 * Fri Feb 09 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-0.taw
 - Updated upstream source that fixes a security issue with external URL management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
--
+
 * Sat Jan 06 2018 Todd Warner <t0dd at protonmail.com> 0.13.4-0.taw
 - Updated upstream source that fixes one of the default configuration files.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
--
+
 * Wed Dec 06 2017 Todd Warner <t0dd at protonmail.com> 0.13.3-1.taw
 - Updated upstream source.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
 - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
--
+
 * Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-1.taw
 - Fedora 27 does not install 7zip-bin-linux when you perform "npm install", so
 - we specifically add it.
--
+
 * Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-0.taw
 - Updated upstream source.
--
+
 * Tue Oct 24 2017 Todd Warner <t0dd at protonmail.com> 0.12.7-0.taw
 - Updated upstream source.
--
+
 * Mon Sep 25 2017 Todd Warner <t0dd at protonmail.com> 0.12.6-0.taw
 - Updated upstream source.
 - Updated build tree structure.
--
+
 * Tue Apr 25 2017 Todd Warner <t0dd at protonmail.com> 0.9.9-0.taw
 - Updated upstream source.
--
+
 * Sun Apr 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.8-0.taw
 - Updated upstream source.
--
+
 * Sun Feb 05 2017 Todd Warner <t0dd at protonmail.com> 0.9.7-1.0.taw
 - Updated upstream source.
--
+
 * Sat Jan 21 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.2.taw
 - Tweaks
--
+
 * Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.1.taw
 - Small restructuring
--
+
 * Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.0.taw
 - 0.9.6
--
+
 * Mon Jan 09 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.5.taw
 - improved icons a bit
--
+
 * Wed Jan 04 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.4.taw
 - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
--
+
 * Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.3.taw
 - Fixing icons
 - Moving towards calling the package riot, versus riot-web, which
 - makes little sense. Undecided.
--
+
 * Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.2.taw
 - Fixing icons
--
+
 * Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.1.taw
 - Minor tweaks.
--
+
 * Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.0.taw
 - Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
--
+
