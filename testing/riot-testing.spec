@@ -1,5 +1,6 @@
-# Riot - Front-end client for the decentralized, secure, messaging and
-#        data-transport protocol, Matrix.
+# riot.spec
+# Riot - Riot is a decentralized, secure messaging client for collaborative
+#        group communication.
 #
 # https://github/taw00/riot-rpm
 # https://copr.fedorainfracloud.org/coprs/taw/Riot/
@@ -7,9 +8,8 @@
 # https://riot.im/
 # https://vector.im
 # https://github.com/vector-im/riot-web
-#
-Packager: Todd Warner <t0dd@protonmail.com>
-Vendor: New Vector
+
+# ---
 
 # <name>-<version>-<release>
 # ...version is (can be many decimals):
@@ -25,14 +25,17 @@ Vendor: New Vector
 %define includeMinorbump 1
 %define includeSnapinfo 1
 
-
 Name: riot
-%define _name_archive riot-web
-%define _snapinfo_archive rc.6
-%undefine _snapinfo_archive
-Summary: Riot - Front-end messaging client for the decentralized, secure, messaging and data-transport protocol, Matrix
-Obsoletes: %{_name_archive}
-License: Apache-2.0
+%define _legacy_name riot-web
+%define _source0_name_extension rc.6
+%undefine _source0_name_extension
+Summary: A decentralized, secure messaging client for collaborative group communication
+
+Provides: riot-web = 0.9.6
+Obsoletes: riot-web < 0.9.6
+# https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing
+# Apache Software License 2.0 
+License: ASL 2.0
 Group: Applications/Internet
 URL: https://riot.im/
 
@@ -55,15 +58,15 @@ Version: %{_vermajor}.%{_verminor}
 %undefine __relextended
 %define _pkgrel 1
 %if ! %{isGA}
-%define _pkgrel 0
-%define _extraver 2
-%define _snapinfo testing
-# ...are we including snapinfo in this non-GA release?
-%if %{includeSnapinfo}
-%define __relextended %{_extraver}.%{_snapinfo}
-%else
-%define __relextended %{_extraver}
-%endif
+  %define _pkgrel 0
+  %define _extraver 2
+  %define _snapinfo testing
+  # ...are we including snapinfo in this non-GA release?
+  %if %{includeSnapinfo}
+    %define __relextended %{_extraver}.%{_snapinfo}
+  %else
+    %define __relextended %{_extraver}
+  %endif
 %endif
 
 # ---------------- end of commonly edited elements -------------------------
@@ -72,15 +75,15 @@ Version: %{_vermajor}.%{_verminor}
 %define _release %{_pkgrel}%{?dist}
 # ...Set the string format for GA releases.
 %if %{isGA}
-%if %{includeMinorbump}
-%define _release %{_pkgrel}%{?dist}.%{_minorbump}
-%endif
+  %if %{includeMinorbump}
+    %define _release %{_pkgrel}%{?dist}.%{_minorbump}
+  %endif
 # ...Set the string format for pre-preduction releases.
 %else
-%define _release %{_pkgrel}.%{__relextended}%{?dist}
-%if %{includeMinorbump}
-%define _release %{_pkgrel}.%{__relextended}%{?dist}.%{_minorbump}
-%endif
+  %define _release %{_pkgrel}.%{__relextended}%{?dist}
+  %if %{includeMinorbump}
+    %define _release %{_pkgrel}.%{__relextended}%{?dist}.%{_minorbump}
+  %endif
 %endif
 
 Release: %{_release}
@@ -92,13 +95,19 @@ Release: %{_release}
 %define _build_id_links alldebug
 
 # https://fedoraproject.org/wiki/Changes/Harden_All_Packages
-#%%define_hardened_build 0
+# https://fedoraproject.org/wiki/Packaging:Guidelines#PIE
+%define _hardened_build 1
 
-%define _source0 %{_name_archive}-%{version}
-%if 0%{?_snapinfo_archive:1}
-%define _source0 %{_name_archive}-%{version}-%{_snapinfo_archive}
+# https://fedoraproject.org/wiki/Packaging:SourceURL
+# * Sources as part of source RPM can be found at
+#   https://github.com/taw00/riot-rpm
+# * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
+%define _source0 %{_legacy_name}-%{version}
+%if 0%{?_source0_name_extension:1}
+  %define _source0 %{_legacy_name}-%{version}-%{_source0_name_extension}
 %endif
-Source0: %{_source0}.tar.gz
+#Source0: %%{_source0}.tar.gz
+Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_legacy_name}-%{version}.tar.gz
 Source1: %{name}-%{_vermajor}-contrib.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: nodejs npm git desktop-file-utils tree
@@ -119,7 +128,7 @@ Riot is a decentralized, secure messaging client for collaborative group
 communication. Riot's core architecture is an implementation of the matrix
 protocol.
 
-Riot is more than a messaging app. Riot is a shared workspace for the web.
+Riot is more than a messaging app. Riot is a shared work-space for the web.
 Riot is a place to connect with teams. Riot is a place to to collaborate, to
 work, to discuss your current projects.
 
@@ -136,20 +145,19 @@ mkdir %{srcroot}
 %setup -q -T -D -a 0 -n %{srcroot}
 %setup -q -T -D -a 1 -n %{srcroot}
 
-# Libraries ldconfig file
-echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_riot.conf
-
 # For debugging purposes...
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
 
-
+# Libraries ldconfig file
+echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_riot.conf
 
 
 %build
 # Build section starts us in directory .../<_builddir>/<srcroot>
 
 # Clearing npm's cache and package lock to eliminate SHA1 integrity issues.
-%{warning:"taw: Keep running into this fatal error --'integrity checksum failed when using sha1'. Taking brute force dramatic action to remedy it.'"}
+# My notes... %%{echo: %%{warn: %%{error:
+%{echo:"taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
 /usr/bin/npm cache clean --force
 rm -rf ../.npm/_cacache
 rm -f %{srccodetree}/package-lock.json
@@ -159,46 +167,46 @@ rm -f %{srccodetree}/package-lock.json
 # Source0 or the prep section.
 %define _devel_branch_yn 0
 %if %{?_devel_branch_yn}
-# For now we are nuking the code tree and checking it out with git :(
-rm -rf %{srccodetree}
-%define _tag v%{version}
-%if 0%{?_snapinfo_archive:1}
-%define _tag v%{version}-%{_snapinfo_archive}
-%endif
-/usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
-cd %{srccodetree}
-/usr/bin/git checkout tags/%{_tag}
+  # For now we are nuking the code tree and checking it out with git :(
+  rm -rf %{srccodetree}
+  %define _tag v%{version}
+  %if 0%{?_source0_name_extension:1}
+    %define _tag v%{version}-%{_source0_name_extension}
+  %endif
+  /usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
+  cd %{srccodetree}
+  /usr/bin/git checkout tags/%{_tag}
 
-./scripts/fetch-develop.deps.sh
+  ./scripts/fetch-develop.deps.sh
 
-cd matrix-js-sdk
-/usr/bin/git pull
-/usr/bin/npm install 
-/usr/bin/npm run build
-cd ..
-
-cd matrix-react-sdk
-/usr/bin/git pull
-/usr/bin/npm install 
-/usr/bin/npm run build
-cd ..
-
-if [ ! -e node_modules/matrix-js-sdk ]
-then
-  cd node_modules
-  ln -s ../matrix-js-sdk .
-  cd..
-fi
-if [ ! -e node_modules/matrix-react-sdk ]
-  cd node_modules
-  ln -s ../matrix-react-sdk .
+  cd matrix-js-sdk
+  /usr/bin/git pull
+  /usr/bin/npm install 
+  /usr/bin/npm run build
   cd ..
-fi
 
-#mv matrix-js-sdk node_modules/
-#mv matrix-react-sdk node_modules/
+  cd matrix-react-sdk
+  /usr/bin/git pull
+  /usr/bin/npm install 
+  /usr/bin/npm run build
+  cd ..
+
+  if [ ! -e node_modules/matrix-js-sdk ]
+  then
+    cd node_modules
+    ln -s ../matrix-js-sdk .
+    cd..
+  fi
+  if [ ! -e node_modules/matrix-react-sdk ]
+    cd node_modules
+    ln -s ../matrix-react-sdk .
+    cd ..
+  fi
+
+  #mv matrix-js-sdk node_modules/
+  #mv matrix-react-sdk node_modules/
 %else
-cd %{srccodetree}
+  cd %{srccodetree}
 %endif
 # -- END EXPERIMENTAL BUILD FROM GIT REPO --
 
@@ -213,17 +221,16 @@ cd %{srccodetree}
 # deb (not used)
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
-%define linuxunpacked electron_app/dist/linux-unpacked
-./node_modules/.bin/build -l tar.gz --x64
-%else
-%define linuxunpacked electron_app/dist/linux-ia32-unpacked
-./node_modules/.bin/build -l tar.gz --ia32
+  %define linuxunpacked electron_app/dist/linux-unpacked
+  ./node_modules/.bin/build -l tar.gz --x64
+  %else
+  %define linuxunpacked electron_app/dist/linux-ia32-unpacked
+  ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
 
 %install
 # Install section starts us in directory .../<_builddir>/<srcroot>
-rm -rf %{buildroot} ; mkdir %{buildroot}
 
 # Create directories
 install -d %{buildroot}%{_libdir}/%{name}
@@ -235,7 +242,7 @@ install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
 
 # a little ugly - symbolic link creation
-ln -s %{installtree}/%{_name_archive} %{buildroot}%{_bindir}/%{name}
+ln -s %{installtree}/%{_legacy_name} %{buildroot}%{_bindir}/%{name}
 
 install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
 install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
@@ -288,23 +295,23 @@ umask 007
 /sbin/ldconfig > /dev/null 2>&1
 
 
-%clean
-# The clean section starts us in directory .../<_builddir>/<srcroot>/
-# Only needed for EPEL now.
-rm -rf %{buildroot}
-
-
 %changelog
-* Thu Apr 12 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-0.2.testing.taw0
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw0
 - Added an 'npm cache clean --force' (and more) to hopefully address cache
-  integrity issues (sha1 integrity checks, namely). Took ugly ugly action.
+  integrity issues (sha1 integrity checks, namely). Very ugly.
 - Refactored the nvrea bits yet again.
 - Fixed /usr/lib versus /usr/lib64
-- Moved all the application code to /usr/share/riot (opt is frowned upon)
-- Restructured the contrib tarball
+- rpmlint and Packaging Guidelines compliance fixes:
+-   - Removed "Vender:" and "Packager:" - that's why we have changelogs.
+-   - Source0 has a github URL and there is additional instruction above
+-   - Obsolotes done right.
+-   - Moved all the application code to /usr/share/riot (opt is frowned upon)
+-   - Removed %%clean and removed the buildroot cleanup in %%install section
+-   - Made the Summary: compliant (shorter, no ending period, no name repeat
+- Restructured the contrib tarball:
 - 6650f1024f16dcdc289025b16ec4ee245c0c585ea00945e8dcd989196110f4cb  riot-0.14-contrib.tar.gz
 -
-* Mon Apr 9 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-0.1.rc.6.taw0
+* Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw0
 - Release - 7445456 - 0.14-0 RC6
 - name-version-release more closely matches industry guidelines:
   https://fedoraproject.org/wiki/Packaging:Versioning
@@ -312,71 +319,71 @@ rm -rf %{buildroot}
 - Nuked .build_ids in order to avoid conflicts.
 - 1818053ca890b5dce85d4ca4c20c2945cba69c656820baa7fe01b49ed67b94e5  riot-web-0.14.0-rc.6.tar.gz
 -
-* Sun Feb 11 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-1.taw
+* Sun Feb 11 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-1.taw
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 -
-* Fri Feb 09 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-0.taw
+* Fri Feb 09 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-0.taw
 - Updated upstream source that fixes a security issue with external URL management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
 -
-* Sat Jan 06 2018 Todd Warner <t0dd@protonmail.com> 0.13.4-0.taw
+* Sat Jan 06 2018 Todd Warner <t0dd at protonmail.com> 0.13.4-0.taw
 - Updated upstream source that fixes one of the default configuration files.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
 -
-* Wed Dec 06 2017 Todd Warner <t0dd@protonmail.com> 0.13.3-1.taw
+* Wed Dec 06 2017 Todd Warner <t0dd at protonmail.com> 0.13.3-1.taw
 - Updated upstream source.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
 - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 -
-* Fri Nov 17 2017 Todd Warner <t0dd@protonmail.com> 0.13.0-1.taw
+* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-1.taw
 - Fedora 27 does not install 7zip-bin-linux when you perform "npm install", so
 - we specifically add it.
 -
-* Fri Nov 17 2017 Todd Warner <t0dd@protonmail.com> 0.13.0-0.taw
+* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-0.taw
 - Updated upstream source.
 -
-* Tue Oct 24 2017 Todd Warner <t0dd@protonmail.com> 0.12.7-0.taw
+* Tue Oct 24 2017 Todd Warner <t0dd at protonmail.com> 0.12.7-0.taw
 - Updated upstream source.
 -
-* Mon Sep 25 2017 Todd Warner <t0dd@protonmail.com> 0.12.6-0.taw
+* Mon Sep 25 2017 Todd Warner <t0dd at protonmail.com> 0.12.6-0.taw
 - Updated upstream source.
 - Updated build tree structure.
 -
-* Tue Apr 25 2017 Todd Warner <t0dd@protonmail.com> 0.9.9-0.taw
+* Tue Apr 25 2017 Todd Warner <t0dd at protonmail.com> 0.9.9-0.taw
 - Updated upstream source.
 -
-* Sun Apr 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.8-0.taw
+* Sun Apr 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.8-0.taw
 - Updated upstream source.
 -
-* Sun Feb 05 2017 Todd Warner <t0dd@protonmail.com> 0.9.7-1.0.taw
+* Sun Feb 05 2017 Todd Warner <t0dd at protonmail.com> 0.9.7-1.0.taw
 - Updated upstream source.
 -
-* Sat Jan 21 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.2.taw
+* Sat Jan 21 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.2.taw
 - Tweaks
 -
-* Mon Jan 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.1.taw
+* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.1.taw
 - Small restructuring
 -
-* Mon Jan 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.0.taw
+* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.0.taw
 - 0.9.6
 -
-* Mon Jan 09 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.5.taw
+* Mon Jan 09 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.5.taw
 - improved icons a bit
 -
-* Wed Jan 04 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.4.taw
+* Wed Jan 04 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.4.taw
 - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
 -
-* Tue Jan 03 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.3.taw
+* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.3.taw
 - Fixing icons
 - Moving towards calling the package riot, versus riot-web, which
 - makes little sense. Undecided.
 -
-* Tue Jan 03 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.2.taw
+* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.2.taw
 - Fixing icons
 -
-* Sun Jan 01 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.1.taw
+* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.1.taw
 - Minor tweaks.
 -
-* Sun Jan 01 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.0.taw
+* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.0.taw
 - Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
 -
