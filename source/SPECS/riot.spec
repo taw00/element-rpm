@@ -151,7 +151,7 @@ mkdir %{srcroot}
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
 
 # Libraries ldconfig file
-echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_riot.conf
+echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
 
 
 %build
@@ -276,7 +276,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 
 install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
-install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
+install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 
 %files
