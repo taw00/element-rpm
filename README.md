@@ -31,30 +31,37 @@ It's easy to install and run Riot. Currently built for these platforms...
 
 _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
-```
-cd /etc/yum.repos.d/
-sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messaging-client.fedora.repo
+```bash
+# install Fedora's distribution GPG keys (should only need to do once)
+sudo dnf install -y distribution-gpg-keys
+# Snag the repository configuration (should only need to do once)
+sudo dnf install -y https://copr-be.cloud.fedoraproject.org/results/taw/Riot/fedora-27-x86_64/00741275-toddpkgs-riot-repo/toddpkgs-riot-repo-1.0-1.fc27.taw0.noarch.rpm
+# Install riot
 sudo dnf install -y riot --refresh
 ```
 
-...OR... if you prefer to use Fedora Project's Copr directly, follow the
-instructions found at this link:
-<https://copr.fedorainfracloud.org/coprs/taw/Riot/>
-
+_Note: If you installed the repository information by hand in the past, you may
+have to clean up a file named `riot-messaging-client*.repo` in
+`/etc/yum.repos.d/`_ 
 
 ### For CentOS or RHEL...
 
 _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
-```
-cd /etc/yum.repos.d/
-sudo curl -O https://raw.githubusercontent.com/taw00/riot-rpm/master/riot-messaging-client.epel.repo
+```bash
+# install distribution GPG keys (should only need to do once)
+sudo yum install -y distribution-gpg-keys
+# Snag the repository configuration (should only need to do once)
+sudo yum install -y https://copr-be.cloud.fedoraproject.org/results/taw/Riot/epel-7-x86_64/00741275-toddpkgs-riot-repo/toddpkgs-riot-repo-1.0-1.el7.centos.taw0.noarch.rpm
+# Clean out the cache in case the change didn't get picked up
 sudo yum clean expire-cache
+# Install riot
 sudo yum install -y riot
 ```
 
-...OR... if you prefer to use Copr (Fedora Project) directly, follow the instructions found at this link: <https://copr.fedorainfracloud.org/coprs/taw/Riot/>
-
+_Note: If you installed the repository information by hand in the past, you may
+have to clean up a file named `riot-messaging-client*.repo` in
+`/etc/yum.repos.d/`_ 
 
 ## I installed it, now I want to run Riot!
 
@@ -66,11 +73,11 @@ Note: If none of this made sense or you couldn't get it to work, Riot can also b
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
 
-```
+```bash
 # Fedora...
 sudo dnf upgrade
 ```
-```
+```bash
 # CentOS or RHEL...
 sudo yum update
 ```
