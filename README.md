@@ -31,11 +31,15 @@ It's easy to install and run Riot. Currently built for these platforms...
 
 _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
+**Prep...**
+```bash
+# Snag the repository configuration (should only need to do once)
+sudo dnf install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-1.fc27.taw0.noarch.rpm
+```
+**Install...**
 ```bash
 # install Fedora's distribution GPG keys (should only need to do once)
 sudo dnf install -y distribution-gpg-keys
-# Snag the repository configuration (should only need to do once)
-sudo dnf install -y https://copr-be.cloud.fedoraproject.org/results/taw/Riot/fedora-27-x86_64/00741275-toddpkgs-riot-repo/toddpkgs-riot-repo-1.0-1.fc27.taw0.noarch.rpm
 # Install riot
 sudo dnf install -y riot --refresh
 ```
@@ -48,11 +52,16 @@ have to clean up a file named `riot-messaging-client*.repo` in
 
 _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
+**Prep...**
+```bash
+# Snag the repository configuration (should only need to do once)
+sudo rpm --import https://keybase.io/toddwarner/key.asc
+sudo yum install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-1.el7.centos.taw0.noarch.rpm
+```
+**Install...**
 ```bash
 # install distribution GPG keys (should only need to do once)
 sudo yum install -y distribution-gpg-keys
-# Snag the repository configuration (should only need to do once)
-sudo yum install -y https://copr-be.cloud.fedoraproject.org/results/taw/Riot/epel-7-x86_64/00741275-toddpkgs-riot-repo/toddpkgs-riot-repo-1.0-1.el7.centos.taw0.noarch.rpm
 # Clean out the cache in case the change didn't get picked up
 sudo yum clean expire-cache
 # Install riot
