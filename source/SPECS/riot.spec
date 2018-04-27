@@ -306,13 +306,16 @@ umask 007
 
 
 %changelog
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw0
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw
+- GA build for 14.1
+
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw
 - Release: 740b221 (git) v0.14.1
 - Cleaned up %%files a bit (too broad of inclusion)
 - https://github.com/vector-im/riot-web/releases/tag/v0.14.1
 - 4bbad9b943c08359be241c9014261a3dcc02a283c50659cac7c853473aea8d69  riot-web-0.14.1.tar.gz
--
-- Thu Apr 12 2018
+
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw
 - Added an 'npm cache clean --force' (and more) to hopefully address cache  
   integrity issues (sha1 integrity checks, namely). Very ugly.
 - Refactored the nvrea bits yet again.
@@ -327,7 +330,7 @@ umask 007
 - Restructured the contrib tarball:
 - 6650f1024f16dcdc289025b16ec4ee245c0c585ea00945e8dcd989196110f4cb  riot-0.14-contrib.tar.gz
 
-* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw0
+* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw
 - Release: eaeb495 - 0.14.0
 - Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
 - Changes specific to these builds...
