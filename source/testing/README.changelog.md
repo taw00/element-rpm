@@ -1,11 +1,17 @@
 # %changelog
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw0
-- Release: 740b221 - v0.14.1
+* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw
+- 14.2-rc.3
+
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw
+- GA build for 14.1
+
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw
+- Release: 740b221 (git) v0.14.1
 - Cleaned up %%files a bit (too broad of inclusion)
 - https://github.com/vector-im/riot-web/releases/tag/v0.14.1
 - 4bbad9b943c08359be241c9014261a3dcc02a283c50659cac7c853473aea8d69  riot-web-0.14.1.tar.gz
 
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw0
+* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw
 - Added an 'npm cache clean --force' (and more) to hopefully address cache  
   integrity issues (sha1 integrity checks, namely). Very ugly.
 - Refactored the nvrea bits yet again.
@@ -20,7 +26,21 @@
 - Restructured the contrib tarball:
 - 6650f1024f16dcdc289025b16ec4ee245c0c585ea00945e8dcd989196110f4cb  riot-0.14-contrib.tar.gz
 
-* Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw0
+* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw
+- Release: eaeb495 - 0.14.0
+- Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
+- Changes specific to these builds...
+- name-version-release more closely matches industry guidelines:  
+  https://fedoraproject.org/wiki/Packaging:Versioning
+- A lot of spec file cleanup.
+- de16ceaeeea785d812d2e9e2d24581477f2727c812e9628576dc4647db0bae1d  riot-web-0.14.0.tar.gz
+- d2de4f9b2018b04ffae532d68865154feaa017e0ca4a2bc871e64436ef401b70  riot-extras-desktop.tar.gz
+
+* Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
+- Added an 'npm cache clean --force' to hopefully about cache integrity  
+  issues (sha1 integrity checks, namely)
+
+* Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw
 - Release - 7445456 - 0.14-0 RC6
 - name-version-release more closely matches industry guidelines:  
   https://fedoraproject.org/wiki/Packaging:Versioning
@@ -32,7 +52,8 @@
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 
 * Fri Feb 09 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-0.taw
-- Updated upstream source that fixes a security issue with external URL management.
+- Updated upstream source that fixes a security issue with external URL  
+  management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
 
 * Sat Jan 06 2018 Todd Warner <t0dd at protonmail.com> 0.13.4-0.taw
@@ -45,8 +66,8 @@
 - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 
 * Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-1.taw
-- Fedora 27 does not install 7zip-bin-linux when you perform "npm install", so
-- we specifically add it.
+- Fedora 27 does not install 7zip-bin-linux when you perform "npm install",  
+  so we specifically add it.
 
 * Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-0.taw
 - Updated upstream source.
