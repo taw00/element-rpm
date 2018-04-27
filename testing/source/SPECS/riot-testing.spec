@@ -11,83 +11,119 @@
 
 # ---
 
-# <name>-<version>-<release>
-# ...version is (can be many decimals):
-# <vermajor>.<verminor>
-# ...where release is:
-# <pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
-# ...all together now:
+# Package (RPM) name-version-release.
 # <name>-<vermajor.<verminor>-<pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
 # https://fedoraproject.org/wiki/Packaging:Versioning
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
-%define isGA 0
-%define includeMinorbump 1
-%define includeSnapinfo 1
-
 Name: riot
 %define _legacy_name riot-web
-%define _source0_name_extension rc.1
-%undefine _source0_name_extension
 Summary: A decentralized, secure messaging client for collaborative group communication
+
+%define targetIsProduction 0
+%define includeMinorbump 1
+%define includeSnapinfo 1
+# ie. if the dev team includes things like rc.3 in the filename
+%define includeSnapinfoInArchiveFilename 1
+
+# VERSION
+%define vermajor 0.14
+%define verminor 2
+Version: %{vermajor}.%{verminor}
+
+# RELEASE
+# if production - "targetIsProduction 1"
+%define pkgrel_prod 1
+
+# if pre-production - "targetIsProduction 0"
+# eg. 0.3.testing
+%define pkgrel_preprod 0
+%define extraver_preprod 1
+%define snapinfo rc.3
+#%%define snapinfo testing.20180424
+#%%define snapinfo beta2.41d5c63.gh
+
+# if includeMinorbump
+%define minorbump taw0
+
+# Building the release string (don't edit this)...
+
+%if %{targetIsProduction}
+  %if %{includeSnapinfo}
+    %{warn:"Warning: target is production and yet you want snapinfo included. This is not typical."}
+  %endif
+%else
+  %if ! %{includeSnapinfo}
+    %{warn:"Warning: target is pre-production and yet you elected not to incude snapinfo (testing, beta, ...). This is not typical."}
+  %endif
+%endif
+
+# release numbers
+%undefine _relbuilder_pt1
+%if %{targetIsProduction}
+  %define _pkgrel %{pkgrel_prod}
+  %define _relbuilder_pt1 %{pkgrel_prod}
+%else
+  %define _pkgrel %{pkgrel_preprod}
+  %define _extraver %{extraver_preprod}
+  %define _relbuilder_pt1 %{_pkgrel}.%{_extraver}
+%endif
+
+# snapinfo and repackage (pre-built) indicator
+%undefine _relbuilder_pt2
+%if ! %{includeSnapinfo}
+  %undefine snapinfo
+%endif
+%if 0%{?sourceIsPrebuilt:1}
+  %if ! %{sourceIsPrebuilt}
+    %undefine snapinfo_rp
+  %endif
+%else
+  %undefine snapinfo_rp
+%endif
+%if 0%{?snapinfo_rp:1}
+  %if 0%{?snapinfo:1}
+    %define _relbuilder_pt2 %{snapinfo}.%{snapinfo_rp}
+  %else
+    %define _relbuilder_pt2 %{snapinfo_rp}
+  %endif
+%else
+  %if 0%{?snapinfo:1}
+    %define _relbuilder_pt2 %{snapinfo}
+  %endif
+%endif
+
+# put it all together
+# pt1 will always be defined. pt2 and minorbump may not be
+%define _release %{_relbuilder_pt1}
+%if ! %{includeMinorbump}
+  %undefine minorbump
+%endif
+%if 0%{?_relbuilder_pt2:1}
+  %if 0%{?minorbump:1}
+    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}.%{minorbump}
+  %else
+    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}
+  %endif
+%else
+  %if 0%{?minorbump:1}
+    %define _release %{_relbuilder_pt1}%{?dist}.%{minorbump}
+  %else
+    %define _release %{_relbuilder_pt1}%{?dist}
+  %endif
+%endif
+
+Release: %{_release}
+# ----------- end of release building section
+
 
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing
 # Apache Software License 2.0
 License: ASL 2.0
-Group: Applications/Internet
 URL: https://riot.im/
 
-#
-# Build the version string
-#
-%define _vermajor 0.14
-%define _verminor 1
-Version: %{_vermajor}.%{_verminor}
-
-#
-# Build the release string
-#
-
-# --- set "minorbump" value here!
-%define _minorbump taw0
-
-# --- set "rel" (GA) or "pkgrel.extraver.snapinfo" (not GA) values here!
-# ...is this *not* a GA release?
-%undefine __relextended
-%define _pkgrel 1
-%if ! %{isGA}
-  %define _pkgrel 0
-  %define _extraver 1
-  %define _snapinfo testing
-  # ...are we including snapinfo in this non-GA release?
-  %if %{includeSnapinfo}
-    %define __relextended %{_extraver}.%{_snapinfo}
-  %else
-    %define __relextended %{_extraver}
-  %endif
-%endif
-
-# ---------------- end of commonly edited elements -------------------------
-
-# This finishes building the release string; do not edit
-# Note that %%{?dist} includes the decimal (e.g. .fc27)
-%define _release %{_pkgrel}%{?dist}
-# ...Set the string format for GA releases.
-%if %{isGA}
-  %if %{includeMinorbump}
-    %define _release %{_pkgrel}%{?dist}.%{_minorbump}
-  %endif
-# ...Set the string format for pre-preduction releases.
-%else
-  %define _release %{_pkgrel}.%{__relextended}%{?dist}
-  %if %{includeMinorbump}
-    %define _release %{_pkgrel}.%{__relextended}%{?dist}.%{_minorbump}
-  %endif
-%endif
-
-Release: %{_release}
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -104,12 +140,14 @@ Release: %{_release}
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
 %define _source0 %{_legacy_name}-%{version}
-%if 0%{?_source0_name_extension:1}
-  %define _source0 %{_legacy_name}-%{version}-%{_source0_name_extension}
+%if 0%{?includeSnapinfoInArchiveFilename:1}
+  %if %{includeSnapinfoInArchiveFilename}
+    %define _source0 %{_legacy_name}-%{version}-%{snapinfo}
+  %endif
 %endif
 #Source0: %%{_source0}.tar.gz
 Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
-Source1: %{name}-%{_vermajor}-contrib.tar.gz
+Source1: %{name}-%{vermajor}-contrib.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: nodejs npm git desktop-file-utils tree
 
@@ -117,9 +155,9 @@ BuildRequires: nodejs npm git desktop-file-utils tree
 #   srcroot               riot-0.14
 #      \_srccodetree        \_riot-web-0.14.1 (or eg. riot-web-0.14.1-rc.1)
 #      \_srccontribtree     \_riot-0.14-contrib
-%define srcroot %{name}-%{_vermajor}
+%define srcroot %{name}-%{vermajor}
 %define srccodetree %{_source0}
-%define srccontribtree %{name}-%{_vermajor}-contrib
+%define srccontribtree %{name}-%{vermajor}-contrib
 # /usr/share/riot
 %define installtree %{_datadir}/%{name}
 
@@ -171,8 +209,10 @@ rm -f %{srccodetree}/package-lock.json
   # For now we are nuking the code tree and checking it out with git :(
   rm -rf %{srccodetree}
   %define _tag v%{version}
-  %if 0%{?_source0_name_extension:1}
-    %define _tag v%{version}-%{_source0_name_extension}
+  %if 0%{?includeSnapinfoInArchiveFilename:1}
+    %if %{includeSnapinfoInArchiveFilename}
+      %define _tag v%{version}-%{snapinfo}
+    %endif
   %endif
   /usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
   cd %{srccodetree}
@@ -305,6 +345,9 @@ umask 007
 
 
 %changelog
+* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw
+- 14.2-rc.3
+
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw0
 - Release: 740b221 (git) v0.14.1
 - Cleaned up %%files a bit (too broad of inclusion)
