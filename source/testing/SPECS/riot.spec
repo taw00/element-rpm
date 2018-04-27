@@ -44,7 +44,7 @@ Version: %{vermajor}.%{verminor}
 #%%define snapinfo beta2.41d5c63.gh
 
 # if includeMinorbump
-%define minorbump taw0
+%define minorbump taw1
 
 # Building the release string (don't edit this)...
 
