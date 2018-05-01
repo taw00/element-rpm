@@ -22,7 +22,7 @@ All \*.src.rpm packages provided in this github repository should be signed with
 
 It's easy to install and run Riot. Currently built for these platforms...
 
-* Fedora: versions 26, 27 -- x86\_64, i686<br />
+* Fedora: versions 26, 27, 28 -- x86\_64, i686<br />
   NOTE: I will stop building for any version of an OS that is no longer supported
 * CentOS (and RHEL): version 7 -- x86\_64 only
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
