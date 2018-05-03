@@ -24,27 +24,29 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define includeMinorbump 1
 %define includeSnapinfo 1
 # ie. if the dev team includes things like rc.3 in the filename
-%define includeSnapinfoInArchiveFilename 1
+%define includeSnapinfoInArchiveFilename 0
 
 # VERSION
+# eg. 0.14.2
 %define vermajor 0.14
 %define verminor 2
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-# if production - "targetIsProduction 1"
+# If production - "targetIsProduction 1"
+# eg. 1 (and no other qualifiers)
 %define pkgrel_prod 1
 
-# if pre-production - "targetIsProduction 0"
-# eg. 0.3.testing
+# If pre-production - "targetIsProduction 0"
+# eg. 0.1.rc.3
 %define pkgrel_preprod 0
-%define extraver_preprod 1
-%define snapinfo rc.3
+%define extraver_preprod 2
+%define snapinfo rc.final
 #%%define snapinfo testing.20180424
 #%%define snapinfo beta2.41d5c63.gh
 
 # if includeMinorbump
-%define minorbump taw1
+%define minorbump taw0
 
 # Building the release string (don't edit this)...
 
@@ -345,7 +347,10 @@ umask 007
 
 
 %changelog
-* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw
+* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.2.rc.final.taw[n]
+- 14.2-rc.final
+
+* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw[n]
 - 14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw

@@ -1,5 +1,11 @@
 # %changelog
-* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw
+* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-1.taw[n]
+- release 14.2
+
+* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.2.rc.final.taw[n]
+- 14.2-rc.final
+
+* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw[n]
 - 14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw

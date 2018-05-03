@@ -11,84 +11,121 @@
 
 # ---
 
-# <name>-<version>-<release>
-# ...version is (can be many decimals):
-# <vermajor>.<verminor>
-# ...where release is:
-# <pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
-# ...all together now:
+# Package (RPM) name-version-release.
 # <name>-<vermajor.<verminor>-<pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
 # https://fedoraproject.org/wiki/Packaging:Versioning
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
-%define isGA 1
-%define includeMinorbump 1
-%define includeSnapinfo 1
-# Note that snapinfo will not be included in GA RPMs.
-
 Name: riot
 %define _legacy_name riot-web
-%define _source0_name_extension rc.1
-%undefine _source0_name_extension
 Summary: A decentralized, secure messaging client for collaborative group communication
+
+%define targetIsProduction 1
+%define includeMinorbump 1
+%define includeSnapinfo 0
+# ie. if the dev team includes things like rc.3 in the filename
+%define includeSnapinfoInArchiveFilename 0
+
+# VERSION
+# eg. 0.14.2
+%define vermajor 0.14
+%define verminor 2
+Version: %{vermajor}.%{verminor}
+
+# RELEASE
+# If production - "targetIsProduction 1"
+# eg. 1 (and no other qualifiers)
+%define pkgrel_prod 1
+
+# If pre-production - "targetIsProduction 0"
+# eg. 0.1.rc.3
+%define pkgrel_preprod 0
+%define extraver_preprod 2
+%define snapinfo rc.final
+#%%define snapinfo testing.20180424
+#%%define snapinfo beta2.41d5c63.gh
+
+# if includeMinorbump
+%define minorbump taw0
+
+# Building the release string (don't edit this)...
+
+%if %{targetIsProduction}
+  %if %{includeSnapinfo}
+    %{warn:"Warning: target is production and yet you want snapinfo included. This is not typical."}
+  %endif
+%else
+  %if ! %{includeSnapinfo}
+    %{warn:"Warning: target is pre-production and yet you elected not to incude snapinfo (testing, beta, ...). This is not typical."}
+  %endif
+%endif
+
+# release numbers
+%undefine _relbuilder_pt1
+%if %{targetIsProduction}
+  %define _pkgrel %{pkgrel_prod}
+  %define _relbuilder_pt1 %{pkgrel_prod}
+%else
+  %define _pkgrel %{pkgrel_preprod}
+  %define _extraver %{extraver_preprod}
+  %define _relbuilder_pt1 %{_pkgrel}.%{_extraver}
+%endif
+
+# snapinfo and repackage (pre-built) indicator
+%undefine _relbuilder_pt2
+%if ! %{includeSnapinfo}
+  %undefine snapinfo
+%endif
+%if 0%{?sourceIsPrebuilt:1}
+  %if ! %{sourceIsPrebuilt}
+    %undefine snapinfo_rp
+  %endif
+%else
+  %undefine snapinfo_rp
+%endif
+%if 0%{?snapinfo_rp:1}
+  %if 0%{?snapinfo:1}
+    %define _relbuilder_pt2 %{snapinfo}.%{snapinfo_rp}
+  %else
+    %define _relbuilder_pt2 %{snapinfo_rp}
+  %endif
+%else
+  %if 0%{?snapinfo:1}
+    %define _relbuilder_pt2 %{snapinfo}
+  %endif
+%endif
+
+# put it all together
+# pt1 will always be defined. pt2 and minorbump may not be
+%define _release %{_relbuilder_pt1}
+%if ! %{includeMinorbump}
+  %undefine minorbump
+%endif
+%if 0%{?_relbuilder_pt2:1}
+  %if 0%{?minorbump:1}
+    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}.%{minorbump}
+  %else
+    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}
+  %endif
+%else
+  %if 0%{?minorbump:1}
+    %define _release %{_relbuilder_pt1}%{?dist}.%{minorbump}
+  %else
+    %define _release %{_relbuilder_pt1}%{?dist}
+  %endif
+%endif
+
+Release: %{_release}
+# ----------- end of release building section
+
 
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing
 # Apache Software License 2.0
 License: ASL 2.0
-Group: Applications/Internet
 URL: https://riot.im/
 
-#
-# Build the version string
-#
-%define _vermajor 0.14
-%define _verminor 1
-Version: %{_vermajor}.%{_verminor}
-
-#
-# Build the release string
-#
-
-# --- set "minorbump" value here!
-%define _minorbump taw0
-
-# --- set "rel" (GA) or "pkgrel.extraver.snapinfo" (not GA) values here!
-# ...is this *not* a GA release?
-%undefine __relextended
-%define _pkgrel 1
-%if ! %{isGA}
-  %define _pkgrel 0
-  %define _extraver 1
-  %define _snapinfo testing
-  # ...are we including snapinfo in this non-GA release?
-  %if %{includeSnapinfo}
-    %define __relextended %{_extraver}.%{_snapinfo}
-  %else
-    %define __relextended %{_extraver}
-  %endif
-%endif
-
-# ---------------- end of commonly edited elements -------------------------
-
-# This finishes building the release string; do not edit
-# Note that %%{?dist} includes the decimal (e.g. .fc27)
-%define _release %{_pkgrel}%{?dist}
-# ...Set the string format for GA releases.
-%if %{isGA}
-  %if %{includeMinorbump}
-    %define _release %{_pkgrel}%{?dist}.%{_minorbump}
-  %endif
-# ...Set the string format for pre-preduction releases.
-%else
-  %define _release %{_pkgrel}.%{__relextended}%{?dist}
-  %if %{includeMinorbump}
-    %define _release %{_pkgrel}.%{__relextended}%{?dist}.%{_minorbump}
-  %endif
-%endif
-
-Release: %{_release}
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -105,12 +142,14 @@ Release: %{_release}
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
 %define _source0 %{_legacy_name}-%{version}
-%if 0%{?_source0_name_extension:1}
-  %define _source0 %{_legacy_name}-%{version}-%{_source0_name_extension}
+%if 0%{?includeSnapinfoInArchiveFilename:1}
+  %if %{includeSnapinfoInArchiveFilename}
+    %define _source0 %{_legacy_name}-%{version}-%{snapinfo}
+  %endif
 %endif
 #Source0: %%{_source0}.tar.gz
-Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_legacy_name}-%{version}.tar.gz
-Source1: %{name}-%{_vermajor}-contrib.tar.gz
+Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
+Source1: %{name}-%{vermajor}-contrib.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: nodejs npm git desktop-file-utils tree
 
@@ -118,9 +157,9 @@ BuildRequires: nodejs npm git desktop-file-utils tree
 #   srcroot               riot-0.14
 #      \_srccodetree        \_riot-web-0.14.1 (or eg. riot-web-0.14.1-rc.1)
 #      \_srccontribtree     \_riot-0.14-contrib
-%define srcroot %{name}-%{_vermajor}
+%define srcroot %{name}-%{vermajor}
 %define srccodetree %{_source0}
-%define srccontribtree %{name}-%{_vermajor}-contrib
+%define srccontribtree %{name}-%{vermajor}-contrib
 # /usr/share/riot
 %define installtree %{_datadir}/%{name}
 
@@ -151,7 +190,7 @@ mkdir %{srcroot}
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
 
 # Libraries ldconfig file
-echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
+echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_riot.conf
 
 
 %build
@@ -172,8 +211,10 @@ rm -f %{srccodetree}/package-lock.json
   # For now we are nuking the code tree and checking it out with git :(
   rm -rf %{srccodetree}
   %define _tag v%{version}
-  %if 0%{?_source0_name_extension:1}
-    %define _tag v%{version}-%{_source0_name_extension}
+  %if 0%{?includeSnapinfoInArchiveFilename:1}
+    %if %{includeSnapinfoInArchiveFilename}
+      %define _tag v%{version}-%{snapinfo}
+    %endif
   %endif
   /usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
   cd %{srccodetree}
@@ -276,7 +317,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 
 install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
-install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
 
 
 %files
@@ -306,6 +347,15 @@ umask 007
 
 
 %changelog
+* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-1.taw[n]
+- Releaase 14.2-1
+
+* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.2.rc.final.taw[n]
+- 14.2-rc.final
+
+* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw[n]
+- 14.2-rc.3
+
 * Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw
 - GA build for 14.1
 
@@ -344,75 +394,80 @@ umask 007
 - Added an 'npm cache clean --force' to hopefully about cache integrity  
   issues (sha1 integrity checks, namely)
 
-* Mon Apr 9 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-2.taw
+* Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw
+- Release - 7445456 - 0.14-0 RC6
+- name-version-release more closely matches industry guidelines:  
+  https://fedoraproject.org/wiki/Packaging:Versioning
+- A lot of spec file cleanup.
 - Nuked .build_ids in order to avoid conflicts.
+- 1818053ca890b5dce85d4ca4c20c2945cba69c656820baa7fe01b49ed67b94e5  riot-web-0.14.0-rc.6.tar.gz
 
-* Sun Feb 11 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-1.taw
+* Sun Feb 11 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-1.taw
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 
-* Fri Feb 09 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-0.taw
+* Fri Feb 09 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-0.taw
 - Updated upstream source that fixes a security issue with external URL  
   management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
 
-* Sat Jan 06 2018 Todd Warner <t0dd@protonmail.com> 0.13.4-0.taw
+* Sat Jan 06 2018 Todd Warner <t0dd at protonmail.com> 0.13.4-0.taw
 - Updated upstream source that fixes one of the default configuration files.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
 
-* Wed Dec 06 2017 Todd Warner <t0dd@protonmail.com> 0.13.3-1.taw
+* Wed Dec 06 2017 Todd Warner <t0dd at protonmail.com> 0.13.3-1.taw
 - Updated upstream source.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
 - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 
-* Fri Nov 17 2017 Todd Warner <t0dd@protonmail.com> 0.13.0-1.taw
+* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-1.taw
 - Fedora 27 does not install 7zip-bin-linux when you perform "npm install",  
   so we specifically add it.
 
-* Fri Nov 17 2017 Todd Warner <t0dd@protonmail.com> 0.13.0-0.taw
+* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-0.taw
 - Updated upstream source.
 
-* Tue Oct 24 2017 Todd Warner <t0dd@protonmail.com> 0.12.7-0.taw
+* Tue Oct 24 2017 Todd Warner <t0dd at protonmail.com> 0.12.7-0.taw
 - Updated upstream source.
 
-* Mon Sep 25 2017 Todd Warner <t0dd@protonmail.com> 0.12.6-0.taw
+* Mon Sep 25 2017 Todd Warner <t0dd at protonmail.com> 0.12.6-0.taw
 - Updated upstream source.
 - Updated build tree structure.
 
-* Tue Apr 25 2017 Todd Warner <t0dd@protonmail.com> 0.9.9-0.taw
+* Tue Apr 25 2017 Todd Warner <t0dd at protonmail.com> 0.9.9-0.taw
 - Updated upstream source.
 
-* Sun Apr 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.8-0.taw
+* Sun Apr 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.8-0.taw
 - Updated upstream source.
 
-* Sun Feb 05 2017 Todd Warner <t0dd@protonmail.com> 0.9.7-1.0.taw
+* Sun Feb 05 2017 Todd Warner <t0dd at protonmail.com> 0.9.7-1.0.taw
 - Updated upstream source.
 
-* Sat Jan 21 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.2.taw
+* Sat Jan 21 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.2.taw
 - Tweaks
 
-* Mon Jan 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.1.taw
+* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.1.taw
 - Small restructuring
 
-* Mon Jan 16 2017 Todd Warner <t0dd@protonmail.com> 0.9.6-1.0.taw
+* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.0.taw
 - 0.9.6
 
-* Mon Jan 09 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.5.taw
+* Mon Jan 09 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.5.taw
 - improved icons a bit
 
-* Wed Jan 04 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.4.taw
+* Wed Jan 04 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.4.taw
 - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
 
-* Tue Jan 03 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.3.taw
+* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.3.taw
 - Fixing icons
-- Moving towards calling the package riot, versus riot-web, which  
-  makes little sense. Undecided.
+- Moving towards calling the package riot, versus riot-web, which
+- makes little sense. Undecided.
 
-* Tue Jan 03 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.2.taw
+* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.2.taw
 - Fixing icons
 
-* Sun Jan 01 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.1.taw
+* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.1.taw
 - Minor tweaks.
 
-* Sun Jan 01 2017 Todd Warner <t0dd@protonmail.com> 0.9.5-1.0.taw
+* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.0.taw
 - Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
 
