@@ -151,7 +151,8 @@ URL: https://riot.im/
 Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
 Source1: %{name}-%{vermajor}-contrib.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires: nodejs npm git desktop-file-utils tree
+BuildRequires: nodejs npm git tree
+BuildRequires: desktop-file-utils libappstream-glib
 
 # Unarchived source tree structure (extracted in .../BUILD)
 #   srcroot               riot-0.14
