@@ -1,12 +1,12 @@
 [Desktop Entry]
 Name=Riot
 Comment=Riot is a decentralized, secure messaging client for collaborative group communication.
-GenericName=Riot group messaging
+GenericName=Group Messaging
 Exec=/usr/bin/riot
 Terminal=false
 X-MultipleArgs=false
 Type=Application
 Categories=Network;Chat;
-MimeType=text/plain;
+#MimeType=text/plain;
 StartupNotify=true
 Icon=riot

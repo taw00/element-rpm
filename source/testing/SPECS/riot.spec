@@ -35,13 +35,13 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 1
+%define pkgrel_prod 2
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.1.rc.3
-%define pkgrel_preprod 0
-%define extraver_preprod 2
-%define snapinfo rc.final
+%define pkgrel_preprod 1
+%define extraver_preprod 1
+%define snapinfo testing
 #%%define snapinfo testing.20180424
 #%%define snapinfo beta2.41d5c63.gh
 
@@ -288,6 +288,7 @@ install -d -m755 -p %{buildroot}%{_bindir}
 install -d %{buildroot}%{installtree}
 install -d %{buildroot}%{_datadir}/applications
 install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
+%define _metainfodir %{_datadir}/metainfo
 
 cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
 
@@ -314,6 +315,8 @@ install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.svg         %{bu
 
 install -D -m644 -p %{srccontribtree}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
+install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
@@ -327,6 +330,7 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %{installtree}
 %{_datadir}/icons/*
 %{_datadir}/applications/riot.desktop
+%{_metainfodir}/riot.appdata.xml
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
@@ -339,30 +343,39 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %post
 umask 007
 /sbin/ldconfig > /dev/null 2>&1
+/usr/bin/update-desktop-database &> /dev/null || :
 
 
 %postun
 umask 007
 /sbin/ldconfig > /dev/null 2>&1
+/usr/bin/update-desktop-database &> /dev/null || :
 
 
 %changelog
-* Thu May 3 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.2.rc.final.taw[n]
+* Sat May 5 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.2-1.1.testing.taw[n]
+- Tweaked the .desktop and .appdata.xml files a bit (more conforming)
+- Apparently, name_AT_example.com is more "standard" for email formatting.
+
+* Thu May 3 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.2-1.taw[n]
+- Release 14.2
+
+* Thu May 3 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.2-0.2.rc.final.taw[n]
 - 14.2-rc.final
 
-* Fri Apr 27 2018 Todd Warner <t0dd at protonmail.com> 0.14.2-0.1.rc.3.taw[n]
+* Fri Apr 27 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.2-0.1.rc.3.taw[n]
 - 14.2-rc.3
 
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-1.taw
+* Thu Apr 12 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.1-1.taw
 - GA build for 14.1
 
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.1-0.1.testing.taw
+* Thu Apr 12 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.1-0.1.testing.taw
 - Release: 740b221 (git) v0.14.1
 - Cleaned up %%files a bit (too broad of inclusion)
 - https://github.com/vector-im/riot-web/releases/tag/v0.14.1
 - 4bbad9b943c08359be241c9014261a3dcc02a283c50659cac7c853473aea8d69  riot-web-0.14.1.tar.gz
 
-* Thu Apr 12 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.2.testing.taw
+* Thu Apr 12 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.0-0.2.testing.taw
 - Added an 'npm cache clean --force' (and more) to hopefully address cache  
   integrity issues (sha1 integrity checks, namely). Very ugly.
 - Refactored the nvrea bits yet again.
@@ -391,7 +404,7 @@ umask 007
 - Added an 'npm cache clean --force' to hopefully about cache integrity  
   issues (sha1 integrity checks, namely)
 
-* Mon Apr 9 2018 Todd Warner <t0dd at protonmail.com> 0.14.0-0.1.rc.6.taw
+* Mon Apr 9 2018 Todd Warner <t0dd_AT_protonmail.com> 0.14.0-0.1.rc.6.taw
 - Release - 7445456 - 0.14-0 RC6
 - name-version-release more closely matches industry guidelines:  
   https://fedoraproject.org/wiki/Packaging:Versioning
@@ -399,72 +412,72 @@ umask 007
 - Nuked .build_ids in order to avoid conflicts.
 - 1818053ca890b5dce85d4ca4c20c2945cba69c656820baa7fe01b49ed67b94e5  riot-web-0.14.0-rc.6.tar.gz
 
-* Sun Feb 11 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-1.taw
+* Sun Feb 11 2018 Todd Warner <t0dd_AT_protonmail.com> 0.13.5-1.taw
 - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 
-* Fri Feb 09 2018 Todd Warner <t0dd at protonmail.com> 0.13.5-0.taw
+* Fri Feb 09 2018 Todd Warner <t0dd_AT_protonmail.com> 0.13.5-0.taw
 - Updated upstream source that fixes a security issue with external URL  
   management.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
 
-* Sat Jan 06 2018 Todd Warner <t0dd at protonmail.com> 0.13.4-0.taw
+* Sat Jan 06 2018 Todd Warner <t0dd_AT_protonmail.com> 0.13.4-0.taw
 - Updated upstream source that fixes one of the default configuration files.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
 
-* Wed Dec 06 2017 Todd Warner <t0dd at protonmail.com> 0.13.3-1.taw
+* Wed Dec 06 2017 Todd Warner <t0dd_AT_protonmail.com> 0.13.3-1.taw
 - Updated upstream source.
 - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
 - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 
-* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-1.taw
+* Fri Nov 17 2017 Todd Warner <t0dd_AT_protonmail.com> 0.13.0-1.taw
 - Fedora 27 does not install 7zip-bin-linux when you perform "npm install",  
   so we specifically add it.
 
-* Fri Nov 17 2017 Todd Warner <t0dd at protonmail.com> 0.13.0-0.taw
+* Fri Nov 17 2017 Todd Warner <t0dd_AT_protonmail.com> 0.13.0-0.taw
 - Updated upstream source.
 
-* Tue Oct 24 2017 Todd Warner <t0dd at protonmail.com> 0.12.7-0.taw
+* Tue Oct 24 2017 Todd Warner <t0dd_AT_protonmail.com> 0.12.7-0.taw
 - Updated upstream source.
 
-* Mon Sep 25 2017 Todd Warner <t0dd at protonmail.com> 0.12.6-0.taw
+* Mon Sep 25 2017 Todd Warner <t0dd_AT_protonmail.com> 0.12.6-0.taw
 - Updated upstream source.
 - Updated build tree structure.
 
-* Tue Apr 25 2017 Todd Warner <t0dd at protonmail.com> 0.9.9-0.taw
+* Tue Apr 25 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.9-0.taw
 - Updated upstream source.
 
-* Sun Apr 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.8-0.taw
+* Sun Apr 16 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.8-0.taw
 - Updated upstream source.
 
-* Sun Feb 05 2017 Todd Warner <t0dd at protonmail.com> 0.9.7-1.0.taw
+* Sun Feb 05 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.7-1.0.taw
 - Updated upstream source.
 
-* Sat Jan 21 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.2.taw
+* Sat Jan 21 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.6-1.2.taw
 - Tweaks
 
-* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.1.taw
+* Mon Jan 16 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.6-1.1.taw
 - Small restructuring
 
-* Mon Jan 16 2017 Todd Warner <t0dd at protonmail.com> 0.9.6-1.0.taw
+* Mon Jan 16 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.6-1.0.taw
 - 0.9.6
 
-* Mon Jan 09 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.5.taw
+* Mon Jan 09 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.5.taw
 - improved icons a bit
 
-* Wed Jan 04 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.4.taw
+* Wed Jan 04 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.4.taw
 - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
 
-* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.3.taw
+* Tue Jan 03 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.3.taw
 - Fixing icons
 - Moving towards calling the package riot, versus riot-web, which
 - makes little sense. Undecided.
 
-* Tue Jan 03 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.2.taw
+* Tue Jan 03 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.2.taw
 - Fixing icons
 
-* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.1.taw
+* Sun Jan 01 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.1.taw
 - Minor tweaks.
 
-* Sun Jan 01 2017 Todd Warner <t0dd at protonmail.com> 0.9.5-1.0.taw
+* Sun Jan 01 2017 Todd Warner <t0dd_AT_protonmail.com> 0.9.5-1.0.taw
 - Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
 
