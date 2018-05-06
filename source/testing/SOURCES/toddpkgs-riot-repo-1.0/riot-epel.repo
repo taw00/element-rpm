@@ -27,7 +27,7 @@
 
 [riot-stable]
 enabled=1
-name=Riot - stable - epel-$releasever-$basearch - Riot is a front-end client implementing the decentralized, secure, messaging and data-transport protocol, Matrix.
+name=Riot - epel-$releasever-$basearch
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/epel-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
@@ -40,14 +40,13 @@ metadata_expire=1d
 
 [riot-testing]
 enabled=0
-name=Riot - testing - epel-$releasever-$basearch - Riot is a front-end client implementing the decentralized, secure, messaging and data-transport protocol, Matrix.
+name=Riot - testing - epel-$releasever-$basearch
 name=Riot is a front-end client implementing the decentralized, secure, messaging and data-transport protocol, Matrix.
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/epel-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
-# GnuPG fingerprint should be ...something I haven't actually looked up yet.
 repo_gpgcheck=0
 enabled_metadata=1
 metadata_expire=1d

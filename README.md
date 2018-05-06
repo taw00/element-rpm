@@ -34,7 +34,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 **Prep...**
 ```bash
 # Snag the repository configuration (should only need to do once)
-sudo dnf install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-1.fc27.taw0.noarch.rpm
+sudo dnf install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-2.fc28.taw0.noarch.rpm
 ```
 **Install...**
 ```bash
@@ -56,7 +56,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo yum install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-1.el7.centos.taw0.noarch.rpm
+sudo yum install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-2.el7.centos.taw0.noarch.rpm
 ```
 **Install...**
 ```bash
