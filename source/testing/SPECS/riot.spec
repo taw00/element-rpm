@@ -35,11 +35,11 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 2
+%define pkgrel_prod 3
 
 # If pre-production - "targetIsProduction 0"
-# eg. 0.1.rc.3
-%define pkgrel_preprod 1
+# eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
+%define pkgrel_preprod 2
 %define extraver_preprod 1
 %define snapinfo testing
 #%%define snapinfo testing.20180424
@@ -183,7 +183,7 @@ Riot is free. Riot is secure.
 %prep
 # Prep section starts us in directory .../<_builddir>
 # Extract into .../<_builddir>/<srcroot>/
-mkdir %{srcroot}
+mkdir -p %{srcroot}
 %setup -q -T -D -a 0 -n %{srcroot}
 %setup -q -T -D -a 1 -n %{srcroot}
 
@@ -354,6 +354,12 @@ umask 007
 
 
 %changelog
+* Thu May 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.1.testing.taw[n]
+- spec file: mkdir without -p can be problematic on repeat builds.
+
+* Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.taw[n]
+- Update
+
 * Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.1.testing.taw[n]
 - Tweaked the .desktop and .appdata.xml files a bit (more conforming)
 - Apparently, name_at_example.com is more "standard" for email formatting.
