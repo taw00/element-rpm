@@ -24,8 +24,8 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define includeSnapinfo 1
 %define includeMinorbump 1
 
-# ie. if the dev team includes things like rc.2 in the filename
-%define archiveQualifier rc.2
+# ie. if the dev team includes things like rc.3 in the filename
+%define archiveQualifier rc.3
 %define includeArchiveQualifier 1
 
 # VERSION
@@ -42,7 +42,7 @@ Version: %{vermajor}.%{verminor}
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
 %define pkgrel_preprod 0
-%define extraver_preprod 1
+%define extraver_preprod 2
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
@@ -166,12 +166,14 @@ BuildRequires: nodejs npm git tree
 BuildRequires: desktop-file-utils libappstream-glib
 
 AutoReq: no
-# constructed subset from results of autoreq from previous builds - we do all this so we can exclude libffmpeg.so
+# constructed subset from results of autoreq from previous builds - we do all this so we can exclude individual libraries
 Requires: bash nodejs alsa-lib atk glibc cairo cups-libs dbus-libs expat fontconfig freetype libgcc GConf2 gtk2 gdk-pixbuf2 glib2 
 Requires: libX11 libXcomposite libX11-xcb libXcursor libXdamage libXext libXfixes libXi libXrandr libXrender libXScrnSaver libXtst
 Requires: nspr nss nss-util pango libstdc++ libxcb 
 # Requirements desired, but not found...
-# libffmpeg.so ld-linux-x86-64.so.2 libnode.so (we provide) rpmlib rtld
+# ld-linux-x86-64.so.2 libnode.so (we provide) rpmlib rtld
+# This package currently provides libffmpeg.so
+#Requires: libffmpeg.so
 
 
 # Unarchived source tree structure (extracted in {_builddir})
@@ -290,9 +292,6 @@ rm -f %{srccodetree}/package-lock.json
   ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
-# Not used, but also... "licensing issues"
-rm %{linuxunpacked}/libffmpeg.so
-
 
 %install
 # Install section starts us in directory {_builddir}/{srcroot}
@@ -344,8 +343,8 @@ install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_me
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # /usr/lib/riot or /usr/lib64/riot...
-#install -D -m755 -p %%{buildroot}%%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/%%{name}/libffmpeg.so
-#rm %%{buildroot}%%{installtree}/libffmpeg.so
+install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
+rm %{buildroot}%{installtree}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
 rm %{buildroot}%{installtree}/libnode.so
 install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
@@ -362,7 +361,7 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
-#%%{_libdir}/%%{name}/libffmpeg.so
+%{_libdir}/%{name}/libffmpeg.so
 %{_libdir}/%{name}/libnode.so
 #%%{_docsdir}/*
 #%%{_mandir}/*
@@ -381,12 +380,17 @@ umask 007
 
 
 %changelog
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.2.rc.3.taw[n]
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw[n]
+  - v15.0-rc.3
+  - Added back needed libffmpeg.so library.
+
 * Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
   - fixed dependency issue
 
 * Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
-  - 0.15.0 release candidate
-  - yanked libffmpeg.so from the package. I do not believe it is being used.
+  - v15.0 release candidate
+  - attempted to yank libffmpeg.so from the package. FAILED (added back later)
   - had to manually construct the Requires because can't exclude from AutoReq
   - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
   - spec file: mkdir without -p can be problematic on repeat builds.
@@ -402,10 +406,10 @@ umask 007
   - Release 14.2
 
 * Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.2.rc.final.taw[n]
-  - 14.2-rc.final
+  - v14.2-rc.final
 
 * Fri Apr 27 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.1.rc.3.taw[n]
-  - 14.2-rc.3
+  - v14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-1.taw
   - GA build for 14.1
