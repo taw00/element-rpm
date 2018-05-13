@@ -1,6 +1,6 @@
 Name:		toddpkgs-riot-repo
 Version:	1.0
-Release:	1.1.testing%{?dist}.taw0
+Release:	2.1.testing%{?dist}.taw0
 Summary:	Repository configuration to enable management of Riot packages
 
 Group:		System Environment/Base
@@ -73,12 +73,19 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Sat May 12 2018 Todd Warner <t0dd at protonmail.com> 1.0-2.1.testing.taw[n]
+  - metadata for test repo expires immediately.
+  - fixed error in test repo URL (for fedora)
+
+* Sun May 6 2018 Todd Warner <t0dd at protonmail.com> 1.0-2.taw[n]
+  - Update.
+
 * Sun May 6 2018 Todd Warner <t0dd at protonmail.com> 1.0-1.1.testing.taw[n]
-- Made the rep info desplayed when updating less noisy. It annoyed me.
+  - Made the rep info desplayed when updating less noisy. It annoyed me.
 
 * Sun Apr 15 2018 Todd Warner <t0dd at protonmail.com> 1.0-1.taw0
-- Initial build
+  - Initial build
 
 * Sun Apr 15 2018 Todd Warner <t0dd at protonmail.com> 1.0-0.1.testing.taw[n]
-- Initial test build
+  - Initial test build
 

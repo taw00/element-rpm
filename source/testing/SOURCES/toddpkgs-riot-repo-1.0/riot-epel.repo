@@ -49,4 +49,4 @@ gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
 repo_gpgcheck=0
 enabled_metadata=1
-metadata_expire=1d
+metadata_expire=0

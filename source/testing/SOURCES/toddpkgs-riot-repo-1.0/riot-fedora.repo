@@ -45,11 +45,11 @@ metadata_expire=1d
 [riot-testing]
 enabled=0
 name=Riot - testing - fedora-$releasever-$basearch
-baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/fedora-$releasever-$basearch/
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/fedora-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
 repo_gpgcheck=0
 enabled_metadata=1
-metadata_expire=1d
+metadata_expire=0
