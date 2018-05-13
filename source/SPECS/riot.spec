@@ -355,7 +355,7 @@ umask 007
 
 %changelog
 * Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.taw[n]
-- Update after testing.
+- Update.
 
 * Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.1.testing.taw[n]
 - Tweaked the .desktop and .appdata.xml files a bit (more conforming)
