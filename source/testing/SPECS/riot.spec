@@ -23,40 +23,43 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define targetIsProduction 0
 %define includeSnapinfo 1
 %define includeMinorbump 1
-# ie. if the dev team includes things like rc.3 in the filename
-%define includeSnapinfoInArchiveFilename 0
+
+# ie. if the dev team includes things like rc.2 in the filename
+%define archiveQualifier rc.2
+%define includeArchiveQualifier 1
 
 # VERSION
-# eg. 0.14.2
-%define vermajor 0.14
-%define verminor 2
+# eg. 0.15.0
+%define vermajor 0.15
+%define verminor 0
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-# If production - "targetIsProduction 1"
+# If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 3
+%define pkgrel_prod 1
 
-# If pre-production - "targetIsProduction 0"
+# If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 2
+%define pkgrel_preprod 0
 %define extraver_preprod 1
 %define snapinfo testing
-#%%define snapinfo testing.20180424
-#%%define snapinfo beta2.41d5c63.gh
+%if %{includeArchiveQualifier}
+  %define snapinfo %{archiveQualifier}
+%endif
 
 # if includeMinorbump
-%define minorbump taw0
+%define minorbump taw1
 
 # Building the release string (don't edit this)...
 
 %if %{targetIsProduction}
   %if %{includeSnapinfo}
-    %{warn:"Warning: target is production and yet you want snapinfo included. This is not typical."}
+    %{warn:"Warning: target is production and yet you want snapinfo included. This is not typical."}
   %endif
 %else
   %if ! %{includeSnapinfo}
-    %{warn:"Warning: target is pre-production and yet you elected not to incude snapinfo (testing, beta, ...). This is not typical."}
+    %{warn:"Warning: target is pre-production and yet you elected not to incude snapinfo (testing, beta, ...). This is not typical."}
   %endif
 %endif
 
@@ -141,23 +144,40 @@ URL: https://riot.im/
 # * Sources as part of source RPM can be found at
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
-%define _source0 %{_legacy_name}-%{version}
-%if 0%{?includeSnapinfoInArchiveFilename:1}
-  %if %{includeSnapinfoInArchiveFilename}
-    %define _source0 %{_legacy_name}-%{version}-%{snapinfo}
-  %endif
+#%%define _source0 %%{_legacy_name}-%%{version}
+#%%define _source0 %%{name}-%%{version}
+%define _source0 %{name}-v%{version}
+%if %{includeArchiveQualifier}
+  %define _source0 %{_legacy_name}-%{version}-%{archiveQualifier}
 %endif
 #Source0: %%{_source0}.tar.gz
-Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
-Source1: %{name}-%{vermajor}-contrib.tar.gz
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+#Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
+#Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
+%if %{targetIsProduction}
+Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
+Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+%else
+Source0: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{_source0}.tar.gz
+Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+%endif
+
+
 BuildRequires: nodejs npm git tree
 BuildRequires: desktop-file-utils libappstream-glib
 
-# Unarchived source tree structure (extracted in .../BUILD)
-#   srcroot               riot-0.14
-#      \_srccodetree        \_riot-web-0.14.1 (or eg. riot-web-0.14.1-rc.1)
-#      \_srccontribtree     \_riot-0.14-contrib
+AutoReq: no
+# constructed subset from results of autoreq from previous builds - we do all this so we can exclude libffmpeg.so
+Requires: bash nodejs alsa-lib atk glibc cairo cups-libs dbus-libs expat fontconfig freetype libgcc GConf2 gtk2 gdk-pixbuf2 glib2 
+Requires: libX11 libXcomposite libX11-xcb libXcursor libXdamage libXext libXfixes libXi libXrandr libXrender libXScrnSaver libXtst
+Requires: nspr nss nss-util pango libstdc++ libxcb 
+# Requirements desired, but not found...
+# libffmpeg.so ld-linux-x86-64.so.2 libnode.so (we provide) rpmlib rtld
+
+
+# Unarchived source tree structure (extracted in {_builddir})
+#   srcroot               riot-0.15
+#      \_srccodetree        \_riot-0.15.0 (or riot-0.15.0-rc.2 or riot-v0.15.0 or riot-v0.15.0-rc.2)
+#      \_srccontribtree     \_riot-0.15-contrib
 %define srcroot %{name}-%{vermajor}
 %define srccodetree %{_source0}
 %define srccontribtree %{name}-%{vermajor}-contrib
@@ -181,25 +201,25 @@ Riot is free. Riot is secure.
 
 
 %prep
-# Prep section starts us in directory .../<_builddir>
-# Extract into .../<_builddir>/<srcroot>/
-mkdir -p %{srcroot}
+# Prep section starts us in directory {_builddir}
+# Extract into {_builddir}/{srcroot}/
+mkdir %{srcroot}
 %setup -q -T -D -a 0 -n %{srcroot}
 %setup -q -T -D -a 1 -n %{srcroot}
+
+# Make sure the right library path is used...
+echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
 
 # For debugging purposes...
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
 
-# Libraries ldconfig file
-echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_riot.conf
-
 
 %build
-# Build section starts us in directory .../<_builddir>/<srcroot>
+# Build section starts us in directory {_builddir}/{srcroot}
 
 # Clearing npm's cache and package lock to eliminate SHA1 integrity issues.
 # My notes... %%{echo: %%{warn: %%{error:
-%{echo:"taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
+%{echo "taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
 /usr/bin/npm cache clean --force
 rm -rf ../.npm/_cacache
 rm -f %{srccodetree}/package-lock.json
@@ -212,10 +232,8 @@ rm -f %{srccodetree}/package-lock.json
   # For now we are nuking the code tree and checking it out with git :(
   rm -rf %{srccodetree}
   %define _tag v%{version}
-  %if 0%{?includeSnapinfoInArchiveFilename:1}
-    %if %{includeSnapinfoInArchiveFilename}
-      %define _tag v%{version}-%{snapinfo}
-    %endif
+  %if %{includeArchiveQualifier}
+    %define _tag v%{version}-%{archiveQualifier}
   %endif
   /usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
   cd %{srccodetree}
@@ -272,16 +290,22 @@ rm -f %{srccodetree}/package-lock.json
   ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
+# Not used, but also... "licensing issues"
+rm %{linuxunpacked}/libffmpeg.so
+
 
 %install
-# Install section starts us in directory .../<_builddir>/<srcroot>
+# Install section starts us in directory {_builddir}/{srcroot}
 
-# Cheatsheet for built-in RPM macros:
+# Cheatsheet for some built-in RPM macros:
+# https://fedoraproject.org/wiki/Packaging:RPMMacros
+#   _builddir = {_topdir}/BUILD
+#   _buildrootdir = {_topdir}/BUILDROOT
+#   buildroot = {_buildrootdir}/{name}-{version}-{release}.{_arch}
 #   _datadir = /usr/share
 #   _mandir = /usr/share/man
 #   _sysconfdir = /etc
 #   _libdir = /usr/lib or /usr/lib64 (depending on system)
-#   https://fedoraproject.org/wiki/Packaging:RPMMacros
 
 # Create directories
 install -d %{buildroot}%{_libdir}/%{name}
@@ -319,8 +343,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
-install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
+# /usr/lib/riot or /usr/lib64/riot...
+#install -D -m755 -p %%{buildroot}%%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/%%{name}/libffmpeg.so
+#rm %%{buildroot}%%{installtree}/libffmpeg.so
 install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
+rm %{buildroot}%{installtree}/libnode.so
 install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
 
 
@@ -335,7 +362,7 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
-%{_libdir}/%{name}/libffmpeg.so
+#%%{_libdir}/%%{name}/libffmpeg.so
 %{_libdir}/%{name}/libnode.so
 #%%{_docsdir}/*
 #%%{_mandir}/*
@@ -354,132 +381,139 @@ umask 007
 
 
 %changelog
-* Thu May 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.1.testing.taw[n]
-- spec file: mkdir without -p can be problematic on repeat builds.
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
+  - fixed dependency issue
+
+* Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
+  - 0.15.0 release candidate
+  - yanked libffmpeg.so from the package. I do not believe it is being used.
+  - had to manually construct the Requires because can't exclude from AutoReq
+  - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
+  - spec file: mkdir without -p can be problematic on repeat builds.
 
 * Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.taw[n]
-- Update
+  - Update
 
 * Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.1.testing.taw[n]
-- Tweaked the .desktop and .appdata.xml files a bit (more conforming)
-- Apparently, name_at_example.com is more "standard" for email formatting.
+  - Tweaked the .desktop and .appdata.xml files a bit (more conforming)
+  - Apparently, name_at_example.com is more "standard" for email formatting.
 
 * Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.taw[n]
-- Release 14.2
+  - Release 14.2
 
 * Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.2.rc.final.taw[n]
-- 14.2-rc.final
+  - 14.2-rc.final
 
 * Fri Apr 27 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.1.rc.3.taw[n]
-- 14.2-rc.3
+  - 14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-1.taw
-- GA build for 14.1
+  - GA build for 14.1
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-0.1.testing.taw
-- Release: 740b221 (git) v0.14.1
-- Cleaned up %%files a bit (too broad of inclusion)
-- https://github.com/vector-im/riot-web/releases/tag/v0.14.1
+  - Release: 740b221 (git) v0.14.1
+  - Cleaned up %%files a bit (too broad of inclusion)
+  - https://github.com/vector-im/riot-web/releases/tag/v0.14.1
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.0-0.2.testing.taw
-- Added an 'npm cache clean --force' (and more) to hopefully address cache  
-  integrity issues (sha1 integrity checks, namely). Very ugly.
-- Refactored the nvrea bits yet again.
-- Fixed /usr/lib versus /usr/lib64
-- rpmlint and Packaging Guidelines compliance fixes:
-  - Removed "Vender:" and "Packager:" - that's why we have changelogs.
-  - Source0 has a github URL and there is additional instruction above
-  - Obsolotes done right.
-  - Moved all the application code to /usr/share/riot (opt is frowned upon)
-  - Removed %%clean and removed the buildroot cleanup in %%install section
-  - Made the Summary: compliant (shorter, no ending period, no name repeat
-- Restructured the contrib tarball.
+  - Added an 'npm cache clean --force' (and more) to hopefully address cache  
+    integrity issues (sha1 integrity checks, namely). Very ugly.
+  - Refactored the nvrea bits yet again.
+  - Fixed /usr/lib versus /usr/lib64
+  - rpmlint and Packaging Guidelines compliance fixes:
+    - Removed "Vender:" and "Packager:" - that's why we have changelogs.
+    - Source0 has a github URL and there is additional instruction above
+    - Obsolotes done right.
+    - Moved all the application code to /usr/share/riot (opt is frowned upon)
+    - Removed %%clean and removed the buildroot cleanup in %%install section
+    - Made the Summary: compliant (shorter, no ending period, no name repeat
+  - Restructured the contrib tarball.
 
 * Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw
-- Release: eaeb495 - 0.14.0
-- Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
-- Changes specific to these builds...
-- name-version-release more closely matches industry guidelines:  
-  https://fedoraproject.org/wiki/Packaging:Versioning
-- A lot of spec file cleanup.
+  - Release: eaeb495 - 0.14.0
+  - Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
+  - Changes specific to these builds...
+  - name-version-release more closely matches industry guidelines:  
+    https://fedoraproject.org/wiki/Packaging:Versioning
+  - A lot of spec file cleanup.
 
 * Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
-- Added an 'npm cache clean --force' to hopefully about cache integrity  
-  issues (sha1 integrity checks, namely)
+  - Added an 'npm cache clean --force' to hopefully about cache integrity  
+    issues (sha1 integrity checks, namely)
 
 * Mon Apr 9 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.0-0.1.rc.6.taw
-- Release - 7445456 - 0.14-0 RC6
-- name-version-release more closely matches industry guidelines:  
-  https://fedoraproject.org/wiki/Packaging:Versioning
-- A lot of spec file cleanup.
-- Nuked .build_ids in order to avoid conflicts.
+  - Release - 7445456 - 0.14-0 RC6
+  - name-version-release more closely matches industry guidelines:  
+    https://fedoraproject.org/wiki/Packaging:Versioning
+  - A lot of spec file cleanup.
+  - Nuked .build_ids in order to avoid conflicts.
 
 * Sun Feb 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.13.5-1.taw
-- Adjusted location of libffmpeg and libnode in order to avoid conflicts.
+  - Adjusted location of libffmpeg and libnode in order to avoid conflicts.
 
 * Fri Feb 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.13.5-0.taw
-- Updated upstream source that fixes a security issue with external URL  
-  management.
-- https://github.com/vector-im/riot-web/releases/tag/v0.13.5
+  - Updated upstream source that fixes a security issue with external URL  
+    management.
+  - https://github.com/vector-im/riot-web/releases/tag/v0.13.5
 
 * Sat Jan 06 2018 Todd Warner <t0dd_at_protonmail.com> 0.13.4-0.taw
-- Updated upstream source that fixes one of the default configuration files.
-- https://github.com/vector-im/riot-web/releases/tag/v0.13.4
+  - Updated upstream source that fixes one of the default configuration files.
+  - https://github.com/vector-im/riot-web/releases/tag/v0.13.4
 
 * Wed Dec 06 2017 Todd Warner <t0dd_at_protonmail.com> 0.13.3-1.taw
-- Updated upstream source.
-- https://github.com/vector-im/riot-web/releases/tag/v0.13.3
-- Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
+  - Updated upstream source.
+  - https://github.com/vector-im/riot-web/releases/tag/v0.13.3
+  - Bumped to -1.taw to fix this changelog date which was incorrectly labeled.
 
 * Fri Nov 17 2017 Todd Warner <t0dd_at_protonmail.com> 0.13.0-1.taw
-- Fedora 27 does not install 7zip-bin-linux when you perform "npm install",  
-  so we specifically add it.
+  - Fedora 27 does not install 7zip-bin-linux when you perform "npm install",  
+    so we specifically add it.
 
 * Fri Nov 17 2017 Todd Warner <t0dd_at_protonmail.com> 0.13.0-0.taw
-- Updated upstream source.
+  - Updated upstream source.
 
 * Tue Oct 24 2017 Todd Warner <t0dd_at_protonmail.com> 0.12.7-0.taw
-- Updated upstream source.
+  - Updated upstream source.
 
 * Mon Sep 25 2017 Todd Warner <t0dd_at_protonmail.com> 0.12.6-0.taw
-- Updated upstream source.
-- Updated build tree structure.
+  - Updated upstream source.
+  - Updated build tree structure.
 
 * Tue Apr 25 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.9-0.taw
-- Updated upstream source.
+  - Updated upstream source.
 
 * Sun Apr 16 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.8-0.taw
-- Updated upstream source.
+  - Updated upstream source.
 
 * Sun Feb 05 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.7-1.0.taw
-- Updated upstream source.
+  - Updated upstream source.
 
 * Sat Jan 21 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.6-1.2.taw
-- Tweaks
+  - Tweaks
 
 * Mon Jan 16 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.6-1.1.taw
-- Small restructuring
+  - Small restructuring
 
 * Mon Jan 16 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.6-1.0.taw
-- 0.9.6
+  - v0.9.6
 
 * Mon Jan 09 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.5.taw
-- improved icons a bit
+  - improved icons a bit
 
 * Wed Jan 04 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.4.taw
-- Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
+  - Package renamed riot instead of riot-web -- cuz, it's not a webapp. :)
 
 * Tue Jan 03 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.3.taw
-- Fixing icons
-- Moving towards calling the package riot, versus riot-web, which
-- makes little sense. Undecided.
+  - Fixing icons
+  - Moving towards calling the package riot, versus riot-web, which
+  - makes little sense. Undecided.
 
 * Tue Jan 03 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.2.taw
-- Fixing icons
+  - Fixing icons
 
 * Sun Jan 01 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.1.taw
-- Minor tweaks.
+  - Minor tweaks.
 
 * Sun Jan 01 2017 Todd Warner <t0dd_at_protonmail.com> 0.9.5-1.0.taw
-- Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
+  - Initial build. Everything still ends up in /opt/Riot (messy) but... meh.
 
