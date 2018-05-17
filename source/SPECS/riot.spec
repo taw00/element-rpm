@@ -49,7 +49,7 @@ Version: %{vermajor}.%{verminor}
 %endif
 
 # if includeMinorbump
-%define minorbump taw0
+%define minorbump taw1
 
 # Building the release string (don't edit this)...
 
@@ -218,8 +218,7 @@ cd .. ; tree -df -L 1 %{srcroot} ; cd -
 # Build section starts us in directory {_builddir}/{srcroot}
 
 # Clearing npm's cache and package lock to eliminate SHA1 integrity issues.
-# My notes... %%{echo: %%{warn: %%{error:
-%{echo "taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
+#%%{warn:"taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
 /usr/bin/npm cache clean --force
 rm -rf ../.npm/_cacache
 rm -f %{srccodetree}/package-lock.json
