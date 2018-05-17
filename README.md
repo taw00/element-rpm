@@ -34,6 +34,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 **Prep...**
 ```bash
 # Snag the repository configuration (should only need to do once)
+sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo dnf install -y https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.fc28.taw0.noarch.rpm
 ```
 **Install...**
@@ -108,4 +109,4 @@ I built these for my own use. I offer these builds for your own convenience. If 
 
 # Questions or comments...
 
-Contact: **t0dd@protonmail.com** or find me at **@t0dd:matrix.org** after you installed Riot!
+Contact: **t0dd_at_protonmail.com** or find me at **@t0dd:matrix.org** after you installed Riot!

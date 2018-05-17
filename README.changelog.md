@@ -1,18 +1,38 @@
 # changelog
-* Sat May 5 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-2.taw[n]
+* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.1.taw
+  - v15.2 
+
+* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.0.1.testing.taw
+  - v15.2 testing
+
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw
+  - v15.0-rc.3
+  - Added back the required libffmpeg.so library - my experiment failed. :(
+
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
+  - fixed dependency issue
+
+* Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
+  - v15.0 release candidate
+  - attempted to yank libffmpeg.so from the package. FAILED (added back later)
+  - had to manually construct the Requires because can't exclude from AutoReq
+  - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
+  - spec file: mkdir without -p can be problematic on repeat builds.
+
+* Sat May 5 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-2.taw
   - Update after testing
 
-* Sat May 5 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-1.1.testing.taw[n]
+* Sat May 5 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-1.1.testing.taw
   - Tweaked the .desktop and .appdata.xml files a bit (more conforming)
   - Apparrently, `name_at_example.com` is more "standard" for email formatting.
 
-* Thu May 3 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-1.taw[n]
+* Thu May 3 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-1.taw
   - release 14.2
 
-* Thu May 3 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-0.2.rc.final.taw[n]
+* Thu May 3 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-0.2.rc.final.taw
   - 14.2-rc.final
 
-* Fri Apr 27 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-0.1.rc.3.taw[n]
+* Fri Apr 27 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.2-0.1.rc.3.taw
   - 14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.1-1.taw

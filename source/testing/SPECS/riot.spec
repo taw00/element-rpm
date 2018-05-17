@@ -26,12 +26,12 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define archiveQualifier rc.3
-%define includeArchiveQualifier 1
+%define includeArchiveQualifier 0
 
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 0
+%define verminor 2
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -42,14 +42,14 @@ Version: %{vermajor}.%{verminor}
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
 %define pkgrel_preprod 0
-%define extraver_preprod 2
+%define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
 %endif
 
 # if includeMinorbump
-%define minorbump taw1
+%define minorbump taw0
 
 # Building the release string (don't edit this)...
 
@@ -144,9 +144,7 @@ URL: https://riot.im/
 # * Sources as part of source RPM can be found at
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
-#%%define _source0 %%{_legacy_name}-%%{version}
-#%%define _source0 %%{name}-%%{version}
-%define _source0 %{name}-v%{version}
+%define _source0 %{_legacy_name}-%{version}
 %if %{includeArchiveQualifier}
   %define _source0 %{_legacy_name}-%{version}-%{archiveQualifier}
 %endif
@@ -380,35 +378,37 @@ umask 007
 
 
 %changelog
-* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.2.rc.3.taw[n]
-* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw[n]
-  - v15.0-rc.3
-  - Added back needed libffmpeg.so library.
+* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.0.1.testing.taw
+  - v15.2 testing
 
-* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw
+  - v15.0-rc.3
+  - Added back the required libffmpeg.so library - my experiment failed. :(
+
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
   - fixed dependency issue
 
-* Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw[n]
+* Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
   - v15.0 release candidate
   - attempted to yank libffmpeg.so from the package. FAILED (added back later)
   - had to manually construct the Requires because can't exclude from AutoReq
   - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
   - spec file: mkdir without -p can be problematic on repeat builds.
 
-* Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.taw[n]
+* Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-2.taw
   - Update
 
-* Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.1.testing.taw[n]
+* Sat May 5 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.1.testing.taw
   - Tweaked the .desktop and .appdata.xml files a bit (more conforming)
   - Apparently, name_at_example.com is more "standard" for email formatting.
 
-* Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.taw[n]
+* Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-1.taw
   - Release 14.2
 
-* Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.2.rc.final.taw[n]
+* Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.2.rc.final.taw
   - v14.2-rc.final
 
-* Fri Apr 27 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.1.rc.3.taw[n]
+* Fri Apr 27 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.1.rc.3.taw
   - v14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-1.taw
