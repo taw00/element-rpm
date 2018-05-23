@@ -1,18 +1,24 @@
 # changelog
-* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.1.taw
-  - v15.2 
+* Wed May 23 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.1.taw
+  - v15.3
 
-* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.0.1.testing.taw
+* Wed May 23 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.0.1.testing.taw
+  - v15.3 testing
+
+* Thu May 17 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.2.1.taw
+  - v15.2
+
+* Thu May 17 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.2.0.1.testing.taw
   - v15.2 testing
 
-* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw
+* Sat May 12 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.3.taw
   - v15.0-rc.3
   - Added back the required libffmpeg.so library - my experiment failed. :(
 
-* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
+* Sat May 12 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.2.taw
   - fixed dependency issue
 
-* Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
+* Fri May 11 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.2.taw
   - v15.0 release candidate
   - attempted to yank libffmpeg.so from the package. FAILED (added back later)
   - had to manually construct the Requires because can't exclude from AutoReq
@@ -57,7 +63,7 @@
     - Made the Summary: compliant (shorter, no ending period, no name repeat
   - Restructured the contrib tarball.
 
-* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw
+* Wed Apr 11 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.14.0-1.taw
   - Release: eaeb495 - 0.14.0
   - Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
   - Changes specific to these builds...
@@ -65,7 +71,7 @@
     https://fedoraproject.org/wiki/Packaging:Versioning
   - A lot of spec file cleanup.
 
-* Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
+* Tue Apr 10 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.13.5-3.taw
   - Added an 'npm cache clean --force' to hopefully about cache integrity  
     issues (sha1 integrity checks, namely)
 

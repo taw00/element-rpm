@@ -1,4 +1,6 @@
 # riot.spec
+# vim:tw=0:ts=2:sw=2:et:
+#
 # Riot - Riot is a decentralized, secure messaging client for collaborative
 #        group communication.
 #
@@ -21,7 +23,6 @@ Name: riot
 Summary: A decentralized, secure messaging client for collaborative group communication
 
 %define targetIsProduction 0
-%define includeSnapinfo 1
 %define includeMinorbump 1
 
 # ie. if the dev team includes things like rc.3 in the filename
@@ -31,7 +32,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 2
+%define verminor 3
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -53,16 +54,6 @@ Version: %{vermajor}.%{verminor}
 
 # Building the release string (don't edit this)...
 
-%if %{targetIsProduction}
-  %if %{includeSnapinfo}
-    %{warn:"Warning: target is production and yet you want snapinfo included. This is not typical."}
-  %endif
-%else
-  %if ! %{includeSnapinfo}
-    %{warn:"Warning: target is pre-production and yet you elected not to incude snapinfo (testing, beta, ...). This is not typical."}
-  %endif
-%endif
-
 # release numbers
 %undefine _relbuilder_pt1
 %if %{targetIsProduction}
@@ -76,7 +67,7 @@ Version: %{vermajor}.%{verminor}
 
 # snapinfo and repackage (pre-built) indicator
 %undefine _relbuilder_pt2
-%if ! %{includeSnapinfo}
+%if %{targetIsProduction}
   %undefine snapinfo
 %endif
 %if 0%{?sourceIsPrebuilt:1}
@@ -128,7 +119,8 @@ Obsoletes: riot-web < 0.9.6
 # Apache Software License 2.0
 License: ASL 2.0
 URL: https://riot.im/
-
+# Note, for example, this will not build on ppc64le
+ExclusiveArch: x86_64 i386
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -377,6 +369,12 @@ umask 007
 
 
 %changelog
+* Wed May 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.0.1.testing.taw
+  - v15.3 testing
+
+* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.1.taw
+  - v15.2
+
 * Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.0.1.testing.taw
   - v15.2 testing
 
@@ -432,7 +430,7 @@ umask 007
     - Made the Summary: compliant (shorter, no ending period, no name repeat
   - Restructured the contrib tarball.
 
-* Wed Apr 11 2018 Todd Warner <t0dd@protonmail.com> 0.14.0-1.taw
+* Wed Apr 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.0-1.taw
   - Release: eaeb495 - 0.14.0
   - Changelog: https://github.com/vector-im/riot-web/releases/tag/v0.14.0
   - Changes specific to these builds...
@@ -440,7 +438,7 @@ umask 007
     https://fedoraproject.org/wiki/Packaging:Versioning
   - A lot of spec file cleanup.
 
-* Tue Apr 10 2018 Todd Warner <t0dd@protonmail.com> 0.13.5-3.taw
+* Tue Apr 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.13.5-3.taw
   - Added an 'npm cache clean --force' to hopefully about cache integrity  
     issues (sha1 integrity checks, namely)
 
