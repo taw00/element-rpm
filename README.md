@@ -110,7 +110,7 @@ sudo dnf list --refresh |grep riot
 
 # Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- Vector Creations Ltd. (of Amdocs) -- but I do thank them for their contribution.
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- [New Vector](https://vector.im/) -- but I do thank them for their contribution.
 
 # Questions or comments...
 
