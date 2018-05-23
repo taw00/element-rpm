@@ -4,6 +4,8 @@
 
 * Wed May 23 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.0.1.testing.taw
   - v15.3 testing
+  - minor spec file cleanup
+  - locking down supported architectures w/ ExclusiveArch
 
 * Thu May 17 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.2.1.taw
   - v15.2

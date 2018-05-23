@@ -50,7 +50,7 @@ Version: %{vermajor}.%{verminor}
 %endif
 
 # if includeMinorbump
-%define minorbump taw0
+%define minorbump taw1
 
 # Building the release string (don't edit this)...
 
@@ -120,7 +120,7 @@ Obsoletes: riot-web < 0.9.6
 License: ASL 2.0
 URL: https://riot.im/
 # Note, for example, this will not build on ppc64le
-ExclusiveArch: x86_64 i386
+ExclusiveArch: x86_64 i686 i386
 
 
 # how are debug info and build_ids managed (I only halfway understand this):
@@ -375,6 +375,8 @@ umask 007
 
 * Wed May 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.0.1.testing.taw
   - v15.3 testing
+  - minor spec file cleanup
+  - locking down supported architectures w/ ExclusiveArch
 
 * Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.1.taw
   - v15.2
