@@ -98,7 +98,7 @@ I do this as a hobby, but I will try to be timely with my updates.
 
 Yes! As of April 10, 2018, I started building test packages!
 
-1. Follow the steps described able to install the repository configure file.  
+1. Follow the steps described above to install the repository configure file.  
    _You will have to refresh it if you have done this before today._
 2. Disable the stable repo and enable the testing repo...
 ```
