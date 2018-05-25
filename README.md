@@ -76,7 +76,7 @@ have to clean up a file named `riot-messaging-client*.repo` in
 
 ### For OpenSuse...
 
-_Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
+_Note that OpenSuse support is still being tested._
 
 **Prep (OpenSuse Leap)...**
 ```bash
