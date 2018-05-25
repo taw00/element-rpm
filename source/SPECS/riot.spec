@@ -38,11 +38,11 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 1
+%define pkgrel_prod 2
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 0
+%define pkgrel_preprod 1
 %define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
@@ -50,7 +50,7 @@ Version: %{vermajor}.%{verminor}
 %endif
 
 # if includeMinorbump
-%define minorbump taw1
+%define minorbump taw0
 
 # Building the release string (don't edit this)...
 
@@ -120,8 +120,7 @@ Obsoletes: riot-web < 0.9.6
 License: ASL 2.0
 URL: https://riot.im/
 # Note, for example, this will not build on ppc64le
-ExclusiveArch: x86_64 i686 i386
-
+ExclusiveArch: x86_64 i686 i586 i386
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -153,14 +152,25 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 %endif
 
 
-BuildRequires: nodejs npm git tree
-BuildRequires: desktop-file-utils libappstream-glib
+# https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 
-AutoReq: no
+BuildRequires: nodejs npm git tree
+BuildRequires: desktop-file-utils
+%if 0%{?suse_version}
+BuildRequires: appstream-glib
+#BuildRequires: libappstream-glib8 appstream-glib
+%else
+BuildRequires: libappstream-glib
+%endif
+
+#t0dd: Trying to remove dependence on libffmpeg.so (FOSS issues, I believe).
+#      Thus far, I have been unsuccessful. Additionally, hardcoded "Requires"
+#      breaks cross-distro builds. :(
+#AutoReq: no
 # constructed subset from results of autoreq from previous builds - we do all this so we can exclude individual libraries
-Requires: bash nodejs alsa-lib atk glibc cairo cups-libs dbus-libs expat fontconfig freetype libgcc GConf2 gtk2 gdk-pixbuf2 glib2 
-Requires: libX11 libXcomposite libX11-xcb libXcursor libXdamage libXext libXfixes libXi libXrandr libXrender libXScrnSaver libXtst
-Requires: nspr nss nss-util pango libstdc++ libxcb 
+#Requires: bash nodejs alsa-lib atk glibc cairo cups-libs dbus-libs expat fontconfig freetype libgcc GConf2 gtk2 gdk-pixbuf2 glib2 
+#Requires: libX11 libXcomposite libX11-xcb libXcursor libXdamage libXext libXfixes libXi libXrandr libXrender libXScrnSaver libXtst
+#Requires: nspr nss nss-util pango libstdc++ libxcb 
 # Requirements desired, but not found...
 # ld-linux-x86-64.so.2 libnode.so (we provide) rpmlib rtld
 # This package currently provides libffmpeg.so
@@ -203,6 +213,9 @@ mkdir %{srcroot}
 # Make sure the right library path is used...
 echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
 
+# Swap out our package.json because we have SSL issues with https://matrix.org
+#cp %{srccontribtree}/package.json %{srccodetree}/
+
 # For debugging purposes...
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
 
@@ -214,7 +227,14 @@ cd .. ; tree -df -L 1 %{srcroot} ; cd -
 #%%{warn: "taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
 /usr/bin/npm cache clean --force
 rm -rf ../.npm/_cacache
-rm -f %{srccodetree}/package-lock.json
+#rm -f %%{srccodetree}/package-lock.json
+
+# We trust where we are getting modules from and Suse builds require https
+# agnostism apparently (I don't know why) -t0dd
+/usr/bin/npm config set strict-ssl false
+/usr/bin/npm config set registry http://registry.npmjs.org/
+#/usr/bin/npm config set registry http://matrix.org/packages/npm/
+/usr/bin/npm config list
 
 # -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
 # Note, if we actually did this normally, we'd put the fetch into either
@@ -264,9 +284,9 @@ rm -f %{srccodetree}/package-lock.json
 %endif
 # -- END EXPERIMENTAL BUILD FROM GIT REPO --
 
-/usr/bin/npm install 
 /usr/bin/npm install 7zip-bin-linux
-/usr/bin/npm run build
+/usr/bin/npm install 
+npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
 
 #/usr/bin/npm install electron
 #/usr/bin/npm run electron
@@ -276,10 +296,10 @@ rm -f %{srccodetree}/package-lock.json
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
-  ./node_modules/.bin/build -l tar.gz --x64
-  %else
+  npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
+%else
   %define linuxunpacked electron_app/dist/linux-ia32-unpacked
-  ./node_modules/.bin/build -l tar.gz --ia32
+  npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
 
@@ -370,6 +390,19 @@ umask 007
 
 
 %changelog
+* Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.2.taw
+  - Updated v15.3 builds that are more OpenSuse compatible
+
+* Thu May 24 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.1.1.testing.taw
+  - Reverted the hardcoded Requires (broke Suse builds)
+  - Trying to make this OpenSuse compatible (Suse builds don't like https for  
+    some reason):  
+    ```
+npm ERR! code UNABLE_TO_GET_ISSUER_CERT_LOCALLY
+npm ERR! errno UNABLE_TO_GET_ISSUER_CERT_LOCALLY
+npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable to get local issuer certificate
+    ```
+
 * Wed May 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.1.taw
   - v15.3
 

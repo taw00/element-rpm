@@ -1,6 +1,6 @@
 Name:		toddpkgs-riot-repo
 Version:	1.0
-Release:	3%{?dist}.taw0
+Release:	4%{?dist}.taw0
 Summary:	Repository configuration to enable management of Riot packages
 
 Group:		System Environment/Base
@@ -31,12 +31,23 @@ Install this, then...
   sudo yum clean expire-cache
   sudo yum install riot -y
 
+* For OpenSuse Leap
+  sudo zypper refresh
+  sudo zypper modifyrepo -er "riot-stable-leap"
+  sudo zypper install riot
+
+* For OpenSuse Tumbleweed
+  sudo zypper refresh
+  sudo zypper modifyrepo -er "riot-stable-tumbleweed"
+  sudo zypper install riot
+
 You can edit /etc/yum.repos.d/riot.repo (as root) and 'enable=1' or '0'
 whether you want the stable or the testing repositories.
 
 Notes about GPG keys:
 * An RPM signing key is included. It is used to sign RPMs that I build by
-  hand. Namely any *.src.rpm found in github.com/taw00/riot-rpm
+  hand. Namely any *.src.rpm found in github.com/taw00/riot-rpm and (for now)
+  all the binary OpenSuse packages
 * RPMs from the copr repositories are signed by fedoraproject build system
   keys.
 
@@ -60,10 +71,12 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 %if 0%{?fedora:1}
   install -D -m644 riot-fedora.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
-%else
-  %if 0%{?rhel:1}
+%endif
+%if 0%{?rhel:1}
   install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
-  %endif
+%endif
+%if 0%{?suse_version:1}
+  install -D -m644 keybase-toddwarner_riot-opensuse.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
 
 
@@ -73,22 +86,28 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
-* Sat May 12 2018 Todd Warner <t0dd at protonmail.com> 1.0-3.taw[n]
+* Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.taw
   - Update.
 
-* Sat May 12 2018 Todd Warner <t0dd at protonmail.com> 1.0-2.1.testing.taw[n]
+* Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.1.testing.taw
+  - Support for OpenSuse
+
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.taw
+  - Update.
+
+* Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-2.1.testing.taw
   - metadata for test repo expires immediately.
   - fixed error in test repo URL (for fedora)
 
-* Sun May 6 2018 Todd Warner <t0dd at protonmail.com> 1.0-2.taw[n]
+* Sun May 6 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-2.taw
   - Update.
 
-* Sun May 6 2018 Todd Warner <t0dd at protonmail.com> 1.0-1.1.testing.taw[n]
+* Sun May 6 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-1.1.testing.taw
   - Made the rep info desplayed when updating less noisy. It annoyed me.
 
-* Sun Apr 15 2018 Todd Warner <t0dd at protonmail.com> 1.0-1.taw[n]
+* Sun Apr 15 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-1.taw
   - Initial build
 
-* Sun Apr 15 2018 Todd Warner <t0dd at protonmail.com> 1.0-0.1.testing.taw[n]
+* Sun Apr 15 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-0.1.testing.taw
   - Initial test build
 

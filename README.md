@@ -1,12 +1,12 @@
-# Riot
+# Riot Messaging Application for the Desktop
 
-> _Native RPM package builds for Fedora, CentOS, and Red Hat Enterprise Linux_
+_Riot messaging client packaged (RPMs) for Fedora, CentOS, Red Hat Enterprise Linux, and OpenSuse_
 
 Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
 
 _**What is Riot (and Matrix)?**_ In short, Riot is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
 
-Included directly here in this github repository are source RPM packages and specfiles so you can rebuild Riot if you are so inclined. But runnable binaries have also been built. See below for how to install and run Riot on your linux desktop.
+This github repository maintains source RPM packages and specfiles so you can rebuild Riot if you are so inclined. From these source packages runnable binaries have been conveniently built for you. See below for how to install and run Riot on your linux desktop.
 
 All \*.src.rpm packages provided in this github repository should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [Copr GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
 
@@ -25,6 +25,7 @@ It's easy to install and run Riot. Currently built for these platforms...
 * Fedora: versions 26, 27, 28 -- x86\_64, i686<br />
   NOTE: I will stop building for any version of an OS that is no longer supported
 * CentOS (and RHEL): version 7 -- x86\_64 only
+* OpenSuse: Tumbleweed and Leap 15.0 -- x86\_64 only
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
@@ -73,6 +74,34 @@ _Note: If you installed the repository information by hand in the past, you may
 have to clean up a file named `riot-messaging-client*.repo` in
 `/etc/yum.repos.d/`_ 
 
+### For OpenSuse...
+
+_Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
+
+**Prep (OpenSuse Leap)...**
+```bash
+# Snag the repository configuration (should only need to do once)
+sudo rpm --import https://keybase.io/toddwarner/key.asc
+sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.1.testing.suse.lp150.taw0.noarch.rpm
+sudo zypper modifyrepo -er "riot-stable-leap"
+```
+
+**Prep (OpenSuse Tumbleweed)...**
+```bash
+# Snag the repository configuration (should only need to do once)
+sudo rpm --import https://keybase.io/toddwarner/key.asc
+sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.1.testing.suse.tw20180522.taw0.noarch.rpm
+sudo zypper modifyrepo -er "riot-stable-tumbleweed"
+```
+
+**Install...**
+```bash
+# Clean out the cache in case the change didn't get picked up
+sudo zypper refresh
+# Install riot
+sudo zypper install riot
+```
+
 ## I installed it, now I want to run Riot!
 
 Search for and select "Riot" from your desktop or run `riot` from the commandline.
@@ -91,17 +120,22 @@ sudo dnf upgrade
 # CentOS or RHEL...
 sudo yum update
 ```
+```bash
+# OpenSuse...
+sudo zypper update
+```
 
 I do this as a hobby, but I will try to be timely with my updates.
 
 ## I live on the edge! Do you have test packages available?
 
-Yes! As of April 10, 2018, I started building test packages!
+Yes! As of April 10, 2018, I started building test packages (Fedora and Epel only).
 
 1. Follow the steps described above to install the repository configure file.  
    _You will have to refresh it if you have done this before today._
 2. Disable the stable repo and enable the testing repo...
 ```
+# Fedora/CentOS/RHEL only
 sudo dnf config-manager --set-disabled riot-stable
 sudo dnf config-manager --set-enabled riot-testing
 sudo dnf list --refresh |grep riot

@@ -1,4 +1,17 @@
 # changelog
+* Fri May 25 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.2.taw
+  - Updated v15.3 builds that are more OpenSuse compatible
+
+* Thu May 24 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.1.1.testing.taw
+  - Reverted the hardcoded Requires (broke Suse builds)
+  - Trying to make this OpenSuse compatible (Suse builds don't like https for  
+    some reason):  
+    ```
+npm ERR! code UNABLE_TO_GET_ISSUER_CERT_LOCALLY
+npm ERR! errno UNABLE_TO_GET_ISSUER_CERT_LOCALLY
+npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable to get local issuer certificate
+    ```
+
 * Wed May 23 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.1.taw
   - v15.3
 
