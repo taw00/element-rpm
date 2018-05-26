@@ -32,17 +32,17 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 3
+%define verminor 4
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 2
+%define pkgrel_prod 1
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 1
+%define pkgrel_preprod 0
 %define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
@@ -284,8 +284,8 @@ rm -rf ../.npm/_cacache
 %endif
 # -- END EXPERIMENTAL BUILD FROM GIT REPO --
 
-/usr/bin/npm install 7zip-bin-linux
 /usr/bin/npm install 
+/usr/bin/npm install 7zip-bin-linux
 npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
 
 #/usr/bin/npm install electron
@@ -390,6 +390,12 @@ umask 007
 
 
 %changelog
+* Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.0.1.testing.taw
+  - v15.4 testing
+
+* Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.2.taw
+  - Updated v15.3 builds that are more OpenSuse compatible
+
 * Thu May 24 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.1.1.testing.taw
   - Reverted the hardcoded Requires (broke Suse builds)
   - Trying to make this OpenSuse compatible (Suse builds don't like https for  

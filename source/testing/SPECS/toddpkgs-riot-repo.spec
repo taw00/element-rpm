@@ -1,6 +1,6 @@
 Name:		toddpkgs-riot-repo
 Version:	1.0
-Release:	3.1.testing%{?dist}.taw0
+Release:	3.2.testing%{?dist}.taw0
 Summary:	Repository configuration to enable management of Riot packages
 
 Group:		System Environment/Base
@@ -65,6 +65,7 @@ Notes about GPG keys:
 %install
 # Builds generically. Will need a disto specific RPM though.
 install -d %{buildroot}%{_sysconfdir}/yum.repos.d
+install -d %{buildroot}%{_sysconfdir}/zypp/repos.d
 install -d %{buildroot}%{_sysconfdir}/pki/rpm-gpg
 
 install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-todd-694673ED-public
@@ -76,16 +77,32 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
   install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
 %if 0%{?suse_version:1}
-  install -D -m644 keybase-toddwarner_riot-opensuse.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+  install -D -m644 keybase-toddwarner_riot-opensuse.repo %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
 %endif
 
 
 %files
-%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
 %attr(644, root,root) %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-todd-694673ED-public
+%license LICENSE
+
+%if 0%{?fedora:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
+%endif
+
+%if 0%{?rhel:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
+%endif
+
+%if 0%{?suse_version:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/zypp/repos.d/riot.repo
+%endif
 
 
 %changelog
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.2.testing.taw
+  - OpenSuse uses /etc/zypp and not /etc/yum... apparently. :/
+  - Need a license for this package. Punted, like everyone else, and chose MIT
+
 * Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.1.testing.taw
   - Support for OpenSuse
 

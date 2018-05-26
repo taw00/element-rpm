@@ -1,4 +1,10 @@
 # changelog
+* Fri May 25 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.taw
+  - v15.4
+
+* Fri May 25 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.0.1.testing.taw
+  - v15.4 testing
+
 * Fri May 25 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.3.2.taw
   - Updated v15.3 builds that are more OpenSuse compatible
 

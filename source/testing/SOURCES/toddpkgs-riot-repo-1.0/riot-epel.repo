@@ -41,7 +41,6 @@ metadata_expire=1d
 [riot-testing]
 enabled=0
 name=Riot - testing - epel-$releasever-$basearch
-name=Riot is a front-end client implementing the decentralized, secure, messaging and data-transport protocol, Matrix.
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/epel-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True

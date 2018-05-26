@@ -3,21 +3,23 @@
 
 [riot-stable-leap]
 enabled=0
-name=Riot for OpenSuse Leap $releasever - $basearch
+name=Riot - OpenSuse Leap $releasever - $basearch
 # For now, we don't differientate leap versions (this needs to change eventually)
 #baseurl=https://toddwarner.keybase.pub/repo/riot-opensuse/leap/$releasever/$basearch/
 baseurl=https://toddwarner.keybase.pub/repo/riot-opensuse/leap/$basearch/
 metadata_expire=1d
 gpgcheck=1
+repo_gpgcheck=0
 gpgkey=https://keybase.io/toddwarner/key.asc
 skip_if_unavailable=True
 
 [riot-stable-tumbleweed]
 enabled=0
-name=Riot for OpenSuse Tumbleweed - $basearch
+name=Riot - OpenSuse Tumbleweed - $basearch
 baseurl=https://toddwarner.keybase.pub/repo/riot-opensuse/tumbleweed/$basearch/
 metadata_expire=1d
 gpgcheck=1
+repo_gpgcheck=0
 gpgkey=https://keybase.io/toddwarner/key.asc
 skip_if_unavailable=True
 
