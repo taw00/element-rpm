@@ -82,7 +82,7 @@ _Note that OpenSuse support is still being tested._
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.2.testing.suse.lp150.taw0.noarch.rpm
+sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.3.testing.suse.lp150.taw0.noarch.rpm
 sudo zypper modifyrepo -er "riot-stable-leap"
 ```
 
@@ -90,7 +90,7 @@ sudo zypper modifyrepo -er "riot-stable-leap"
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.2.testing.suse.tw20180522.taw0.noarch.rpm
+sudo zypper install https://raw.githubusercontent.com/taw00/riot-rpm/master/toddpkgs-riot-repo-1.0-3.3.testing.suse.tw20180524.taw0.noarch.rpm
 sudo zypper modifyrepo -er "riot-stable-tumbleweed"
 ```
 

@@ -77,7 +77,7 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
   install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
 %if 0%{?suse_version:1}
-  install -D -m644 keybase-toddwarner_riot-opensuse.repo-tumbleweed %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+  install -D -m644 keybase-toddwarner_riot-opensuse.repo-leap %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
 %endif
 
 
