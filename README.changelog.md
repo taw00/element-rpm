@@ -1,4 +1,16 @@
 # changelog
+* Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.2.taw
+* Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.3.testing.taw
+* Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.2.testing.taw
+* Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.1.testing.taw
+  - Recieving HTTP 429 errors. This is due to rate-limiting on the nodejs  
+    registry servers for anyone pulling down npm's via non-ssl calls. Which,  
+    we have to do for OpenSuse builds. So... I added more refinded OS distro  
+    querying logic.
+  - A pile of sleeps added to slow things down for opensuse builds. Probably  
+    does nothing.
+  - TODO: include all deps so that no over-the-wire calls are necessary
+
 * Fri May 25 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.taw
   - v15.4
 

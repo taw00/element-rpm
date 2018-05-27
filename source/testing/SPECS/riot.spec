@@ -38,12 +38,12 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 1
+%define pkgrel_prod 2
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 0
-%define extraver_preprod 1
+%define pkgrel_preprod 1
+%define extraver_preprod 3
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
@@ -156,7 +156,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 
 BuildRequires: nodejs npm git tree
 BuildRequires: desktop-file-utils
-%if 0%{?suse_version}
+%if 0%{?suse_version:1}
 BuildRequires: appstream-glib
 #BuildRequires: libappstream-glib8 appstream-glib
 %else
@@ -229,12 +229,14 @@ cd .. ; tree -df -L 1 %{srcroot} ; cd -
 rm -rf ../.npm/_cacache
 #rm -f %%{srccodetree}/package-lock.json
 
-# We trust where we are getting modules from and Suse builds require https
-# agnostism apparently (I don't know why) -t0dd
+%if 0%{?suse_version:1}
+# We trust where we are getting modules from and Suse builds require
+# https-agnostism apparently (I don't know why) -t0dd
 /usr/bin/npm config set strict-ssl false
 /usr/bin/npm config set registry http://registry.npmjs.org/
 #/usr/bin/npm config set registry http://matrix.org/packages/npm/
 /usr/bin/npm config list
+%endif
 
 # -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
 # Note, if we actually did this normally, we'd put the fetch into either
@@ -285,21 +287,35 @@ rm -rf ../.npm/_cacache
 # -- END EXPERIMENTAL BUILD FROM GIT REPO --
 
 /usr/bin/npm install 
+%if 0%{?suse_version:1}
+  /usr/bin/sleep 15
+%endif
 /usr/bin/npm install 7zip-bin-linux
-npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
+%if 0%{?suse_version:1}
+  /usr/bin/sleep 15
+  npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
+%else
+  /usr/bin/npm --reg="http://registry.npmjs.org/" run build
+%endif
 
-#/usr/bin/npm install electron
-#/usr/bin/npm run electron
 
 # builds linux-friendly stuff (we use this) and a default tarball, rpm, or
 # deb (not used)
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
-  npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
+  %if 0%{?suse_version:1}
+    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
+  %else
+    ./node_modules/.bin/build -l tar.gz --x64
+  %endif
 %else
   %define linuxunpacked electron_app/dist/linux-ia32-unpacked
-  npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
+  %if 0%{?suse_version:1}
+    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
+  %else
+    ./node_modules/.bin/build -l tar.gz --ia32
+  %endif
 %endif
 
 
@@ -390,6 +406,17 @@ umask 007
 
 
 %changelog
+* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.3.testing.taw
+* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.2.testing.taw
+* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.1.testing.taw
+  - Recieving HTTP 429 errors. This is due to rate-limiting on the nodejs  
+    registry servers for anyone pulling down npm's via non-ssl calls. Which,  
+    we have to do for OpenSuse builds. So... I added more refinded OS distro  
+    querying logic.
+  - A pile of sleeps added to slow things down for opensuse builds. Probably  
+    does nothing.
+  - TODO: include all deps so that no over-the-wire calls are necessary
+
 * Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.0.1.testing.taw
   - v15.4 testing
 
