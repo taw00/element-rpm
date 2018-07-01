@@ -32,18 +32,18 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 4
+%define verminor 5
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 2
+%define pkgrel_prod 1
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 1
-%define extraver_preprod 3
+%define pkgrel_preprod 0
+%define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
@@ -305,7 +305,6 @@ rm -rf ../.npm/_cacache
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
   %if 0%{?suse_version:1}
-    /usr/bin/sleep 15
     npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
   %else
     ./node_modules/.bin/build -l tar.gz --x64
@@ -313,7 +312,6 @@ rm -rf ../.npm/_cacache
 %else
   %define linuxunpacked electron_app/dist/linux-ia32-unpacked
   %if 0%{?suse_version:1}
-    /usr/bin/sleep 15
     npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
   %else
     ./node_modules/.bin/build -l tar.gz --ia32
@@ -408,6 +406,10 @@ umask 007
 
 
 %changelog
+* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.1.taw
+* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.0.1.testing.taw
+  - v15.5
+
 * Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.2.taw
 * Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.3.testing.taw
 * Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.2.testing.taw
