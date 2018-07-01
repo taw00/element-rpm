@@ -135,7 +135,7 @@ Yes! As of April 10, 2018, I started building test packages (Fedora and Epel onl
    _You will have to refresh it if you have done this before today._
 2. Disable the stable repo and enable the testing repo...
 ```
-# Fedora/CentOS/RHEL only
+# Fedora only
 sudo dnf config-manager --set-disabled riot-stable
 sudo dnf config-manager --set-enabled riot-testing
 sudo dnf list --refresh |grep riot
