@@ -26,13 +26,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define includeMinorbump 1
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define archiveQualifier rc.3
+%define archiveQualifier rc.2
 %define includeArchiveQualifier 0
 
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 5
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -43,7 +43,7 @@ Version: %{vermajor}.%{verminor}
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
 %define pkgrel_preprod 0
-%define extraver_preprod 1
+%define extraver_preprod 2
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
@@ -406,6 +406,13 @@ umask 007
 
 
 %changelog
+* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.1.taw
+* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.2.testing.taw
+  - v15.6
+
+* Sat Jun 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.1.rc.2.taw
+  - v15.6 RC2
+
 * Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.1.taw
 * Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.0.1.testing.taw
   - v15.5

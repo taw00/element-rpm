@@ -1,4 +1,15 @@
 # changelog
+* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.1.taw
+* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.2.testing.taw
+  - v15.6
+
+* Sat Jun 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.1.rc.2.taw
+  - v15.6 RC2
+
+* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.1.taw
+* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.0.1.testing.taw
+  - v15.5
+
 * Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.2.taw
 * Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.3.testing.taw
 * Sat May 26 2018 Todd Wraner `<t0dd_at_protonmail.com>` 0.15.4.1.2.testing.taw
