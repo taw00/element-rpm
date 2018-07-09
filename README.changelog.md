@@ -1,4 +1,7 @@
 # changelog
+* Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
+  - v15.7 RC2
+
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.1.taw
   - v15.7 RC1
 

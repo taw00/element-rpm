@@ -26,7 +26,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define includeMinorbump 1
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define archiveQualifier rc.1
+%define archiveQualifier rc.2
 %define includeArchiveQualifier 1
 
 # VERSION
@@ -406,6 +406,9 @@ umask 007
 
 
 %changelog
+* Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
+  - v15.7 RC2
+
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.1.taw
   - v15.7 RC1
 
