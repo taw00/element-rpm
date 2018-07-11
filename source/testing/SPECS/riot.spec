@@ -27,7 +27,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define archiveQualifier rc.2
-%define includeArchiveQualifier 1
+%define includeArchiveQualifier 0
 
 # VERSION
 # eg. 0.15.0
@@ -406,6 +406,9 @@ umask 007
 
 
 %changelog
+* Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.testing.taw
+  - v15.7
+
 * Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
   - v15.7 RC2
 

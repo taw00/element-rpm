@@ -32,7 +32,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION
 # eg. 0.15.0
 %define vermajor 0.15
-%define verminor 6
+%define verminor 7
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -43,7 +43,7 @@ Version: %{vermajor}.%{verminor}
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
 %define pkgrel_preprod 0
-%define extraver_preprod 2
+%define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
   %define snapinfo %{archiveQualifier}
@@ -406,21 +406,31 @@ umask 007
 
 
 %changelog
-* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.1.taw
-* Sun Jul 01 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.2.testing.taw
+* Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-1.taw
+* Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.testing.taw
+  - v15.7
+
+* Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
+  - v15.7 RC2
+
+* Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.1.taw
+  - v15.7 RC1
+
+* Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-1.taw
+* Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.2.testing.taw
   - v15.6
 
-* Sat Jun 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.6.0.1.rc.2.taw
+* Sat Jun 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.1.rc.2.taw
   - v15.6 RC2
 
-* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.1.taw
-* Sat Jun 16 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.5.0.1.testing.taw
+* Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-1.taw
+* Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-0.1.testing.taw
   - v15.5
 
-* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.2.taw
-* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.3.testing.taw
-* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.2.testing.taw
-* Sat May 26 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.1.1.testing.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-2.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-1.3.testing.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-1.2.testing.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-1.1.testing.taw
   - Recieving HTTP 429 errors. This is due to rate-limiting on the nodejs  
     registry servers for anyone pulling down npm's via non-ssl calls. Which,  
     we have to do for OpenSuse builds. So... I added more refinded OS distro  
@@ -429,13 +439,13 @@ umask 007
     does nothing.
   - TODO: include all deps so that no over-the-wire calls are necessary
 
-* Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.4.0.1.testing.taw
+* Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-0.1.testing.taw
   - v15.4 testing
 
-* Fri May 25 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.2.taw
+* Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-2.taw
   - Updated v15.3 builds that are more OpenSuse compatible
 
-* Thu May 24 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.1.1.testing.taw
+* Thu May 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-1.1.testing.taw
   - Reverted the hardcoded Requires (broke Suse builds)
   - Trying to make this OpenSuse compatible (Suse builds don't like https for  
     some reason):  
@@ -445,18 +455,18 @@ npm ERR! errno UNABLE_TO_GET_ISSUER_CERT_LOCALLY
 npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable to get local issuer certificate
     ```
 
-* Wed May 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.1.taw
+* Wed May 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-1.taw
   - v15.3
 
-* Wed May 23 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.3.0.1.testing.taw
+* Wed May 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-0.1.testing.taw
   - v15.3 testing
   - minor spec file cleanup
   - locking down supported architectures w/ ExclusiveArch
 
-* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.1.taw
+* Thu May 17 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.2-1.taw
   - v15.2
 
-* Thu May 17 2018 Todd Wraner <t0dd_at_protonmail.com> 0.15.2.0.1.testing.taw
+* Thu May 17 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.2-0.1.testing.taw
   - v15.2 testing
 
 * Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw
