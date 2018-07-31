@@ -30,9 +30,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define includeArchiveQualifier 0
 
 # VERSION
-# eg. 0.15.0
-%define vermajor 0.15
-%define verminor 7
+# eg. 0.16.0
+%define vermajor 0.16
+%define verminor 0
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -178,9 +178,9 @@ BuildRequires: libappstream-glib
 
 
 # Unarchived source tree structure (extracted in {_builddir})
-#   srcroot               riot-0.15
-#      \_srccodetree        \_riot-0.15.0 (or riot-0.15.0-rc.2 or riot-v0.15.0 or riot-v0.15.0-rc.2)
-#      \_srccontribtree     \_riot-0.15-contrib
+#   srcroot               riot-0.16
+#      \_srccodetree        \_riot-0.16.0 (or riot-0.16.0-rc.2 or riot-v0.16.0 or riot-v0.16.0-rc.2)
+#      \_srccontribtree     \_riot-0.16-contrib
 %define srcroot %{name}-%{vermajor}
 %define srccodetree %{_source0}
 %define srccontribtree %{name}-%{vermajor}-contrib
@@ -406,6 +406,10 @@ umask 007
 
 
 %changelog
+* Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-1.taw
+* Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-0.1.testing.taw
+  - v16.0
+
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-1.taw
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.testing.taw
   - v15.7
