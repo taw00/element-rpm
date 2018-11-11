@@ -1,4 +1,8 @@
 # changelog
+* Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1..taw
+* Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-0.1.testing.taw
+  - v17.3
+
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-1.taw
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-0.1.testing.taw
   - v17.2
