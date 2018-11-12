@@ -38,11 +38,11 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 # If production - "targetIsProduction 1"
 # eg. 1 (and no other qualifiers)
-%define pkgrel_prod 1
+%define pkgrel_prod 2
 
 # If pre-production - "targetIsProduction 0"
 # eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 0
+%define pkgrel_preprod 1
 %define extraver_preprod 1
 %define snapinfo testing
 %if %{includeArchiveQualifier}
@@ -406,6 +406,15 @@ umask 007
 
 
 %changelog
+* Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
+  - /usr/share/applications/riot.desktop file Exec line updated to work  
+    better with KDA Plasma desktops. Something to do with an electron bug 
+    or somesuch.  
+  - Now it reads: `Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/riot`  
+    instead of `Exec=/usr/bin/riot`
+  - Credit to @luminoso:chat.naoestusou.eu
+
+* Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.taw
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-0.1.testing.taw
   - v17.3
 

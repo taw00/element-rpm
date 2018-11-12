@@ -1,4 +1,13 @@
 # changelog
+* Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-2.taw
+* Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
+  - /usr/share/applications/riot.desktop file Exec line updated to work
+    better with KDA Plasma desktops. Something to do with an electron bug
+    or somesuch.
+  - Now it reads: `Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/riot`
+    instead of `Exec=/usr/bin/riot`
+  - Credit to @luminoso:chat.naoestusou.eu
+
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1..taw
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-0.1.testing.taw
   - v17.3
