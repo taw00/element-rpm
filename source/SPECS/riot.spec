@@ -29,89 +29,51 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define archiveQualifier rc.2
 %define includeArchiveQualifier 0
 
-# VERSION
+# VERSION - edit this
 # eg. 0.17.0
 %define vermajor 0.17
-%define verminor 3
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
-# RELEASE
-# If production - "targetIsProduction 1"
-# eg. 1 (and no other qualifiers)
-%define pkgrel_prod 2
-
-# If pre-production - "targetIsProduction 0"
-# eg. 0.2.testing -- pkgrel_preprod should always equal pkgrel_prod-1
-%define pkgrel_preprod 1
-%define extraver_preprod 1
-%define snapinfo testing
-%if %{includeArchiveQualifier}
-  %define snapinfo %{archiveQualifier}
+# RELEASE - edit this
+%define _pkgrel 1
+%if ! %{targetIsProduction}
+  %define _pkgrel 0.1
 %endif
 
-# if includeMinorbump
+# MINORBUMP - edit this
 %define minorbump taw0
 
-# Building the release string (don't edit this)...
+#
+# Build the release string - don't edit this
+#
 
-# release numbers
-%undefine _relbuilder_pt1
-%if %{targetIsProduction}
-  %define _pkgrel %{pkgrel_prod}
-  %define _relbuilder_pt1 %{pkgrel_prod}
-%else
-  %define _pkgrel %{pkgrel_preprod}
-  %define _extraver %{extraver_preprod}
-  %define _relbuilder_pt1 %{_pkgrel}.%{_extraver}
-%endif
-
-# snapinfo and repackage (pre-built) indicator
-%undefine _relbuilder_pt2
+%define snapinfo testing
 %if %{targetIsProduction}
   %undefine snapinfo
 %endif
-%if 0%{?sourceIsPrebuilt:1}
-  %if ! %{sourceIsPrebuilt}
-    %undefine snapinfo_rp
-  %endif
-%else
-  %undefine snapinfo_rp
-%endif
-%if 0%{?snapinfo_rp:1}
-  %if 0%{?snapinfo:1}
-    %define _relbuilder_pt2 %{snapinfo}.%{snapinfo_rp}
-  %else
-    %define _relbuilder_pt2 %{snapinfo_rp}
-  %endif
-%else
-  %if 0%{?snapinfo:1}
-    %define _relbuilder_pt2 %{snapinfo}
-  %endif
-%endif
 
-# put it all together
-# pt1 will always be defined. pt2 and minorbump may not be
-%define _release %{_relbuilder_pt1}
+# pkgrel will also be defined, snapinfo and minorbump may not be
+%define _release %{_pkgrel}
 %if ! %{includeMinorbump}
   %undefine minorbump
 %endif
-%if 0%{?_relbuilder_pt2:1}
+%if 0%{?snapinfo:1}
   %if 0%{?minorbump:1}
-    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}.%{minorbump}
+    %define _release %{_pkgrel}.%{snapinfo}%{?dist}.%{minorbump}
   %else
-    %define _release %{_relbuilder_pt1}.%{_relbuilder_pt2}%{?dist}
+    %define _release %{_pkgrel}.%{snapinfo}%{?dist}
   %endif
 %else
   %if 0%{?minorbump:1}
-    %define _release %{_relbuilder_pt1}%{?dist}.%{minorbump}
+    %define _release %{_pkgrel}%{?dist}.%{minorbump}
   %else
-    %define _release %{_relbuilder_pt1}%{?dist}
+    %define _release %{_pkgrel}%{?dist}
   %endif
 %endif
 
 Release: %{_release}
 # ----------- end of release building section
-
 
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
@@ -154,7 +116,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 
 # https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 
-BuildRequires: nodejs npm git tree
+BuildRequires: nodejs npm git
 BuildRequires: desktop-file-utils
 %if 0%{?suse_version:1}
 BuildRequires: appstream-glib
@@ -162,6 +124,13 @@ BuildRequires: appstream-glib
 %else
 BuildRequires: libappstream-glib
 %endif
+
+#t0dd: I will often add tree, vim-enhanced, and less for mock environment
+#      introspection
+%if ! %{targetIsProduction}
+BuildRequires: tree vim-enhanced less findutils
+%endif
+
 
 #t0dd: Trying to remove dependence on libffmpeg.so (FOSS issues, I believe).
 #      Thus far, I have been unsuccessful. Additionally, hardcoded "Requires"
@@ -217,7 +186,9 @@ echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
 #cp %{srccontribtree}/package.json %{srccodetree}/
 
 # For debugging purposes...
+%if ! %{targetIsProduction}
 cd .. ; tree -df -L 1 %{srcroot} ; cd -
+%endif
 
 
 %build
@@ -406,6 +377,14 @@ umask 007
 
 
 %changelog
+* Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-1.taw
+* Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-0.1.testing.taw
+  - v0.17.6
+
+* Thu Nov 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.5-0.1.testing.taw
+  - v0.17.5
+  - specfile: reduced some of the complexity
+
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-2.taw
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
   - /usr/share/applications/riot.desktop file Exec line updated to work  
@@ -417,27 +396,27 @@ umask 007
 
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.taw
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-0.1.testing.taw
-  - v17.3
+  - v0.17.3
 
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-1..taw
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-0.1.testing.taw
-  - v17.2
+  - v0.17.2
 
 * Tue Oct 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.0-1.taw
 * Tue Oct 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.0-0.1.testing.taw
-  - v17.0
+  - v0.17.0
 
 * Mon Oct 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.6-1.taw
 * Mon Oct 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.6-0.1.testing.taw
-  - v16.6
+  - v0.16.6
 
 * Sat Oct 06 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.5-1.taw
 * Sat Oct 06 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.5-0.1.testing.taw
-  - v16.5
+  - v0.16.5
 
 * Wed Sep 19 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.4-1.taw
 * Wed Sep 19 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.4-0.1.testing.taw
-  - v16.4
+  - v0.16.4
 
 * Mon Sep 03 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.3-1.taw
 * Mon Sep 03 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.3-0.1.testing.taw
@@ -445,36 +424,36 @@ umask 007
 
 * Wed Aug 29 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.2-1.taw
 * Wed Aug 29 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.2-0.1.testing.taw
-  - v16.2
+  - v0.16.2
 
 * Wed Aug 22 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.1-1.taw
 * Wed Aug 22 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.1-0.1.testing.taw
-  - v16.1
+  - v0.16.1
 
 * Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-1.taw
 * Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-0.1.testing.taw
-  - v16.0
+  - v0.16.0
 
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-1.taw
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.testing.taw
-  - v15.7
+  - v0.15.7
 
 * Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
-  - v15.7 RC2
+  - v0.15.7 RC2
 
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.1.taw
-  - v15.7 RC1
+  - v0.15.7 RC1
 
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-1.taw
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.2.testing.taw
-  - v15.6
+  - v0.15.6
 
 * Sat Jun 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.1.rc.2.taw
-  - v15.6 RC2
+  - v0.15.6 RC2
 
 * Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-1.taw
 * Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-0.1.testing.taw
-  - v15.5
+  - v0.15.5
 
 * Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-2.taw
 * Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-1.3.testing.taw
@@ -489,10 +468,10 @@ umask 007
   - TODO: include all deps so that no over-the-wire calls are necessary
 
 * Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.4-0.1.testing.taw
-  - v15.4 testing
+  - v0.15.4 testing
 
 * Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-2.taw
-  - Updated v15.3 builds that are more OpenSuse compatible
+  - Updated v0.15.3 builds that are more OpenSuse compatible
 
 * Thu May 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-1.1.testing.taw
   - Reverted the hardcoded Requires (broke Suse builds)
@@ -505,28 +484,28 @@ npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable t
     ```
 
 * Wed May 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-1.taw
-  - v15.3
+  - v0.15.3
 
 * Wed May 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.3-0.1.testing.taw
-  - v15.3 testing
+  - v0.15.3 testing
   - minor spec file cleanup
   - locking down supported architectures w/ ExclusiveArch
 
 * Thu May 17 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.2-1.taw
-  - v15.2
+  - v0.15.2
 
 * Thu May 17 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.2-0.1.testing.taw
-  - v15.2 testing
+  - v0.15.2 testing
 
 * Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.3.taw
-  - v15.0-rc.3
+  - v0.15.0-rc.3
   - Added back the required libffmpeg.so library - my experiment failed. :(
 
 * Sat May 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
   - fixed dependency issue
 
 * Fri May 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.0-0.1.rc.2.taw
-  - v15.0 release candidate
+  - v0.15.0 release candidate
   - attempted to yank libffmpeg.so from the package. FAILED (added back later)
   - had to manually construct the Requires because can't exclude from AutoReq
   - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
@@ -543,13 +522,13 @@ npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable t
   - Release 14.2
 
 * Thu May 3 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.2.rc.final.taw
-  - v14.2-rc.final
+  - v0.14.2-rc.final
 
 * Fri Apr 27 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.2-0.1.rc.3.taw
-  - v14.2-rc.3
+  - v0.14.2-rc.3
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-1.taw
-  - GA build for 14.1
+  - GA build for 0.14.1
 
 * Thu Apr 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.14.1-0.1.testing.taw
   - Release: 740b221 (git) v0.14.1

@@ -1,4 +1,13 @@
 # changelog
+* Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-1.taw
+* Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-0.1.testing.taw
+  - v0.17.6
+
+* Thu Nov 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.5-1.taw
+* Thu Nov 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.5-0.1.testing.taw
+  - v0.17.5
+  - specfile: reduced some of the complexity
+
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-2.taw
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
   - /usr/share/applications/riot.desktop file Exec line updated to work
@@ -10,64 +19,64 @@
 
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1..taw
 * Sun Nov 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-0.1.testing.taw
-  - v17.3
+  - v0.17.3
 
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-1.taw
 * Wed Oct 24 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.2-0.1.testing.taw
-  - v17.2
+  - v0.17.2
 
 * Tue Oct 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.0-1.taw
 * Tue Oct 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.0-0.1.testing.taw
-  - v17.0
+  - v0.17.0
 
 * Mon Oct 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.6-1.taw
 * Mon Oct 15 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.6-0.1.testing.taw
-  - v16.6
+  - v0.16.6
 
 * Sat Oct 06 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.5-1.taw
 * Sat Oct 06 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.5-0.1.testing.taw
-  - v16.5
+  - v0.16.5
 
 * Wed Sep 19 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.4-1.taw
 * Wed Sep 19 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.4-0.1.testing.taw
-  - v16.4
+  - v0.16.4
 
 * Mon Sep 03 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.3-1.taw
 * Mon Sep 03 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.3-0.1.testing.taw
-  - v16.3
+  - v0.16.3
 
 * Wed Aug 29 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.2-1.taw
 * Wed Aug 29 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.2-0.1.testing.taw
-  - v16.2
+  - v0.16.2
 
 * Wed Aug 22 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.1-1.taw
 * Wed Aug 22 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.1-0.1.testing.taw
-  - v16.1
+  - v0.16.1
 
 * Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-1.taw
 * Mon Jul 30 2018 Todd Warner <t0dd_at_protonmail.com> 0.16.0-0.1.testing.taw
-  - v16.0
+  - v0.16.0
 
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-1.taw
 * Wed Jul 11 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.testing.taw
-  - v15.7
+  - v0.15.7
 
 * Mon Jul 09 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.2.taw
-  - v15.7 RC2
+  - v0.15.7 RC2
 
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.7-0.1.rc.1.taw
-  - v15.7 RC1
+  - v0.15.7 RC1
 
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-1.taw
 * Sun Jul 01 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.2.testing.taw
-  - v15.6
+  - v0.15.6
 
 * Sat Jun 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.6-0.1.rc.2.taw
-  - v15.6 RC2
+  - v0.15.6 RC2
 
 * Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-1.taw
 * Sat Jun 16 2018 Todd Warner <t0dd_at_protonmail.com> 0.15.5-0.1.testing.taw
-  - v15.5
+  - v0.15.5
 
 * Sat May 26 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.4-2.taw
 * Sat May 26 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.4-1.3.testing.taw
@@ -82,10 +91,10 @@
   - TODO: include all deps so that no over-the-wire calls are necessary
 
 * Fri May 25 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.4-1.taw
-  - v15.4
+  - v0.15.4
 
 * Fri May 25 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.4-0.1.testing.taw
-  - v15.4 testing
+  - v0.15.4 testing
 
 * Fri May 25 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.3-2.taw
   - Updated v15.3 builds that are more OpenSuse compatible
@@ -101,28 +110,28 @@ npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable t
     ```
 
 * Wed May 23 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.3-1.taw
-  - v15.3
+  - v0.15.3
 
 * Wed May 23 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.3-0.1.testing.taw
-  - v15.3 testing
+  - v0.15.3 testing
   - minor spec file cleanup
   - locking down supported architectures w/ ExclusiveArch
 
 * Thu May 17 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.2-1.taw
-  - v15.2
+  - v0.15.2
 
 * Thu May 17 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.2-0.1.testing.taw
-  - v15.2 testing
+  - v0.15.2 testing
 
 * Sat May 12 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.3.taw
-  - v15.0-rc.3
+  - v0.15.0-rc.3
   - Added back the required libffmpeg.so library - my experiment failed. :(
 
 * Sat May 12 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.2.taw
   - fixed dependency issue
 
 * Fri May 11 2018 Todd Warner `<t0dd_at_protonmail.com>` 0.15.0-0.1.rc.2.taw
-  - v15.0 release candidate
+  - v0.15.0 release candidate
   - attempted to yank libffmpeg.so from the package. FAILED (added back later)
   - had to manually construct the Requires because can't exclude from AutoReq
   - map proper lib (or lib64) path to the /etc/ld.so.conf.d/riot.conf file
