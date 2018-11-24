@@ -29,19 +29,19 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define archiveQualifier rc.2
 %define includeArchiveQualifier 0
 
-# VERSION - edit this
+# VERSION - can edit this
 # eg. 0.17.0
 %define vermajor 0.17
-%define verminor 6
+%define verminor 7
 Version: %{vermajor}.%{verminor}
 
-# RELEASE - edit this
+# RELEASE - can edit this
 %define _pkgrel 1
 %if ! %{targetIsProduction}
   %define _pkgrel 0.1
 %endif
 
-# MINORBUMP - edit this
+# MINORBUMP - can edit this
 %define minorbump taw0
 
 #
@@ -86,6 +86,8 @@ ExclusiveArch: x86_64 i686 i586 i386
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
+# ...flip-flop next two lines in order to disable (nil) or enable (1) debuginfo package build
+%define debug_package 1
 %define debug_package %{nil}
 %define _unique_build_ids 1
 %define _build_id_links alldebug
@@ -377,6 +379,10 @@ umask 007
 
 
 %changelog
+* Fri Nov 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.7-1.taw
+* Fri Nov 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.7-0.1.testing.taw
+  - v0.17.7
+
 * Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-1.taw
 * Wed Nov 21 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.6-0.1.testing.taw
   - v0.17.6
@@ -389,7 +395,7 @@ umask 007
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
   - /usr/share/applications/riot.desktop file Exec line updated to work  
     better with KDA Plasma desktops. Something to do with an electron bug 
-    or somesuch.  
+    or somesuch.
   - Now it reads: `Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/riot`  
     instead of `Exec=/usr/bin/riot`
   - Credit to @luminoso:chat.naoestusou.eu
