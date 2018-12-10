@@ -32,7 +32,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION - can edit this
 # eg. 0.17.0
 %define vermajor 0.17
-%define verminor 7
+%define verminor 8
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
@@ -42,7 +42,7 @@ Version: %{vermajor}.%{verminor}
 %endif
 
 # MINORBUMP - can edit this
-%define minorbump taw0
+%define minorbump taw
 
 #
 # Build the release string - don't edit this
@@ -199,7 +199,7 @@ cd .. ; tree -df -L 1 %{srcroot} ; cd -
 # Clearing npm's cache and package lock to eliminate SHA1 integrity issues.
 #%%{warn: "taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
 /usr/bin/npm cache clean --force
-rm -rf ../.npm/_cacache
+rm -rf ${HOME}/.npm/_cacache
 #rm -f %%{srccodetree}/package-lock.json
 
 %if 0%{?suse_version:1}
@@ -379,6 +379,10 @@ umask 007
 
 
 %changelog
+* Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-0.1.testing.taw
+  - v0.17.8
+
+* Fri Nov 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.7-1.taw
 * Fri Nov 23 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.7-0.1.testing.taw
   - v0.17.7
 
