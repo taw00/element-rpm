@@ -36,9 +36,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP - can edit this
@@ -336,6 +336,7 @@ install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.128x128.png %{bu
 install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
 install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
+install -m755  %{srccontribtree}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
 install -D -m644 -p %{srccontribtree}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
@@ -379,6 +380,15 @@ umask 007
 
 
 %changelog
+* Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.1.testing.taw
+  - wrapper script in order to enable riot to better deal with the  
+    KDE+Electron issue (mentioned below). And discussed here...  
+    <https://github.com/taw00/riot-rpm/issues/16>  
+    Using a more generic approach to the problem since the prior solution  
+    assumed all desktops needed to be fixed, which is not the case. This  
+    may introduce other issues, but it is headed in the right direction.
+
+* Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.taw
 * Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-0.1.testing.taw
   - v0.17.8
 
@@ -397,7 +407,7 @@ umask 007
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-2.taw
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
   - /usr/share/applications/riot.desktop file Exec line updated to work  
-    better with KDA Plasma desktops. Something to do with an electron bug 
+    better with KDE Plasma desktops. Something to do with an electron bug 
     or somesuch.
   - Now it reads: `Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/riot`  
     instead of `Exec=/usr/bin/riot`

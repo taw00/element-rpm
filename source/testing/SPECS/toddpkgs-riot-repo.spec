@@ -1,19 +1,20 @@
-Name:		toddpkgs-riot-repo
-Version:	1.0
-Release:	3.3.testing%{?dist}.taw0
-Summary:	Repository configuration to enable management of Riot packages
+Name:       toddpkgs-riot-repo
+Version:    1.0
+Release:    4.1.testing%{?dist}.taw
+Summary:    Repository configuration to enable management of Riot packages
 
-Group:		System Environment/Base
-License:	MIT
-URL:		https://github.com/taw00/riot-rpm
-Source0:	https://raw.githubusercontent.com/taw00/riot-rpm/master/testing/source/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
-BuildArch:	noarch
-#BuildRequires:  tree
+Group:      System Environment/Base
+License:    MIT
+URL:        https://github.com/taw00/riot-rpm
+Source0:    https://github.com/taw00/riot-rpm/raw/master/source/testing/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
+BuildArch: noarch
+#BuildRequires: tree
 
 # CentOS/RHEL/EPEL can't do "Suggests:"
-%if 0%{?fedora:1}
-Suggests:	distribution-gpg-keys-copr
-%endif
+# Update: Don't do suggests...
+#%%if 0%%{?fedora:1}
+#Suggests: distribution-gpg-keys-copr
+#%%endif
 
 
 %description
@@ -99,6 +100,12 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Mon Dec 17 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.1.testing.taw
+  - enabled_metadata needs to be set to 0 because COPR repos do not managed  
+    appstream metadata correctly  
+    <https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/>
+
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.taw
 * Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.3.testing.taw
 * Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.2.testing.taw
   - OpenSuse uses /etc/zypp and not /etc/yum... apparently. :/

@@ -1,19 +1,20 @@
-Name:		toddpkgs-riot-repo
-Version:	1.0
-Release:	4%{?dist}.taw0
-Summary:	Repository configuration to enable management of Riot packages
+Name:       toddpkgs-riot-repo
+Version:    1.0
+Release:    5%{?dist}.taw
+Summary:    Repository configuration to enable management of Riot packages
 
-Group:		System Environment/Base
-License:	MIT
-URL:		https://github.com/taw00/riot-rpm
-Source0:	https://raw.githubusercontent.com/taw00/riot-rpm/master/testing/source/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
-BuildArch:	noarch
-#BuildRequires:  tree
+Group:      System Environment/Base
+License:    MIT
+URL:        https://github.com/taw00/riot-rpm
+Source0:    https://github.com/taw00/riot-rpm/raw/master/source/testing/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
+BuildArch:  noarch
+#BuildRequires: tree
 
 # CentOS/RHEL/EPEL can't do "Suggests:"
-%if 0%{?fedora:1}
-Suggests:	distribution-gpg-keys-copr
-%endif
+# Update: Don't do suggests...
+#%%if 0%%{?fedora:1}
+#Suggests: distribution-gpg-keys-copr
+#%%endif
 
 
 %description
@@ -65,6 +66,7 @@ Notes about GPG keys:
 %install
 # Builds generically. Will need a disto specific RPM though.
 install -d %{buildroot}%{_sysconfdir}/yum.repos.d
+install -d %{buildroot}%{_sysconfdir}/zypp/repos.d
 install -d %{buildroot}%{_sysconfdir}/pki/rpm-gpg
 
 install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-todd-694673ED-public
@@ -76,18 +78,42 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
   install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
 %if 0%{?suse_version:1}
-  install -D -m644 keybase-toddwarner_riot-opensuse.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+  install -D -m644 keybase-toddwarner_riot-opensuse.repo-tumbleweed %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
 %endif
 
 
 %files
-%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
 %attr(644, root,root) %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-todd-694673ED-public
+%license LICENSE
+
+%if 0%{?fedora:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
+%endif
+
+%if 0%{?rhel:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/yum.repos.d/riot.repo
+%endif
+
+%if 0%{?suse_version:1}
+%config(noreplace) %attr(644, root,root) %{_sysconfdir}/zypp/repos.d/riot.repo
+%endif
 
 
 %changelog
-* Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.taw
-  - Update.
+* Mon Dec 17 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-5.taw
+* Mon Dec 17 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.1.testing.taw
+  - enabled_metadata needs to be set to 0 because COPR repos do not managed  
+    appstream metadata correctly  
+    <https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/>
+
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.3.testing.taw
+* Sat May 26 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.2.testing.taw
+  - OpenSuse uses /etc/zypp and not /etc/yum... apparently. :/
+  - Need a license for this package. Punted, like everyone else, and chose MIT
+  - Added type and autorefresh flags to repofile
+  - Made leap specific SPEC file. This (primary spec) will work generically  
+    though defaulting to opensuse tumbleweed.
 
 * Fri May 25 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-3.1.testing.taw
   - Support for OpenSuse

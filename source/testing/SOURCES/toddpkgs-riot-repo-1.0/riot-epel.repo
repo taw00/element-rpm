@@ -35,7 +35,9 @@ gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
 # GnuPG fingerprint should be F4ED2CDD2BB3A9DDBEAADE734D017B904F38BDE2
 repo_gpgcheck=0
-enabled_metadata=1
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0
 metadata_expire=1d
 
 [riot-testing]
@@ -47,5 +49,7 @@ skip_if_unavailable=True
 gpgcheck=1
 gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
 repo_gpgcheck=0
-enabled_metadata=1
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0
 metadata_expire=0
