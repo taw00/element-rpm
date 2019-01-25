@@ -23,7 +23,6 @@ Name: riot
 Summary: A decentralized, secure messaging client for collaborative group communication
 
 %define targetIsProduction 1
-%define includeMinorbump 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define archiveQualifier rc.2
@@ -32,7 +31,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION - can edit this
 # eg. 0.17.0
 %define vermajor 0.17
-%define verminor 8
+%define verminor 9
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
@@ -53,11 +52,8 @@ Version: %{vermajor}.%{verminor}
   %undefine snapinfo
 %endif
 
-# pkgrel will also be defined, snapinfo and minorbump may not be
+# pkgrel will always be defined, snapinfo and minorbump may not be
 %define _release %{_pkgrel}
-%if ! %{includeMinorbump}
-  %undefine minorbump
-%endif
 %if 0%{?snapinfo:1}
   %if 0%{?minorbump:1}
     %define _release %{_pkgrel}.%{snapinfo}%{?dist}.%{minorbump}
@@ -121,7 +117,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 BuildRequires: nodejs npm git
 BuildRequires: desktop-file-utils
 %if 0%{?suse_version:1}
-BuildRequires: appstream-glib
+BuildRequires: appstream-glib /bin/sh
 #BuildRequires: libappstream-glib8 appstream-glib
 %else
 BuildRequires: libappstream-glib
@@ -336,6 +332,7 @@ install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.128x128.png %{bu
 install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
 install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
+install -m755  %{srccontribtree}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
 install -D -m644 -p %{srccontribtree}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
 install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
@@ -344,8 +341,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 # /usr/lib/riot or /usr/lib64/riot...
 install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
 rm %{buildroot}%{installtree}/libffmpeg.so
-install -D -m755 -p %{buildroot}%{installtree}/libnode.so %{buildroot}%{_libdir}/%{name}/libnode.so
-rm %{buildroot}%{installtree}/libnode.so
+#install -D -m755 -p %%{buildroot}%%{installtree}/libnode.so %%{buildroot}%%{_libdir}/%%{name}/libnode.so
+#rm %%{buildroot}%%{installtree}/libnode.so
 install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
 
 
@@ -361,7 +358,7 @@ install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
 %{_libdir}/%{name}/libffmpeg.so
-%{_libdir}/%{name}/libnode.so
+#%%{_libdir}/%%{name}/libnode.so
 #%%{_docsdir}/*
 #%%{_mandir}/*
 
@@ -379,6 +376,19 @@ umask 007
 
 
 %changelog
+* Fri Jan 25 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-1.taw
+* Tue Jan 22 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-0.1.testing.taw
+  - v0.17.9
+
+* Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-2.taw
+* Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.1.testing.taw
+  - wrapper script in order to enable riot to better deal with the  
+    KDE+Electron issue (mentioned below). And discussed here...  
+    <https://github.com/taw00/riot-rpm/issues/16>  
+    Using a more generic approach to the problem since the prior solution  
+    assumed all desktops needed to be fixed, which is not the case. This  
+    may introduce other issues, but it is headed in the right direction.
+
 * Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.taw
 * Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-0.1.testing.taw
   - v0.17.8
@@ -398,7 +408,7 @@ umask 007
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-2.taw
 * Mon Nov 12 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.3-1.1.testing.taw
   - /usr/share/applications/riot.desktop file Exec line updated to work  
-    better with KDA Plasma desktops. Something to do with an electron bug 
+    better with KDE Plasma desktops. Something to do with an electron bug 
     or somesuch.
   - Now it reads: `Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/riot`  
     instead of `Exec=/usr/bin/riot`
@@ -553,7 +563,7 @@ npm ERR! request to https://registry.npmjs.org/minimist failed, reason: unable t
   - rpmlint and Packaging Guidelines compliance fixes:
     - Removed "Vender:" and "Packager:" - that's why we have changelogs.
     - Source0 has a github URL and there is additional instruction above
-    - Obsolotes done right.
+    - Obsoletes done right.
     - Moved all the application code to /usr/share/riot (opt is frowned upon)
     - Removed %%clean and removed the buildroot cleanup in %%install section
     - Made the Summary: compliant (shorter, no ending period, no name repeat

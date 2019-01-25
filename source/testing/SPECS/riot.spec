@@ -117,7 +117,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 BuildRequires: nodejs npm git
 BuildRequires: desktop-file-utils
 %if 0%{?suse_version:1}
-BuildRequires: appstream-glib
+BuildRequires: appstream-glib /bin/sh
 #BuildRequires: libappstream-glib8 appstream-glib
 %else
 BuildRequires: libappstream-glib
