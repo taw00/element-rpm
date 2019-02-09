@@ -25,13 +25,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define archiveQualifier rc.2
-%define includeArchiveQualifier 0
+%define archiveQualifier rc.1
+%define includeArchiveQualifier 1
 
 # VERSION - can edit this
-# eg. 0.17.0
-%define vermajor 0.17
-%define verminor 9
+# eg. 1.0.0
+%define vermajor 1.0
+%define verminor 0
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
@@ -48,6 +48,10 @@ Version: %{vermajor}.%{verminor}
 #
 
 %define snapinfo testing
+# Let's replace the default snapinfo with the archive qualifier
+%if %{includeArchiveQualifier}
+  %define snapinfo %archiveQualifier
+%endif
 %if %{targetIsProduction}
   %undefine snapinfo
 %endif
@@ -376,6 +380,10 @@ umask 007
 
 
 %changelog
+* Fri Feb 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.rc.1.taw
+  - v1.0.0-rc.1
+
+* Tue Jan 22 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-1.taw
 * Tue Jan 22 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-0.1.testing.taw
   - v0.17.9
 
