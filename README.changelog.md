@@ -1,4 +1,22 @@
 # changelog
+* Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-1.taw
+* Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.testing.taw
+* Fri Feb 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.rc.1.taw
+  - v1.0.0
+
+* Tue Jan 22 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-1.taw
+* Tue Jan 22 2019 Todd Warner <t0dd_at_protonmail.com> 0.17.9-0.1.testing.taw
+  - v0.17.9
+
+* Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-2.taw
+* Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.1.testing.taw
+  - wrapper script in order to enable riot to better deal with the  
+    KDE+Electron issue (mentioned below). And discussed here...  
+    <https://github.com/taw00/riot-rpm/issues/16>  
+    Using a more generic approach to the problem since the prior solution  
+    assumed all desktops needed to be fixed, which is not the case. This  
+    may introduce other issues, but it is headed in the right direction.
+
 * Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.taw
 * Mon Dec 10 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-0.1.testing.taw
   - v0.17.8
