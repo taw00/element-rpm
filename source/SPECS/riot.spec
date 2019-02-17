@@ -35,7 +35,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
   %define _pkgrel 0.1
 %endif
@@ -202,15 +202,6 @@ cd .. ; tree -df -L 1 %{srcroot} ; cd -
 rm -rf ${HOME}/.npm/_cacache
 #rm -f %%{srccodetree}/package-lock.json
 
-%if 0%{?suse_version:1}
-# We trust where we are getting modules from and Suse builds require
-# https-agnostism apparently (I don't know why) -t0dd
-/usr/bin/npm config set strict-ssl false
-/usr/bin/npm config set registry http://registry.npmjs.org/
-#/usr/bin/npm config set registry http://matrix.org/packages/npm/
-/usr/bin/npm config list
-%endif
-
 # -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
 # Note, if we actually did this normally, we'd put the fetch into either
 # Source0 or the prep section.
@@ -260,35 +251,16 @@ rm -rf ${HOME}/.npm/_cacache
 # -- END EXPERIMENTAL BUILD FROM GIT REPO --
 
 /usr/bin/npm install 
-%if 0%{?suse_version:1}
-  /usr/bin/sleep 15
-%endif
-/usr/bin/npm install 7zip-bin-linux
-%if 0%{?suse_version:1}
-  /usr/bin/sleep 15
-  npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
-%else
-  /usr/bin/npm --reg="http://registry.npmjs.org/" run build
-%endif
-
+/usr/bin/npm run build
 
 # builds linux-friendly stuff (we use this) and a default tarball, rpm, or
 # deb (not used)
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
-  %if 0%{?suse_version:1}
-    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
-  %else
-    ./node_modules/.bin/build -l tar.gz --x64
-  %endif
+  ./node_modules/.bin/build -l tar.gz --x64
 %else
-  %define linuxunpacked electron_app/dist/linux-ia32-unpacked
-  %if 0%{?suse_version:1}
-    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
-  %else
-    ./node_modules/.bin/build -l tar.gz --ia32
-  %endif
+  ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
 
@@ -380,6 +352,10 @@ umask 007
 
 
 %changelog
+* Sat Feb 16 2019 Karl Semich <0xloem_at_gmail.com> 1.0.0-2.taw
+  - Removed a number of opensuse cases that appeared outdated and very
+    unsafe.  Even if the source is trusted, disabling SSL allows a third
+    party to easily modify the downloads while in transit.
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-1.taw
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.testing.taw
 * Fri Feb 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.rc.1.taw

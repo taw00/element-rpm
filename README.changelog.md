@@ -1,4 +1,8 @@
 # changelog
+* Sat Feb 16 2019 Karl Semich <0xloem_at_gmail.com> 1.0.0-2.taw
+  - Removed a number of opensuse cases that appeared outdated and very
+    unsafe.  Even if the source is trusted, disabling SSL allows a third
+    party to easily modify the downloads while in transit.
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-1.taw
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.testing.taw
 * Fri Feb 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.rc.1.taw
