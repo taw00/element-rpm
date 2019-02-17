@@ -31,7 +31,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION - can edit this
 # eg. 1.0.0
 %define vermajor 1.0
-%define verminor 0
+%define verminor 1
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
@@ -104,11 +104,9 @@ ExclusiveArch: x86_64 i686 i586 i386
 %if %{includeArchiveQualifier}
   %define _source0 %{_legacy_name}-%{version}-%{archiveQualifier}
 %endif
-#Source0: %%{_source0}.tar.gz
-#Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
-#Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
+
 %if %{targetIsProduction}
-Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
+Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}.tar.gz#/%{_source0}.tar.gz
 Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 %else
 Source0: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{_source0}.tar.gz
@@ -380,6 +378,7 @@ umask 007
 
 
 %changelog
+* Sat Feb 16 2019 Karl Semich <0xloem_at_gmail.com> 1.0.1-1.taw
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-1.taw
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.testing.taw
 * Fri Feb 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.rc.1.taw
