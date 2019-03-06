@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This metadata copyright 2018 Todd Warner <t0dd_at_protonmail.com> -->
 <!-- https://fedoraproject.org/wiki/Packaging:AppData -->
-<!-- https://www.freedesktop.org/software/appstream/docs/chap-Metadata.htmla -->
+<!-- https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html -->
 <component type="desktop-application">
   <id>riot.desktop</id>
   <metadata_license>MIT</metadata_license>
@@ -47,9 +47,9 @@ functionality like never before.</p>
   </provides>
 
   <releases>
-    <release version="14.2" date="2018-05-03">
+    <release version="1.0" date="2019-02-14">
       <description>
-        <p>14.2 milestone release</p>
+        <p>1.0!!!</p>
       </description>
     </release>
   </releases>

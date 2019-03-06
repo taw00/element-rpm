@@ -31,7 +31,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION - can edit this
 # eg. 1.0.0
 %define vermajor 1.0
-%define verminor 1
+%define verminor 2
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
@@ -380,8 +380,13 @@ umask 007
 
 
 %changelog
+* Wed Mar 06 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.2-0.1.testing.taw
+  - 1.0.2
+
+* Tue Feb 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.1-1.taw
 * Tue Feb 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.1-0.1.testing.taw
   - v1.0.1
+  - And OpenSuse (tumbleweed at least) builds work once again! :)
 
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-1.taw
 * Thu Feb 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.0-0.1.testing.taw
