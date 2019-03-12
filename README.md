@@ -91,8 +91,8 @@ sudo zypper modifyrepo -er "riot-stable-leap"
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-4.1.testing.suse.tw20181213.taw.noarch.rpm
-sudo zypper modifyrepo -er "riot-stable-tumbleweed"
+sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-6.suse.tw.taw.noarch.rpm
+sudo zypper modifyrepo -er "riot-stable"
 ```
 
 **Install...**

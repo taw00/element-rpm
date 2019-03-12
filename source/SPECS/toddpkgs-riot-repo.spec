@@ -1,6 +1,6 @@
 Name:       toddpkgs-riot-repo
 Version:    1.0
-Release:    5%{?dist}.taw
+Release:    6%{?dist}.taw
 Summary:    Repository configuration to enable management of Riot packages
 
 Group:      System Environment/Base
@@ -8,13 +8,6 @@ License:    MIT
 URL:        https://github.com/taw00/riot-rpm
 Source0:    https://github.com/taw00/riot-rpm/raw/master/source/testing/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
 BuildArch:  noarch
-#BuildRequires: tree
-
-# CentOS/RHEL/EPEL can't do "Suggests:"
-# Update: Don't do suggests...
-#%%if 0%%{?fedora:1}
-#Suggests: distribution-gpg-keys-copr
-#%%endif
 
 
 %description
@@ -34,12 +27,12 @@ Install this, then...
 
 * For OpenSuse Leap
   sudo zypper refresh
-  sudo zypper modifyrepo -er "riot-stable-leap"
+  sudo zypper modifyrepo -er "riot-stable"
   sudo zypper install riot
 
 * For OpenSuse Tumbleweed
   sudo zypper refresh
-  sudo zypper modifyrepo -er "riot-stable-tumbleweed"
+  sudo zypper modifyrepo -er "riot-stable"
   sudo zypper install riot
 
 You can edit /etc/yum.repos.d/riot.repo (as root) and 'enable=1' or '0'
@@ -77,8 +70,14 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 %if 0%{?rhel:1}
   install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
-%if 0%{?suse_version:1}
-  install -D -m644 keybase-toddwarner_riot-opensuse.repo-tumbleweed %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+# https://en.opensuse.org/openSUSE:Packaging_for_Leap#RPM_Distro_Version_Macros
+%if 0%{?is_opensuse:1}
+  %if 0%{?sle_version:1}
+    # We're not checking for version of leap
+    install -D -m644 keybase-toddwarner_riot-opensuse.repo-leap %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+  %else
+    install -D -m644 riot-suse-tumbleweed.repo %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+  %endif
 %endif
 
 
@@ -100,6 +99,10 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-6.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-5.1.testing.taw
+  - OpenSuse Tumbleweed now supported by COPR
+
 * Mon Dec 17 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-5.taw
 * Mon Dec 17 2018 Todd Warner <t0dd_at_protonmail.com> 1.0-4.1.testing.taw
   - enabled_metadata needs to be set to 0 because COPR repos do not managed  
