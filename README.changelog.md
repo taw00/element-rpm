@@ -1,4 +1,21 @@
 # changelog
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-2.1.testing.taw
+  - Attempting to support EL7 builds by using nodesource repositories  
+    this requires including their repository in your build environ...  
+      https://rpm.nodesource.com/pub_8.x/el/7/$basearch  
+    and a reasonably specific version of nodejs (which includes npm)  
+    BuildRequires: nodejs = 2:8.15.1
+  - Special thanks go out to Grant Stephenson for figuring this out.
+
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-2.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-1.1.testing.taw
+  - XDG\_CURRENT\_DESKTOP=Unity and not UNITY apparently. So fragile.
+
+* Thu Mar 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-1.taw
+* Thu Mar 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-0.1.testing.taw
+  - 1.0.3
+
 * Wed Mar 06 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.2-1.taw
 * Wed Mar 06 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.2-0.1.testing.taw
   - 1.0.2

@@ -35,9 +35,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
-%define _pkgrel 1
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP - can edit this
@@ -118,7 +118,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{
 
 # https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 
-BuildRequires: nodejs npm git
+BuildRequires: git
 BuildRequires: desktop-file-utils
 %if 0%{?suse_version:1}
 BuildRequires: appstream-glib /bin/sh
@@ -126,6 +126,20 @@ BuildRequires: appstream-glib /bin/sh
 %else
 BuildRequires: libappstream-glib
 %endif
+%if 0%{?rhel:1}
+BuildRequires: curl yum
+%endif
+
+%if 0%{?rhel:1}
+# This is well beyond ugly, but you can't build with native EL7 versions of
+# npm & nodejs. And therefore you have to include
+# https://rpm.nodesource.com/pub_8.x/el/7/$basearch in your extra repos
+# and very specific package version (note, nodejs 8.15 provides npm as well)
+BuildRequires: nodejs = 2:8.15.1
+%else
+BuildRequires: nodejs npm
+%endif
+
 
 #t0dd: I will often add tree, vim-enhanced, and less for mock environment
 #      introspection
@@ -185,7 +199,7 @@ mkdir %{srcroot}
 echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
 
 # Swap out our package.json because we have SSL issues with https://matrix.org
-#cp %{srccontribtree}/package.json %{srccodetree}/
+#cp %%{srccontribtree}/package.json %%{srccodetree}/
 
 # For debugging purposes...
 %if ! %{targetIsProduction}
@@ -380,6 +394,19 @@ umask 007
 
 
 %changelog
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-2.1.testing.taw
+  - Attempting to support EL7 builds by using nodesource repositories  
+    this requires including their repository in your build environ...  
+      https://rpm.nodesource.com/pub_8.x/el/7/$basearch  
+    and a reasonably specific version of nodejs (which includes npm)  
+    BuildRequires: nodejs = 2:8.15.1
+  - Special thanks go out to Grant Stephenson for figuring this out.
+
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-2.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-1.1.testing.taw
+  - XDG_CURRENT_DESKTOP=Unity and not UNITY apparently. So fragile.
+
 * Thu Mar 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-1.taw
 * Thu Mar 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-0.1.testing.taw
   - 1.0.3

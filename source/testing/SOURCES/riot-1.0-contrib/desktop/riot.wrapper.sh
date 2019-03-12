@@ -73,7 +73,7 @@ then
     then
         if [ $force_kde -eq 0 ]
         then
-            _XDG_CURRENT_DESKTOP=UNITY
+            _XDG_CURRENT_DESKTOP=Unity
         else
             # Experimental. kde is still problematic.
             echoerr "\
