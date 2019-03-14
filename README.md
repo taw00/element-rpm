@@ -25,8 +25,8 @@ It's easy to install and run Riot. Currently built for these platforms...
 * Fedora: versions 27, 28, 29 -- x86\_64, i686<br />
   NOTE: I will stop building for any version of an OS that is no longer supported
 * CentOS (and RHEL): version 7 -- x86\_64 only
-* OpenSuse: Tumbleweed and Leap 15.0 -- x86\_64 only  
-  CAVEAT: I have not been successful at creating OpenSUSE builds > riot 16.6. Help wanted!
+* OpenSuse: Tumbleweed ~~and Leap 15.0~~ -- x86\_64 only  
+  CAVEAT: I have not been successful at creating OpenSUSE Leap builds > riot 16.6. Help wanted!
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
