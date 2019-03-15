@@ -35,9 +35,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
-%define _pkgrel 3
+%define _pkgrel 4
 %if ! %{targetIsProduction}
-  %define _pkgrel 2.1
+  %define _pkgrel 3.1
 %endif
 
 # MINORBUMP - can edit this
@@ -225,54 +225,7 @@ rm -rf ${HOME}/.npm/_cacache
 /usr/bin/npm config list
 %endif
 
-# -- BEGIN EXPERIMENTAL BUILD FROM GIT REPO --
-# Note, if we actually did this normally, we'd put the fetch into either
-# Source0 or the prep section.
-%define _devel_branch_yn 0
-%if %{?_devel_branch_yn}
-  # For now we are nuking the code tree and checking it out with git :(
-  rm -rf %{srccodetree}
-  %define _tag v%{version}
-  %if %{includeArchiveQualifier}
-    %define _tag v%{version}-%{archiveQualifier}
-  %endif
-  /usr/bin/git clone https://github.com/vector-im/riot-web.git %{srccodetree}
-  cd %{srccodetree}
-  /usr/bin/git checkout tags/%{_tag}
-
-  ./scripts/fetch-develop.deps.sh
-
-  cd matrix-js-sdk
-  /usr/bin/git pull
-  /usr/bin/npm install 
-  /usr/bin/npm run build
-  cd ..
-
-  cd matrix-react-sdk
-  /usr/bin/git pull
-  /usr/bin/npm install 
-  /usr/bin/npm run build
-  cd ..
-
-  if [ ! -e node_modules/matrix-js-sdk ]
-  then
-    cd node_modules
-    ln -s ../matrix-js-sdk .
-    cd..
-  fi
-  if [ ! -e node_modules/matrix-react-sdk ]
-    cd node_modules
-    ln -s ../matrix-react-sdk .
-    cd ..
-  fi
-
-  #mv matrix-js-sdk node_modules/
-  #mv matrix-react-sdk node_modules/
-%else
-  cd %{srccodetree}
-%endif
-# -- END EXPERIMENTAL BUILD FROM GIT REPO --
-
+cd %{srccodetree}
 /usr/bin/npm install 
 %if 0%{?suse_version:1}
   /usr/bin/sleep 15
@@ -328,6 +281,8 @@ install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 %define _metainfodir %{_datadir}/metainfo
 
 cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
+# bug https://github.com/vector-im/riot-web/issues/9166 ... alerted by user "Aaron"
+install -D -m644 -p %{srccodetree}/config.sample.json %{buildroot}%{installtree}/resources/webapp/config.json
 
 # a little ugly - symbolic link creation
 ln -s %{installtree}/%{_legacy_name} %{buildroot}%{_bindir}/%{name}
@@ -394,6 +349,11 @@ umask 007
 
 
 %changelog
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-4.taw
+* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
+  - fixing https://github.com/vector-im/riot-web/issues/9166  
+    no config.json file in the webapp directory... breaks certain indices
+
 * Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.taw
 * Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-2.1.testing.taw
   - Attempting to support EL7 builds by using nodesource repositories  
