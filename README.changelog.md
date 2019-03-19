@@ -1,6 +1,6 @@
 # changelog
-* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-4.taw
-* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
+* Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-4.taw
+* Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
   - fixing https://github.com/vector-im/riot-web/issues/9166  
     no config.json file in the webapp directory... breaks certain indices
 
