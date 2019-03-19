@@ -1,4 +1,9 @@
 # changelog
+* Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-1.taw
+* Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
+  - 1.0.4
+  - yarn replaces npm for js package management
+
 * Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-4.taw
 * Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
   - fixing https://github.com/vector-im/riot-web/issues/9166  

@@ -31,13 +31,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 # VERSION - can edit this
 # eg. 1.0.0
 %define vermajor 1.0
-%define verminor 3
+%define verminor 4
 Version: %{vermajor}.%{verminor}
 
 # RELEASE - can edit this
-%define _pkgrel 4
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 3.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP - can edit this
@@ -107,68 +107,57 @@ ExclusiveArch: x86_64 i686 i586 i386
 #Source0: %%{_source0}.tar.gz
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
 #Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
-%if %{targetIsProduction}
 Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
 Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
-%else
-Source0: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{_source0}.tar.gz
-Source1: https://github.com/taw00/riot-rpm/blob/master/source/testing/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
-%endif
 
-
+%if 0%{?suse_version:1}
 # https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
-
+#BuildRequires: libappstream-glib8 appstream-glib
 BuildRequires: git
 BuildRequires: desktop-file-utils
-%if 0%{?suse_version:1}
 BuildRequires: appstream-glib /bin/sh
-#BuildRequires: libappstream-glib8 appstream-glib
-%else
-BuildRequires: libappstream-glib
-%endif
-%if 0%{?rhel:1}
-BuildRequires: curl yum
+BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 %endif
 
 %if 0%{?rhel:1}
-# This is well beyond ugly, but you can't build with native EL7 versions of
-# npm & nodejs. And therefore you have to include
-# https://rpm.nodesource.com/pub_8.x/el/7/$basearch in your extra repos
-# and very specific package version (note, nodejs 8.15 provides npm as well)
-BuildRequires: nodejs = 2:8.15.1
+BuildRequires: git
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+# This is super ugly
+# EL7 is too far behind on many many packages. Therefore, you have to pull
+# from other repos. In this case, nodejs and yarn.
+# Include these repos into your mock or build environments...
+#   https://rpm.nodesource.com/pub_10.x/el/7/$basearch
+#   https://dl.yarnpkg.com/rpm/
+# Note that this version of nodejs installs npm as well.
+BuildRequires: nodejs >= 2:10
+BuildRequires: yarn
+%endif
+
+%if 0%{?fedora:1}
+BuildRequires: git
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+%if 0%{?fedora} >= 29
+BuildRequires: nodejs npm nodejs-yarn
 %else
 BuildRequires: nodejs npm
 %endif
+%endif
 
-
-#t0dd: I will often add tree, vim-enhanced, and less for mock environment
-#      introspection
+#t0dd: I add tree, vim-enhanced, and less for mock environment introspection
 %if ! %{targetIsProduction}
 BuildRequires: tree vim-enhanced less findutils
 %endif
 
 
-#t0dd: Trying to remove dependence on libffmpeg.so (FOSS issues, I believe).
-#      Thus far, I have been unsuccessful. Additionally, hardcoded "Requires"
-#      breaks cross-distro builds. :(
-#AutoReq: no
-# constructed subset from results of autoreq from previous builds - we do all this so we can exclude individual libraries
-#Requires: bash nodejs alsa-lib atk glibc cairo cups-libs dbus-libs expat fontconfig freetype libgcc GConf2 gtk2 gdk-pixbuf2 glib2 
-#Requires: libX11 libXcomposite libX11-xcb libXcursor libXdamage libXext libXfixes libXi libXrandr libXrender libXScrnSaver libXtst
-#Requires: nspr nss nss-util pango libstdc++ libxcb 
-# Requirements desired, but not found...
-# ld-linux-x86-64.so.2 libnode.so (we provide) rpmlib rtld
-# This package currently provides libffmpeg.so
-#Requires: libffmpeg.so
-
-
 # Unarchived source tree structure (extracted in {_builddir})
-#   srcroot               riot-0.16
-#      \_srccodetree        \_riot-0.16.0 (or riot-0.16.0-rc.2 or riot-v0.16.0 or riot-v0.16.0-rc.2)
-#      \_srccontribtree     \_riot-0.16-contrib
-%define srcroot %{name}-%{vermajor}
-%define srccodetree %{_source0}
-%define srccontribtree %{name}-%{vermajor}-contrib
+#   sourceroot               riot-1.0
+#      \_sourcetree            \_riot-1.0.4 (or riot-1.0.4-rc.2)
+#      \_sourcetree_contrib    \_riot-1.0-contrib
+%define sourceroot %{name}-%{vermajor}
+%define sourcetree %{_source0}
+%define sourcetree_contrib %{name}-%{vermajor}-contrib
 # /usr/share/riot
 %define installtree %{_datadir}/%{name}
 
@@ -190,57 +179,121 @@ Riot is free. Riot is secure.
 
 %prep
 # Prep section starts us in directory {_builddir}
-# Extract into {_builddir}/{srcroot}/
-mkdir %{srcroot}
-%setup -q -T -D -a 0 -n %{srcroot}
-%setup -q -T -D -a 1 -n %{srcroot}
+
+# The prep section is the first place we can run shell commands. Therefore,
+# these checks are here...
+%if 0%{?suse_version:1}
+echo "======== Opensuse version: %{suse_version}"
+echo "Supporting ANY version of opensuse is a struggle. Fair warning."
+%endif
+
+%if 0%{?fedora:1}
+echo "======== Fedora version: %{fedora}"
+%if 0%{?fedora} < 28
+echo "Fedora 27 and older can't be supported. Sorry."
+exit 1
+%endif
+%endif
+
+%if 0%{?rhel:1}
+echo "======== EL version: %{rhel}"
+%if 0%{?rhel} < 7
+echo "EL 6 and older can't be supported. Sorry."
+exit 1
+%endif
+%if 0%{?rhel} >= 8
+echo "EL 8 and newer is untested thus far. Good luck."
+%endif
+%endif
+
+# Extract into {_builddir}/{sourceroot}/
+mkdir %{sourceroot}
+%setup -q -T -D -a 0 -n %{sourceroot}
+%setup -q -T -D -a 1 -n %{sourceroot}
 
 # Make sure the right library path is used...
-echo "%{_libdir}/%{name}" > %{srccontribtree}/etc-ld.so.conf.d_%{name}.conf
+echo "%{_libdir}/%{name}" > %{sourcetree_contrib}/etc-ld.so.conf.d_%{name}.conf
 
 # Swap out our package.json because we have SSL issues with https://matrix.org
-#cp %%{srccontribtree}/package.json %%{srccodetree}/
+#cp %%{sourcetree_contrib}/package.json %%{sourcetree}/
 
 # For debugging purposes...
 %if ! %{targetIsProduction}
-cd .. ; tree -df -L 1 %{srcroot} ; cd -
+cd .. ; tree -df -L 1 %{sourceroot} ; cd -
 %endif
 
 
 %build
-# Build section starts us in directory {_builddir}/{srcroot}
+# Build section starts us in directory {_builddir}/{sourceroot}
 
-# Clearing npm's cache and package lock to eliminate SHA1 integrity issues.
-#%%{warn: "taw build note: I keep running into this fatal error --'integrity checksum failed when using sha1'. Taking dramatic action -brute force- in an attempt to remedy it.' If someone can figure out what is causing this, I will buy them a beer."}
-/usr/bin/npm cache clean --force
-rm -rf ${HOME}/.npm/_cacache
-#rm -f %%{srccodetree}/package-lock.json
+cd %{sourcetree}
 
+#
+# OPENSUSE
+#
 %if 0%{?suse_version:1}
+echo "======== Opensuse version: %{suse_version}"
+# This will likely fail.
 # We trust where we are getting modules from and Suse builds require
-# https-agnostism apparently (I don't know why) -t0dd
-/usr/bin/npm config set strict-ssl false
-/usr/bin/npm config set registry http://registry.npmjs.org/
-#/usr/bin/npm config set registry http://matrix.org/packages/npm/
-/usr/bin/npm config list
+# https-agnostism apparently (hence http instead of https) due to
+# some cert install issue I haven't figured out yet -t0dd
+npm config set strict-ssl false
+npm config set registry http://registry.npmjs.org/
+npm config list
+# Setting this environment variable every time is probably overkill...
+npm_config_strict_ssl=false npm --reg="http://registry.npmjs.org/" install yarn
+_pwd=$(pwd)
+echo "\
+alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
+. ~/.bashrc
+npm_config_strict_ssl=false yarn add electron-builder --dev
+npm_config_strict_ssl=false yarn add electron-packager --dev
+npm_config_strict_ssl=false yarn install 
+npm_config_strict_ssl=false yarn build
 %endif
 
-cd %{srccodetree}
-/usr/bin/npm install 
-%if 0%{?suse_version:1}
-  /usr/bin/sleep 15
-%endif
-/usr/bin/npm install 7zip-bin-linux
-%if 0%{?suse_version:1}
-  /usr/bin/sleep 15
-  npm_config_strict_ssl=false /usr/bin/npm --reg="http://registry.npmjs.org/" run build
+#
+# FEDORA
+#
+%if 0%{?fedora:1}
+echo "======== Fedora version: %{fedora}"
+# Fedora 29+
+%if 0%{?fedora} >= 29
+  echo "\
+# nodejs-yarn installs /usr/bin/yarnpkg for some reason (conflicts?). So, we
+# simply alias it so that embedded scripts don't stumble over this anomaly
+alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
+  . ~/.bashrc
+# Fedora 28-
 %else
-  /usr/bin/npm --reg="http://registry.npmjs.org/" run build
+  npm install yarn
+  _pwd=$(pwd)
+  echo "\
+alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
+  . ~/.bashrc
+  yarn add electron-builder --dev
+  yarn add electron-packager --dev
+%endif
+# Fedora all versions
+yarn install 
+yarn build
 %endif
 
+#
+# RHEL / CENTOS
+#
+%if 0%{?rhel:1}
+echo "======== EL version: %{rhel}"
+# Note: If you did not add the two extra repos mentioned in the BuildRequires
+# section into your build system, this will fail.
+yarn add electron-builder --dev
+yarn add electron-packager --dev
+yarn install 
+yarn build
+%endif
 
-# builds linux-friendly stuff (we use this) and a default tarball, rpm, or
-# deb (not used)
+# builds linux-friendly stuff (we use this)
+# Also builds stuff we do not use: a default tarball and rpm (or deb)
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
@@ -260,7 +313,7 @@ cd %{srccodetree}
 
 
 %install
-# Install section starts us in directory {_builddir}/{srcroot}
+# Install section starts us in directory {_builddir}/{sourceroot}
 
 # Cheatsheet for some built-in RPM macros:
 # https://fedoraproject.org/wiki/Packaging:RPMMacros
@@ -280,35 +333,35 @@ install -d %{buildroot}%{_datadir}/applications
 install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 %define _metainfodir %{_datadir}/metainfo
 
-cp -a %{srccodetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
+cp -a %{sourcetree}/%{linuxunpacked}/* %{buildroot}%{installtree}
 # bug https://github.com/vector-im/riot-web/issues/9166 ... alerted by user "Aaron"
-install -D -m644 -p %{srccodetree}/config.sample.json %{buildroot}%{installtree}/resources/webapp/config.json
+install -D -m644 -p %{sourcetree}/config.sample.json %{buildroot}%{installtree}/resources/webapp/config.json
 
 # a little ugly - symbolic link creation
 ln -s %{installtree}/%{_legacy_name} %{buildroot}%{_bindir}/%{name}
 
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.16x16.png   %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.22x22.png   %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.24x24.png   %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.32x32.png   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.48x48.png   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.hicolor.svg         %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/riot.svg
 
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
-install -D -m644 -p %{srccontribtree}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.16x16.png   %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.22x22.png   %{buildroot}%{_datadir}/icons/HighContrast/22x22/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.24x24.png   %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.32x32.png   %{buildroot}%{_datadir}/icons/HighContrast/32x32/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.48x48.png   %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.128x128.png %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.256x256.png %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/riot.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
-install -m755  %{srccontribtree}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
-install -D -m644 -p %{srccontribtree}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
+install -m755  %{sourcetree_contrib}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
-install -D -m644 -p %{srccontribtree}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
+install -D -m644 -p %{sourcetree_contrib}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # /usr/lib/riot or /usr/lib64/riot...
@@ -316,12 +369,12 @@ install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdi
 rm %{buildroot}%{installtree}/libffmpeg.so
 #install -D -m755 -p %%{buildroot}%%{installtree}/libnode.so %%{buildroot}%%{_libdir}/%%{name}/libnode.so
 #rm %%{buildroot}%%{installtree}/libnode.so
-install -D -m644 -p %{srccontribtree}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
+install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
 
 
 %files
 %defattr(-,root,root,-)
-%license %{srccodetree}/LICENSE
+%license %{sourcetree}/LICENSE
 # We own /usr/share/riot and everything under it...
 %{installtree}
 %{_datadir}/icons/*
@@ -349,7 +402,12 @@ umask 007
 
 
 %changelog
-* Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
+* Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
+  - 1.0.4
+  - yarn replaces npm for js package management
+
+* Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-4.taw
+* Fri Mar 15 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.3-3.1.testing.taw
   - fixing https://github.com/vector-im/riot-web/issues/9166  
     no config.json file in the webapp directory... breaks certain indices
 
