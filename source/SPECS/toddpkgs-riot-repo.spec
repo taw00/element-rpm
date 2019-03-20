@@ -1,12 +1,12 @@
 Name:       toddpkgs-riot-repo
 Version:    1.0
-Release:    6%{?dist}.taw
+Release:    7%{?dist}.taw
 Summary:    Repository configuration to enable management of Riot packages
 
 Group:      System Environment/Base
 License:    MIT
 URL:        https://github.com/taw00/riot-rpm
-Source0:    https://github.com/taw00/riot-rpm/raw/master/source/testing/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
+Source0:    https://github.com/taw00/riot-rpm/raw/master/source/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
 BuildArch:  noarch
 
 
@@ -64,12 +64,27 @@ install -d %{buildroot}%{_sysconfdir}/pki/rpm-gpg
 
 install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-todd-694673ED-public
 
+##
+## Fedora
+##
 %if 0%{?fedora:1}
   install -D -m644 riot-fedora.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %endif
+##
+## EL (Epel)
+##
 %if 0%{?rhel:1}
-  install -D -m644 riot-epel.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+%if 0%{?rhel} < 8
+  install -D -m644 riot-el7.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+%else
+  %if 0%{?rhel} < 9
+    install -D -m644 riot-el8.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+  %endif
 %endif
+%endif
+##
+## OpenSUSE
+##
 # https://en.opensuse.org/openSUSE:Packaging_for_Leap#RPM_Distro_Version_Macros
 %if 0%{?is_opensuse:1}
   %if 0%{?sle_version:1}
@@ -99,6 +114,11 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Wed Mar 20 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-7.taw
+* Wed Mar 20 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-6.1.testing.taw
+  - Apparently, my EPEL URL was "too generic" and would fail for some people.  
+    Made more explicit.
+
 * Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-6.taw
 * Tue Mar 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-5.1.testing.taw
   - OpenSuse Tumbleweed now supported by COPR

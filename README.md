@@ -39,7 +39,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-5.fedora.taw.noarch.rpm
+sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.fedora.taw.noarch.rpm
 ```
 **Install...**
 ```bash
@@ -61,7 +61,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo yum install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-5.el7.taw.noarch.rpm
+sudo yum install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.el7.taw.noarch.rpm
 ```
 **Install...**
 ```bash
@@ -93,7 +93,7 @@ sudo zypper modifyrepo -er "riot-stable-leap"
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-6.suse.tw.taw.noarch.rpm
+sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.suse.tw.taw.noarch.rpm
 sudo zypper modifyrepo -er "riot-stable"
 ```
 
