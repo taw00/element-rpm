@@ -28,19 +28,18 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define archiveQualifier rc.1
 %define includeArchiveQualifier 0
 
-# VERSION - can edit this
-# eg. 1.0.0
+# VERSION
 %define vermajor 1.0
-%define verminor 4
+%define verminor 5
 Version: %{vermajor}.%{verminor}
 
-# RELEASE - can edit this
+# RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
   %define _pkgrel 0.1
 %endif
 
-# MINORBUMP - can edit this
+# MINORBUMP
 %define minorbump taw
 
 #
@@ -153,7 +152,7 @@ BuildRequires: tree vim-enhanced less findutils
 
 # Unarchived source tree structure (extracted in {_builddir})
 #   sourceroot               riot-1.0
-#      \_sourcetree            \_riot-1.0.4 (or riot-1.0.4-rc.2)
+#      \_sourcetree            \_riot-1.0.5 (or riot-1.0.5-rc.2)
 #      \_sourcetree_contrib    \_riot-1.0-contrib
 %define sourceroot %{name}-%{vermajor}
 %define sourcetree %{_source0}
@@ -183,26 +182,26 @@ Riot is free. Riot is secure.
 # The prep section is the first place we can run shell commands. Therefore,
 # these checks are here...
 %if 0%{?suse_version:1}
-echo "======== Opensuse version: %{suse_version}"
-echo "Supporting ANY version of opensuse is a struggle. Fair warning."
+  echo "======== Opensuse version: %{suse_version}"
+  echo "Supporting ANY version of opensuse is a struggle. Fair warning."
 %endif
 
 %if 0%{?fedora:1}
-echo "======== Fedora version: %{fedora}"
+  echo "======== Fedora version: %{fedora}"
 %if 0%{?fedora} < 28
-echo "Fedora 27 and older can't be supported. Sorry."
-exit 1
+  echo "Fedora 27 and older can't be supported. Sorry."
+  exit 1
 %endif
 %endif
 
 %if 0%{?rhel:1}
-echo "======== EL version: %{rhel}"
+  echo "======== EL version: %{rhel}"
 %if 0%{?rhel} < 7
-echo "EL 6 and older can't be supported. Sorry."
-exit 1
+  echo "EL 6 and older can't be supported. Sorry."
+  exit 1
 %endif
 %if 0%{?rhel} >= 8
-echo "EL 8 and newer is untested thus far. Good luck."
+  echo "EL 8 and newer is untested thus far. Good luck."
 %endif
 %endif
 
@@ -219,7 +218,7 @@ echo "%{_libdir}/%{name}" > %{sourcetree_contrib}/etc-ld.so.conf.d_%{name}.conf
 
 # For debugging purposes...
 %if ! %{targetIsProduction}
-cd .. ; tree -df -L 1 %{sourceroot} ; cd -
+  cd .. ; tree -df -L 1 %{sourceroot} ; cd -
 %endif
 
 
@@ -292,6 +291,9 @@ yarn install
 yarn build
 %endif
 
+#
+# all distributions
+#
 # builds linux-friendly stuff (we use this)
 # Also builds stuff we do not use: a default tarball and rpm (or deb)
 %define linuxunpacked electron_app/dist/linux-unpacked
@@ -402,6 +404,10 @@ umask 007
 
 
 %changelog
+* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
+  - 1.0.5
+
+* Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-1.taw
 * Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
   - 1.0.4
   - yarn replaces npm for js package management
