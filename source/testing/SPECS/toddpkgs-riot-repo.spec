@@ -1,6 +1,6 @@
 Name:       toddpkgs-riot-repo
 Version:    1.0
-Release:    6.1.testing%{?dist}.taw
+Release:    7.1.testing%{?dist}.taw
 Summary:    Repository configuration to enable management of Riot packages
 
 Group:      System Environment/Base
@@ -77,9 +77,9 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 %if 0%{?rhel} < 8
   install -D -m644 riot-el7.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
 %else
-  %if 0%{?rhel} < 9
-    install -D -m644 riot-el8.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
-  %endif
+%if 0%{?rhel} < 9
+  install -D -m644 riot-el8.repo %{buildroot}%{_sysconfdir}/yum.repos.d/riot.repo
+%endif
 %endif
 %endif
 ##
@@ -87,12 +87,12 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 ##
 # https://en.opensuse.org/openSUSE:Packaging_for_Leap#RPM_Distro_Version_Macros
 %if 0%{?is_opensuse:1}
-  %if 0%{?sle_version:1}
-    # We're not checking for version of leap
-    install -D -m644 keybase-toddwarner_riot-opensuse.repo-leap %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
-  %else
-    install -D -m644 riot-suse-tumbleweed.repo %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
-  %endif
+%if 0%{?sle_version:1}
+  # We're not checking for version of leap
+  install -D -m644 riot-suse-leap.repo %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+%else
+  install -D -m644 riot-suse-tumbleweed.repo %{buildroot}%{_sysconfdir}/zypp/repos.d/riot.repo
+%endif
 %endif
 
 
@@ -114,6 +114,10 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-8..taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-7.1.testing..taw
+  - got leap and tumbleweed working! In COPR!
+
 * Wed Mar 20 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-7.taw
 * Wed Mar 20 2019 Todd Warner <t0dd_at_protonmail.com> 1.0-6.1.testing.taw
   - Apparently, my EPEL URL was "too generic" and would fail for some people.  

@@ -1,6 +1,14 @@
 # changelog
-* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-1.taw
-* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-2.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.3.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.2.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.1.testing.taw
+  - OpenSUSE Tumbleweed builds once again. Turns out, you need to include  
+    ca certs in the base install. I am unsure which ones, so... I  
+    installed a pile of them.
+
+* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.taw
+* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-0.1.testing.taw
   - 1.0.5
 
 * Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-1.taw

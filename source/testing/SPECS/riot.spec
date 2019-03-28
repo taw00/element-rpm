@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.3
 %endif
 
 # MINORBUMP
@@ -112,7 +112,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{
 %if 0%{?suse_version:1}
 # https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 #BuildRequires: libappstream-glib8 appstream-glib
-BuildRequires: git
+BuildRequires: git ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
@@ -231,64 +231,56 @@ cd %{sourcetree}
 # OPENSUSE
 #
 %if 0%{?suse_version:1}
-echo "======== Opensuse version: %{suse_version}"
-# This will likely fail.
-# We trust where we are getting modules from and Suse builds require
-# https-agnostism apparently (hence http instead of https) due to
-# some cert install issue I haven't figured out yet -t0dd
-npm config set strict-ssl false
-npm config set registry http://registry.npmjs.org/
-npm config list
-# Setting this environment variable every time is probably overkill...
-npm_config_strict_ssl=false npm --reg="http://registry.npmjs.org/" install yarn
-_pwd=$(pwd)
-echo "\
+  echo "======== Opensuse version: %{suse_version}"
+  npm install yarn
+  _pwd=$(pwd)
+  echo "\
 alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
-. ~/.bashrc
-npm_config_strict_ssl=false yarn add electron-builder --dev
-npm_config_strict_ssl=false yarn add electron-packager --dev
-npm_config_strict_ssl=false yarn install 
-npm_config_strict_ssl=false yarn build
+  source ~/.bashrc
+  yarn add electron-builder --dev
+  yarn add electron-packager --dev
+  yarn install 
+  yarn build
 %endif
 
 #
 # FEDORA
 #
 %if 0%{?fedora:1}
-echo "======== Fedora version: %{fedora}"
-# Fedora 29+
-%if 0%{?fedora} >= 29
-  echo "\
+  echo "======== Fedora version: %{fedora}"
+  # Fedora 29+
+  %if 0%{?fedora} >= 29
+    echo "\
 # nodejs-yarn installs /usr/bin/yarnpkg for some reason (conflicts?). So, we
 # simply alias it so that embedded scripts don't stumble over this anomaly
 alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
-  . ~/.bashrc
-# Fedora 28-
-%else
-  npm install yarn
-  _pwd=$(pwd)
-  echo "\
+    source ~/.bashrc
+  # Fedora 28-
+  %else
+    npm install yarn
+    _pwd=$(pwd)
+    echo "\
 alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
-  . ~/.bashrc
-  yarn add electron-builder --dev
-  yarn add electron-packager --dev
-%endif
-# Fedora all versions
-yarn install 
-yarn build
+    source ~/.bashrc
+    yarn add electron-builder --dev
+    yarn add electron-packager --dev
+  %endif
+  # Fedora all versions
+  yarn install 
+  yarn build
 %endif
 
 #
 # RHEL / CENTOS
 #
 %if 0%{?rhel:1}
-echo "======== EL version: %{rhel}"
-# Note: If you did not add the two extra repos mentioned in the BuildRequires
-# section into your build system, this will fail.
-yarn add electron-builder --dev
-yarn add electron-packager --dev
-yarn install 
-yarn build
+  echo "======== EL version: %{rhel}"
+  # Note: If you did not add the two extra repos mentioned in the BuildRequires
+  # section into your build system, this will fail.
+  yarn add electron-builder --dev
+  yarn add electron-packager --dev
+  yarn install 
+  yarn build
 %endif
 
 #
@@ -299,18 +291,9 @@ yarn build
 %define linuxunpacked electron_app/dist/linux-unpacked
 %ifarch x86_64 amd64
   %define linuxunpacked electron_app/dist/linux-unpacked
-  %if 0%{?suse_version:1}
-    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --x64
-  %else
-    ./node_modules/.bin/build -l tar.gz --x64
-  %endif
+  ./node_modules/.bin/build -l tar.gz --x64
 %else
-  %define linuxunpacked electron_app/dist/linux-ia32-unpacked
-  %if 0%{?suse_version:1}
-    npm_config_strict_ssl=false ./node_modules/.bin/build -l tar.gz --ia32
-  %else
-    ./node_modules/.bin/build -l tar.gz --ia32
-  %endif
+  ./node_modules/.bin/build -l tar.gz --ia32
 %endif
 
 
@@ -404,8 +387,17 @@ umask 007
 
 
 %changelog
-* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.3.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.2.testing.taw
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.1.testing.taw
+  - OpenSUSE Tumbleweed builds once again. Turns out, you need to include  
+    ca certs in the base install. I am unsure which ones, so... I  
+    installed a pile of them.
+
+* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.taw
+* Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-0.1.testing.taw
   - 1.0.5
+  - OpenSUSE Tumbleweed is failing to build once again. Yarn+SSL issues.
 
 * Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-1.taw
 * Tue Mar 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.4-0.1.testing.taw

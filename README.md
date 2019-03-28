@@ -20,15 +20,12 @@ All \*.src.rpm packages provided in this github repository should be signed with
 
 ## I just want to install Riot!
 
-It's easy to install and run Riot. Currently built for these platforms...
+It's easy to install and run Riot. Currently built for these platforms (x86\_64 only)...  
+_Note: I will stop building for any version of an OS that is itself no longer supported_
 
-* Fedora: versions 28, 29 -- x86_64 only<br />
-  NOTE: I will stop building for any version of an OS that is no longer supported
-* CentOS (and RHEL): version 7 -- x86\_64 only
-* OpenSuse: Tumbleweed ~~and Leap 15.0~~ -- x86\_64 only  
-  CAVEAT:
-  1. I have not been successful at creating OpenSUSE Leap builds > riot 16.6. Help wanted!
-  2. OpenSUSE Tumbleweed builds ... are a struggled to keep current. FYI.
+* Fedora: versions 28, 29
+* CentOS (and RHEL): version 7
+* OpenSuse: Tumbleweed and Leap 15
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
@@ -39,7 +36,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.fedora.taw.noarch.rpm
+sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-fedora.rpm
 ```
 **Install...**
 ```bash
@@ -61,7 +58,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo yum install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.el7.taw.noarch.rpm
+sudo yum install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.epel.rpm
 ```
 **Install...**
 ```bash
@@ -79,13 +76,13 @@ have to clean up a file named `riot-messaging-client*.repo` in
 
 ### For OpenSuse...
 
-_Note that OpenSuse support is still being tested._
+_Note that OpenSUSE support is still hit or miss._
 
 **Prep (OpenSuse Leap)...**
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-4.1.testing.suse.lp150.taw.noarch.rpm
+sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.suse.leap.rpm
 sudo zypper modifyrepo -er "riot-stable-leap"
 ```
 
@@ -93,7 +90,7 @@ sudo zypper modifyrepo -er "riot-stable-leap"
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-1.0-7.suse.tw.taw.noarch.rpm
+sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.suse.tw.rpm
 sudo zypper modifyrepo -er "riot-stable"
 ```
 
