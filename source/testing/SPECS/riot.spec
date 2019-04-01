@@ -30,13 +30,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.0
-%define verminor 5
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.3
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -115,13 +115,18 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{
 BuildRequires: git ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
+%if 0%{?suse_version} < 1510
+BuildRequires: nodejs8 npm8 nodejs8-devel
+%else
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
+%endif
 %endif
 
 %if 0%{?rhel:1}
 BuildRequires: git
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+%if 0%{?rhel} < 8
 # This is super ugly
 # EL7 is too far behind on many many packages. Therefore, you have to pull
 # from other repos. In this case, nodejs and yarn.
@@ -131,6 +136,10 @@ BuildRequires: libappstream-glib
 # Note that this version of nodejs installs npm as well.
 BuildRequires: nodejs >= 2:10
 BuildRequires: yarn
+%else
+# EL8 is based on Fedora 28
+BuildRequires: nodejs npm
+%endif
 %endif
 
 %if 0%{?fedora:1}
@@ -199,9 +208,6 @@ Riot is free. Riot is secure.
 %if 0%{?rhel} < 7
   echo "EL 6 and older can't be supported. Sorry."
   exit 1
-%endif
-%if 0%{?rhel} >= 8
-  echo "EL 8 and newer is untested thus far. Good luck."
 %endif
 %endif
 
@@ -275,8 +281,18 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 %if 0%{?rhel:1}
   echo "======== EL version: %{rhel}"
-  # Note: If you did not add the two extra repos mentioned in the BuildRequires
-  # section into your build system, this will fail.
+  %if 0%{?rhel} < 8
+    # Note: If you did not add the two extra repos mentioned in the BuildRequires
+    # section for EL7 into your build system, that build will fail.
+  %else
+    # EL8 is based on Fedora 28
+    npm install yarn
+    _pwd=$(pwd)
+    echo "\
+alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
+    source ~/.bashrc
+  %endif
+  # EL all versions
   yarn add electron-builder --dev
   yarn add electron-packager --dev
   yarn install 
@@ -387,6 +403,12 @@ umask 007
 
 
 %changelog
+* Mon Apr 01 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-0.1.testing.taw
+  - 1.0.6
+  - OpenSUSE 15.1 _and_ 15.0 now.
+  - Attempt at RHEL8-beta ... failed for now.
+
+* Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-2.taw
 * Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.3.testing.taw
 * Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.2.testing.taw
 * Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.1.testing.taw
