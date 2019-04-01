@@ -76,7 +76,7 @@ have to clean up a file named `riot-messaging-client*.repo` in
 
 ### For OpenSuse...
 
-_Note that OpenSUSE support is still hit or miss._
+_Note that OpenSUSE support is still hit or miss. I need reports from testers._
 
 **Prep (OpenSuse Leap)...**
 ```bash
@@ -112,6 +112,8 @@ Note: If none of this made sense or you couldn't get it to work, Riot can also b
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
 
+Note that with updates you may have to do a `killall riot-web`. Quiting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
+
 ```bash
 # Fedora...
 sudo dnf upgrade
@@ -129,7 +131,7 @@ I do this as a hobby, but I will try to be timely with my updates.
 
 ## I live on the edge! Do you have test packages available?
 
-Yes! As of April 10, 2018, I started building test packages (Fedora and Epel only).
+Yes!
 
 1. Follow the steps described above to install the repository configure file.  
    _You will have to refresh it if you have done this before today._
@@ -148,4 +150,4 @@ I built these for my own use. I offer these builds for your own convenience. If 
 
 # Questions or comments...
 
-Contact: **t0dd_at_protonmail.com** or find me at **@t0dd:matrix.org** after you installed Riot!
+Contact: **t0dd_at_protonmail.com** or find me at **@t0dd:matrix.org** after you have installed Riot!
