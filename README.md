@@ -23,9 +23,9 @@ All \*.src.rpm packages provided in this github repository should be signed with
 It's easy to install and run Riot. Currently built for these platforms (x86\_64 only)...  
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
-* Fedora: versions 28, 29
-* CentOS (and RHEL): version 7
-* OpenSuse: Tumbleweed and Leap 15
+* Fedora: versions 28, 29, 30
+* CentOS (and RHEL): version 7 (version 8 soon!)
+* OpenSuse: Tumbleweed and Leap 15 (15.0, 15.1)
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
@@ -46,11 +46,25 @@ sudo dnf install -y distribution-gpg-keys
 sudo dnf install -y riot --refresh
 ```
 
-_Note: If you installed the repository information by hand in the past, you may
-have to clean up a file named `riot-messaging-client*.repo` in
-`/etc/yum.repos.d/`_ 
+### For RHEL/CentOS version 8...
 
-### For CentOS or RHEL...
+_Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
+
+**Prep...**
+```bash
+# Snag the repository configuration (should only need to do once)
+sudo rpm --import https://keybase.io/toddwarner/key.asc
+sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.epel.rpm
+```
+**Install...**
+```bash
+# install Fedora's distribution GPG keys (should only need to do once)
+sudo dnf install -y distribution-gpg-keys
+# Install riot
+sudo dnf install -y riot --refresh
+```
+
+### For CentOS or RHEL version 7...
 
 _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-testing' will not._ 
 
@@ -69,10 +83,6 @@ sudo yum clean expire-cache
 # Install riot
 sudo yum install -y riot
 ```
-
-_Note: If you installed the repository information by hand in the past, you may
-have to clean up a file named `riot-messaging-client*.repo` in
-`/etc/yum.repos.d/`_ 
 
 ### For OpenSuse...
 
@@ -115,11 +125,11 @@ Once you have followed the repository and installation instructions above, you s
 Note that with updates you may have to do a `killall riot-web`. Quiting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
 
 ```bash
-# Fedora...
+# Fedora (any version) and RHEL/CentOS (version 8)...
 sudo dnf upgrade
 ```
 ```bash
-# CentOS or RHEL...
+# CentOS or RHEL version 7...
 sudo yum update
 ```
 ```bash
@@ -137,7 +147,7 @@ Yes!
    _You will have to refresh it if you have done this before today._
 2. Disable the stable repo and enable the testing repo...
 ```
-# Fedora only
+# Fedora (any version) and RHEL/CentOS (version 8) only
 sudo dnf config-manager --set-disabled riot-stable
 sudo dnf config-manager --set-enabled riot-testing
 sudo dnf list --refresh |grep riot

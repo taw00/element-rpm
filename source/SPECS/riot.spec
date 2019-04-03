@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -109,10 +109,16 @@ ExclusiveArch: x86_64 i686 i586 i386
 Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
 Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
+#
+#TODO: Need to reduce the build-time fetches from the internet via...
+#      https://docs.fedoraproject.org/en-US/packaging-guidelines/Node.js/
+#      Reference: Using tarballs from the npm registry
+#
+
 %if 0%{?suse_version:1}
 # https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 #BuildRequires: libappstream-glib8 appstream-glib
-BuildRequires: git ca-certificates-cacert ca-certificates-mozilla ca-certificates
+BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 %if 0%{?suse_version} < 1510
@@ -123,7 +129,6 @@ BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 %endif
 
 %if 0%{?rhel:1}
-BuildRequires: git
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 %if 0%{?rhel} < 8
@@ -143,7 +148,6 @@ BuildRequires: nodejs npm
 %endif
 
 %if 0%{?fedora:1}
-BuildRequires: git
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 %if 0%{?fedora} >= 29
@@ -192,7 +196,6 @@ Riot is free. Riot is secure.
 # these checks are here...
 %if 0%{?suse_version:1}
   echo "======== Opensuse version: %{suse_version}"
-  echo "Supporting ANY version of opensuse is a struggle. Fair warning."
 %endif
 
 %if 0%{?fedora:1}
@@ -239,10 +242,16 @@ cd %{sourcetree}
 %if 0%{?suse_version:1}
   echo "======== Opensuse version: %{suse_version}"
   npm install yarn
-  _pwd=$(pwd)
-  echo "\
+  #source ~/.bashrc
+  #which yarn > /dev/null 2>&1
+  #if [ "$?" -ne 0 ] ; then
+    _pwd=$(pwd)
+    echo "\
+# yarn alias inserted here by the Riot RPM specfile build script
+# this can be removed after build is complete
 alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
-  source ~/.bashrc
+    source ~/.bashrc
+  #fi
   yarn add electron-builder --dev
   yarn add electron-packager --dev
   yarn install 
@@ -256,18 +265,30 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   echo "======== Fedora version: %{fedora}"
   # Fedora 29+
   %if 0%{?fedora} >= 29
-    echo "\
+    #source ~/.bashrc
+    #which yarn > /dev/null 2>&1
+    #if [ "$?" -ne 0 ] ; then
+      echo "\
+# yarn alias inserted here by the Riot RPM specfile build script
+# this can be removed after build is complete
 # nodejs-yarn installs /usr/bin/yarnpkg for some reason (conflicts?). So, we
 # simply alias it so that embedded scripts don't stumble over this anomaly
 alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
-    source ~/.bashrc
+      source ~/.bashrc
+    #fi
   # Fedora 28-
   %else
     npm install yarn
-    _pwd=$(pwd)
-    echo "\
+    #source ~/.bashrc
+    #which yarn > /dev/null 2>&1
+    #if [ "$?" -ne 0 ] ; then
+      _pwd=$(pwd)
+      echo "\
+# yarn alias inserted here by the Riot RPM specfile build script
+# this can be removed after build is complete
 alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
-    source ~/.bashrc
+      source ~/.bashrc
+    #fi
     yarn add electron-builder --dev
     yarn add electron-packager --dev
   %endif
@@ -287,10 +308,16 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   %else
     # EL8 is based on Fedora 28
     npm install yarn
-    _pwd=$(pwd)
-    echo "\
+    #source ~/.bashrc
+    #which yarn > /dev/null 2>&1
+    #if [ "$?" -ne 0 ] ; then
+      _pwd=$(pwd)
+      echo "\
+# yarn alias inserted here by the Riot RPM specfile build script
+# this can be removed after build is complete
 alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
-    source ~/.bashrc
+      source ~/.bashrc
+    #fi
   %endif
   # EL all versions
   yarn add electron-builder --dev
@@ -403,11 +430,18 @@ umask 007
 
 
 %changelog
+* Wed Apr 03 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-2.taw
+* Wed Apr 03 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-1.1.testing.taw
+  - yarn aliasing commented better in .bashrc  
+    note, I can't determine a way to test yarn executable availability  
+    without blowing up rpm builds with a $? > 0
+  - testing on EL8-beta and Fedora 30
+
 * Mon Apr 01 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-1.taw
 * Mon Apr 01 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-0.1.testing.taw
   - 1.0.6
   - OpenSUSE 15.1 _and_ 15.0 now.
-  - Attempt at RHEL8-beta ... failed for now.
+  - Attempt at EL8-beta ... failed for now.
 
 * Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-2.taw
 * Wed Mar 27 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.3.testing.taw
