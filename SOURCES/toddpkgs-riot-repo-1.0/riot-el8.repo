@@ -1,0 +1,38 @@
+# Riot messaging client for CentOS (and Red Hat Enterprise Linux)
+# Stable and Testing repository streams - binaries and sources
+#
+# This file is a convenience file.  If you are familiar with Fedora COPR, you
+# can follow the direct enablement procedures here instead if you like:
+#   https://copr.fedorainfracloud.org/coprs/taw/Riot/
+#   https://copr.fedorainfracloud.org/coprs/taw/riot-testing/
+#
+# Feedback: t0dd@protonmail.com
+
+[riot-stable]
+enabled=1
+name=Riot - epel-$releasever-$basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/epel-8-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
+# GnuPG fingerprint should be F4ED2CDD2BB3A9DDBEAADE734D017B904F38BDE2
+repo_gpgcheck=0
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0
+metadata_expire=1d
+
+[riot-testing]
+enabled=0
+name=Riot - testing - epel-$releasever-$basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/epel-8-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg
+repo_gpgcheck=0
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0
+metadata_expire=0
