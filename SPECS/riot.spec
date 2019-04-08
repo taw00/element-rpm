@@ -30,13 +30,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.0
-%define verminor 6
+%define verminor 7
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -106,8 +106,8 @@ ExclusiveArch: x86_64 i686 i586 i386
 #Source0: %%{_source0}.tar.gz
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
 #Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
-Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
-Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+Source0: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{_source0}.tar.gz
+Source1: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 #
 #TODO: Need to reduce the build-time fetches from the internet via...
@@ -430,6 +430,10 @@ umask 007
 
 
 %changelog
+* Mon Apr 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.7-1.taw
+* Mon Apr 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.7-0.1.testing.taw
+  - 1.0.7
+
 * Wed Apr 03 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-2.taw
 * Wed Apr 03 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.6-1.1.testing.taw
   - yarn aliasing commented better in .bashrc  
