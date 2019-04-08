@@ -6,7 +6,7 @@ Summary:    Repository configuration to enable management of Riot packages
 Group:      System Environment/Base
 License:    MIT
 URL:        https://github.com/taw00/riot-rpm
-Source0:    https://github.com/taw00/riot-rpm/raw/master/source/testing/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
+Source0:    https://github.com/taw00/riot-rpm/raw/master/SOURCES/toddpkgs-riot-repo-1.0.tar.gz
 BuildArch:  noarch
 #BuildRequires:  tree
 
