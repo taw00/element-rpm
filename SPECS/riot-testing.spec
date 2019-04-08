@@ -106,8 +106,8 @@ ExclusiveArch: x86_64 i686 i586 i386
 #Source0: %%{_source0}.tar.gz
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
 #Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
-Source0: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{_source0}.tar.gz
-Source1: https://github.com/taw00/riot-rpm/blob/master/source/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+Source0: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{_source0}.tar.gz
+Source1: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 #
 #TODO: Need to reduce the build-time fetches from the internet via...
