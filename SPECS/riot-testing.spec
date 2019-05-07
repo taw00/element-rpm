@@ -25,12 +25,12 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define archiveQualifier rc.1
-%define includeArchiveQualifier 0
+%define buildQualifier rc.1
+%undefine buildQualifier
 
 # VERSION
-%define vermajor 1.0
-%define verminor 8
+%define vermajor 1.1
+%define verminor 0
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -48,8 +48,8 @@ Version: %{vermajor}.%{verminor}
 
 %define snapinfo testing
 # Let's replace the default snapinfo with the archive qualifier
-%if %{includeArchiveQualifier}
-  %define snapinfo %archiveQualifier
+%if 0%{?buildQualifier:1}
+  %define snapinfo %buildQualifier
 %endif
 %if %{targetIsProduction}
   %undefine snapinfo
@@ -100,8 +100,8 @@ ExclusiveArch: x86_64 i686 i586 i386
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-web
 %define _source0 %{_legacy_name}-%{version}
-%if %{includeArchiveQualifier}
-  %define _source0 %{_legacy_name}-%{version}-%{archiveQualifier}
+%if 0%{?buildQualifier:1}
+  %define _source0 %{_legacy_name}-%{version}-%{buildQualifier}
 %endif
 #Source0: %%{_source0}.tar.gz
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
@@ -430,6 +430,10 @@ umask 007
 
 
 %changelog
+* Tue May 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-0.1.testing.taw
+  - 1.1.0
+
+* Tue Apr 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.8-1.taw
 * Tue Apr 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.8-0.1.testing.taw
   - 1.0.8
   - Note, riot-web source tarball (packaged inside the src.rpm) signed with  
