@@ -1,4 +1,14 @@
 # changelog
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-3.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.1.testing.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-1.1.testing.taw
+  - Updated desktop logo icons.
+
+* Tue May 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-1.taw
+* Tue May 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-0.1.testing.taw
+  - 1.1.0
+
 * Tue Apr 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.8-1.taw
 * Tue Apr 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.8-0.1.testing.taw
   - 1.0.8

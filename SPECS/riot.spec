@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP
@@ -430,6 +430,13 @@ umask 007
 
 
 %changelog
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-3.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.1.testing.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.taw
+* Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-1.1.testing.taw
+  - Updated desktop logo icons.
+  - ...and then really fixed it for 2.1.testing and 3
+
 * Tue May 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-1.taw
 * Tue May 07 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-0.1.testing.taw
   - 1.1.0
