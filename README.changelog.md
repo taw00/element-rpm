@@ -1,4 +1,9 @@
 # changelog
+* Tue May 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.1-1.taw
+* Tue May 14 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.1-0.1.testing.taw
+  - 1.1.1
+  - minor tweak to contributed wrapper script
+
 * Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-3.taw
 * Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.1.testing.taw
 * Thu May 09 2019 Todd Warner <t0dd_at_protonmail.com> 1.1.0-2.taw
