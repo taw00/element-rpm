@@ -30,7 +30,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.2
-%define verminor 0
+%define verminor 1
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -430,6 +430,10 @@ umask 007
 
 
 %changelog
+* Fri May 31 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.1-1.taw
+* Fri May 31 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.1-0.1.testing.taw
+  - 1.2.1
+
 * Wed May 29 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.0-1.taw
 * Wed May 29 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.0-0.1.testing.taw
   - 1.2.0
