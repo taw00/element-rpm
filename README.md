@@ -93,7 +93,7 @@ _Note that OpenSUSE support is still hit or miss. I need reports from testers._
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.suse.leap.rpm
-sudo zypper modifyrepo -er "riot-stable-leap"
+sudo zypper modifyrepo -er "riot-stable"
 ```
 
 **Prep (OpenSuse Tumbleweed)...**
