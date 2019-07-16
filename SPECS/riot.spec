@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP
@@ -254,6 +254,7 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   #fi
   yarn add electron-builder --dev
   yarn add electron-packager --dev
+  ln -s ${_pwd}/node_modules/.bin/electron-builder ${_pwd}/node_modules/.bin/build
   yarn install 
   yarn build
 %endif
@@ -302,6 +303,7 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 %if 0%{?rhel:1}
   echo "======== EL version: %{rhel}"
+  _pwd=$(pwd)
   %if 0%{?rhel} < 8
     # Note: If you did not add the two extra repos mentioned in the BuildRequires
     # section for EL7 into your build system, that build will fail.
@@ -311,7 +313,6 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
     #source ~/.bashrc
     #which yarn > /dev/null 2>&1
     #if [ "$?" -ne 0 ] ; then
-      _pwd=$(pwd)
       echo "\
 # yarn alias inserted here by the Riot RPM specfile build script
 # this can be removed after build is complete
@@ -322,6 +323,7 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   # EL all versions
   yarn add electron-builder --dev
   yarn add electron-packager --dev
+  ln -s ${_pwd}/node_modules/.bin/electron-builder ${_pwd}/node_modules/.bin/build
   yarn install 
   yarn build
 %endif
@@ -430,9 +432,16 @@ umask 007
 
 
 %changelog
+* Tue Jul 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-3.taw
+* Tue Jul 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-2.1.testing.taw
+* Tue Jul 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-2.taw
+* Tue Jul 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-1.1.testing.taw
+  - 1.2.4 -- node_modules/.bin/electron-builder has to be symlinked to  
+    node_modules/.bin/build for SUSE
+
 * Fri Jul 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-1.taw
 * Fri Jul 12 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.4-0.1.testing.taw
-  - 1.2.4
+  - 1.2.4 -- SUSE and RHEL started to fail builds -- Fedora builds fine.
 
 * Mon Jul 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.3-1.taw
 * Mon Jul 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.2.3-0.1.testing.taw
