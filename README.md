@@ -36,7 +36,7 @@ _Note that, by default, the 'riot-stable' repository will be enabled and 'riot-t
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo-fedora.rpm
+sudo dnf install -y https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-repo.fedora.rpm
 ```
 **Install...**
 ```bash
