@@ -1,4 +1,8 @@
 # changelog
+* Fri Aug 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.3-1.taw
+* Fri Aug 16 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.3-0.1.testing.taw
+  - 1.3.3
+
 * Thu Aug 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.2-1.taw
 * Thu Aug 08 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.2-0.1.testing.taw
   - 1.3.2
