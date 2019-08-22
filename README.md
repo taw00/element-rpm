@@ -1,6 +1,6 @@
 # Riot Messaging Application for the Desktop
 
-_Riot messaging client packaged (RPMs) for Fedora, CentOS, Red Hat Enterprise Linux, and OpenSuse_
+_Riot messaging client packaged (RPMs) for Fedora, CentOS, Red Hat Enterprise Linux, and OpenSUSE_
 
 Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
 
@@ -25,7 +25,7 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 
 * Fedora: versions 29, 30
 * CentOS (and RHEL): version 7 (version 8 when the COPR repos include EL8)
-* OpenSuse: Tumbleweed and Leap 15 (15.1)
+* OpenSUSE: Tumbleweed and Leap 15 (15.1)
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
@@ -84,11 +84,9 @@ sudo yum clean expire-cache
 sudo yum install -y riot
 ```
 
-### For OpenSuse...
+### For OpenSUSE...
 
-_Note that OpenSUSE support is still hit or miss. I need reports from testers._
-
-**Prep (OpenSuse Leap)...**
+**Prep (OpenSUSE Leap)...**
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
@@ -96,7 +94,7 @@ sudo zypper install https://github.com/taw00/riot-rpm/raw/master/toddpkgs-riot-r
 sudo zypper modifyrepo -er "riot-stable"
 ```
 
-**Prep (OpenSuse Tumbleweed)...**
+**Prep (OpenSUSE Tumbleweed)...**
 ```bash
 # Snag the repository configuration (should only need to do once)
 sudo rpm --import https://keybase.io/toddwarner/key.asc
@@ -133,7 +131,7 @@ sudo dnf upgrade
 sudo yum update
 ```
 ```bash
-# OpenSuse...
+# OpenSUSE...
 sudo zypper update
 ```
 
