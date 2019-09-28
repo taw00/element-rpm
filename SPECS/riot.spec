@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -159,7 +159,7 @@ BuildRequires: nodejs npm
 
 #t0dd: I add tree, vim-enhanced, and less for mock environment introspection
 %if ! %{targetIsProduction}
-BuildRequires: tree vim-enhanced less findutils
+BuildRequires: tree vim-enhanced less findutils mlocate
 %endif
 
 
@@ -232,6 +232,7 @@ echo "%{_libdir}/%{name}" > %{sourcetree_contrib}/etc-ld.so.conf.d_%{name}.conf
 # Build section starts us in directory {_builddir}/{sourceroot}
 
 cd %{sourcetree}
+_pwd=$(pwd)
 
 #
 # OPENSUSE
@@ -242,7 +243,6 @@ cd %{sourcetree}
   #source ~/.bashrc
   #which yarn > /dev/null 2>&1
   #if [ "$?" -ne 0 ] ; then
-    _pwd=$(pwd)
     echo "\
 # yarn alias inserted here by the Riot RPM specfile build script
 # this can be removed after build is complete
@@ -251,9 +251,6 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   #fi
   yarn add electron-builder --dev
   yarn add electron-packager --dev
-  ln -s ${_pwd}/node_modules/.bin/electron-builder ${_pwd}/node_modules/.bin/build
-  yarn install 
-  yarn build
 %endif
 
 #
@@ -280,7 +277,6 @@ alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
     #source ~/.bashrc
     #which yarn > /dev/null 2>&1
     #if [ "$?" -ne 0 ] ; then
-      _pwd=$(pwd)
       echo "\
 # yarn alias inserted here by the Riot RPM specfile build script
 # this can be removed after build is complete
@@ -290,9 +286,6 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
     yarn add electron-builder --dev
     yarn add electron-packager --dev
   %endif
-  # Fedora all versions
-  yarn install 
-  yarn build
 %endif
 
 #
@@ -300,7 +293,6 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 %if 0%{?rhel:1}
   echo "======== EL version: %{rhel}"
-  _pwd=$(pwd)
   %if 0%{?rhel} < 8
     # Note: If you did not add the two extra repos mentioned in the BuildRequires
     # section for EL7 into your build system, that build will fail.
@@ -320,14 +312,14 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
   # EL all versions
   yarn add electron-builder --dev
   yarn add electron-packager --dev
-  ln -s ${_pwd}/node_modules/.bin/electron-builder ${_pwd}/node_modules/.bin/build
-  yarn install 
-  yarn build
 %endif
 
 #
 # all distributions
 #
+yarn install 
+ln -s ${_pwd}/node_modules/.bin/electron-builder ${_pwd}/node_modules/.bin/build
+yarn build
 # builds linux-friendly stuff (we use this)
 # Also builds stuff we do not use: a default tarball and rpm (or deb)
 %define linuxunpacked electron_app/dist/linux-unpacked
@@ -429,12 +421,16 @@ umask 007
 
 
 %changelog
+* Sat Sep 28 2019 Todd Warner <t0dd_at_protonmail.com> 1.4.0-2.taw
+* Sat Sep 28 2019 Todd Warner <t0dd_at_protonmail.com> 1.4.0-1.1.testing.taw
 * Sat Sep 28 2019 Todd Warner <t0dd_at_protonmail.com> 1.4.0-1.taw
 * Sat Sep 28 2019 Todd Warner <t0dd_at_protonmail.com> 1.4.0-0.1.testing.taw
   - 1.4.0
+  - all version need a symlink now (fedora 28 and below... maybe not?)
+  - cleanup of specfile
 
-* Fri Sep 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.6-1.taw
-* Fri Sep 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.6-0.1.testing.taw
+* Thu Sep 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.6-1.taw
+* Thu Sep 19 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.6-0.1.testing.taw
   - 1.3.6
 
 * Wed Sep 18 2019 Todd Warner <t0dd_at_protonmail.com> 1.3.5-1.taw
