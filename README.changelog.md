@@ -1,4 +1,10 @@
 # changelog
+* Fri Jan 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.rc2.taw
+  - 1.5.8 rc.2
+
+* Mon Jan 13 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.7-0.1.testing.taw
+  - 1.5.7 -- not functional. Talked to the team and ... we'll wait to 1.5.8
+
 * Mon Dec 9 2019 Todd Warner <t0dd_at_protonmail.com> 1.5.6-1.taw
 * Mon Dec 9 2019 Todd Warner <t0dd_at_protonmail.com> 1.5.6-0.1.testing.taw
   - 1.5.6
