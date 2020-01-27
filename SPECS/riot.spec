@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -121,11 +121,7 @@ Source1: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajo
 BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
-%if 0%{?suse_version} < 1510
-BuildRequires: nodejs8 npm8 nodejs8-devel
-%else
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
-%endif
 %endif
 
 %if 0%{?rhel:1}
@@ -195,7 +191,8 @@ Riot is free. Riot is secure.
 # The prep section is the first place we can run shell commands. Therefore,
 # these checks are here...
 %if 0%{?suse_version:1}
-  echo "======== Opensuse version: %{suse_version}"
+  echo "======== OpenSUSE version: %{suse_version}"
+  echo "-------- Note that Leap 15.1+ will report at 1500"
 %endif
 
 %if 0%{?fedora:1}
@@ -238,7 +235,7 @@ _pwd=$(pwd)
 # OPENSUSE
 #
 %if 0%{?suse_version:1}
-  echo "======== Opensuse version: %{suse_version}"
+  echo "======== OpenSUSE version: %{suse_version}"
   npm install yarn
   #source ~/.bashrc
   #which yarn > /dev/null 2>&1
@@ -421,6 +418,10 @@ umask 007
 
 
 %changelog
+* Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-2.taw
+* Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-1.1.testing.taw
+  - spec file adjustment in order to build for opensuse 15.1
+
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-1.taw
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.testing.taw
 * Fri Jan 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.rc2.taw

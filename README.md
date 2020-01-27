@@ -26,7 +26,6 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 * Fedora: versions 29, 30
 * CentOS (and RHEL): version 7 (version 8 when the COPR repos include EL8)
 * OpenSUSE: Tumbleweed and Leap 15 (15.1)  
-  ***WARNING: Leap 15.1 stopped building after Riot version 1.5.6. Available libraries are getting too old.***
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
 
 ### For Fedora...
