@@ -22,21 +22,21 @@ Name: riot
 %define _legacy_name riot-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define buildQualifier rc.2
 %undefine buildQualifier
+%define buildQualifier rc.1
 
 # VERSION
 %define vermajor 1.5
-%define verminor 8
+%define verminor 9
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -418,13 +418,16 @@ umask 007
 
 
 %changelog
+* Sat Feb 15 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.9-0.1.rc.1.taw
+  - 1.5.9
+
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-2.taw
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-1.1.testing.taw
   - spec file adjustment in order to build for opensuse 15.1
 
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-1.taw
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.testing.taw
-* Fri Jan 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.rc2.taw
+* Fri Jan 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-0.1.rc.2.taw
   - 1.5.8
 
 * Mon Jan 13 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.7-0.1.testing.taw
