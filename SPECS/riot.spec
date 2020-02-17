@@ -22,11 +22,11 @@ Name: riot
 %define _legacy_name riot-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
-%undefine buildQualifier
 %define buildQualifier rc.1
+%undefine buildQualifier
 
 # VERSION
 %define vermajor 1.5
@@ -105,8 +105,8 @@ ExclusiveArch: x86_64 i686 i586 i386
 %endif
 #Source0: %%{_source0}.tar.gz
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
-#Source0: https://github.com/vector-im/%%{_legacy_name}/archive/v%%{version}/%%{_source0}.tar.gz
-Source0: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{_source0}.tar.gz
+Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
+#Source0: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%%{_source0}.tar.gz
 Source1: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 #
@@ -418,8 +418,10 @@ umask 007
 
 
 %changelog
+* Mon Feb 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.9-1.taw
 * Sat Feb 15 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.9-0.1.rc.1.taw
   - 1.5.9
+  - Source0 points at upstream now for rpmlint completeness
 
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-2.taw
 * Mon Jan 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.8-1.1.testing.taw
