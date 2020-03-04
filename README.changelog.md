@@ -1,4 +1,8 @@
 # changelog
+* Wed Mar 04 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.12-1.taw
+* Wed Mar 04 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.12-0.1.testing.taw
+  - 1.5.12
+
 * Mon Mar 02 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.11-1.taw
 * Mon Mar 02 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.11-0.1.testing.taw
   - 1.5.11
