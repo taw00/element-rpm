@@ -22,15 +22,15 @@ Name: riot
 %define _legacy_name riot-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define buildQualifier rc.1
 %undefine buildQualifier
+%define buildQualifier rc.1
 
 # VERSION
 %define vermajor 1.5
-%define verminor 12
+%define verminor 13
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -418,6 +418,9 @@ umask 007
 
 
 %changelog
+* Fri Mar 13 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.13-0.1.rc.1.taw
+  - 1.5.13
+
 * Wed Mar 04 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.12-1.taw
 * Wed Mar 04 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.12-0.1.testing.taw
   - 1.5.12
