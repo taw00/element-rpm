@@ -30,7 +30,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.5
-%define verminor 14
+%define verminor 15
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -418,8 +418,14 @@ umask 007
 
 
 %changelog
+* Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.taw
+* Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-0.1.testing.taw
+  - 1.5.15 - security fix
+  - Updated riot.desktop to better match these changes:  
+    https://github.com/flathub/im.riot.Riot/pull/93/files
+
 * Tue Mar 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.14-1.taw
-* Tue Mar 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.14-0.1.rc.1.taw
+* Tue Mar 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.14-0.1.testing.taw
   - 1.5.14
 
 * Tue Mar 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.13-1.taw
