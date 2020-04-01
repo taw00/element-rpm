@@ -36,7 +36,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 0.2
 %endif
 
 # MINORBUMP
@@ -153,11 +153,13 @@ BuildRequires: nodejs npm
 %endif
 %endif
 
+# They all need . . .
+BuildRequires: curl
+
 #t0dd: I add tree, vim-enhanced, and less for mock environment introspection
 %if ! %{targetIsProduction}
 BuildRequires: tree vim-enhanced less findutils mlocate
 %endif
-
 
 # Unarchived source tree structure (extracted in {_builddir})
 #   sourceroot               riot-1.0
@@ -419,10 +421,12 @@ umask 007
 
 %changelog
 * Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.taw
+* Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-0.2.testing.taw
 * Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-0.1.testing.taw
   - 1.5.15 - security fix
   - Updated riot.desktop to better match these changes:  
     https://github.com/flathub/im.riot.Riot/pull/93/files
+  - curl added to BuildRequires (specifically OpenSUSE 15.1 needed it).
 
 * Tue Mar 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.14-1.taw
 * Tue Mar 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.14-0.1.testing.taw
