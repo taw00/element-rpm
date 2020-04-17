@@ -34,9 +34,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.2
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -108,6 +108,9 @@ ExclusiveArch: x86_64 i686 i586 i386
 Source0: https://github.com/vector-im/%{_legacy_name}/archive/v%{version}/%{_source0}.tar.gz
 #Source0: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%%{_source0}.tar.gz
 Source1: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+
+# This is used to declare whether we pull additional sources dependencies from the contrib tarball
+%define useExtraSources 1
 
 #
 #TODO: Need to reduce the build-time fetches from the internet via...
@@ -224,6 +227,12 @@ echo "%{_libdir}/%{name}" > %{sourcetree_contrib}/etc-ld.so.conf.d_%{name}.conf
 # For debugging purposes...
 %if ! %{targetIsProduction}
   cd .. ; tree -df -L 1 %{sourceroot} ; cd -
+%endif
+
+# We ship with riot supplied olm tarball. Use it . . .
+%if %{useExtraSources}
+mkdir -p %{sourcetree}/depends/sources
+mv %{sourcetree_contrib}/build/*.tgz %{sourcetree}/depends/sources/
 %endif
 
 
@@ -420,6 +429,11 @@ umask 007
 
 
 %changelog
+* Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-2.taw
+* Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.1.testing.taw
+  - using the olm tarball distributed by the riot team  
+    we provide it via the riot-*-contrib.tar.gz archive
+
 * Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.taw
 * Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-0.2.testing.taw
 * Wed Apr 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-0.1.testing.taw
