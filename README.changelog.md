@@ -1,4 +1,15 @@
 # changelog
+* Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.2.rc.3.taw
+* Fri Apr 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.3.taw
+* Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
+  - 1.6.0
+  - new buildrequires: sqlcipher-devel cargo python gcc-c++ cmake
+  - leverage riot-desktop repo and leave the riot-web repo behind
+
+* Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
+  - 1.6.0
+  - new buildrequires: sqlcipher-devel
+
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-2.taw
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.1.testing.taw
   - using the olm tarball distributed by the riot team  
