@@ -24,13 +24,13 @@ It's easy to install and run Riot. Currently built for these platforms (x86\_64 
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
 * Fedora: versions 30+
-* CentOS (and RHEL): Riot 1.5 and older
+* CentOS (and RHEL): Riot 1.5 and older. See also github issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33).
 * OpenSUSE:
   - Tumbleweed: all versions of Riot
-  - Leap 15 (15.1): Riot 1.5 and older
+  - Leap 15.1: Riot 1.5 and older. See also github issue [#32](https://github.com/taw00/riot-rpm/issues/32).
+  - Leap 15.2: We'll see. See also github issue [#34](https://github.com/taw00/riot-rpm/issues/34).
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
-
-NOTE: I am trying to get newer Riot to build on Leap 15.1 and RHEL8, but thus far, I have been unsuccessful.
+* Flatpak: Though I personally view Flatpaks as last resort packaging solutions (they are a brute force / ineffecient method of package), they do serve their purpose. Leap 15.1 and EL8(RHEL/CentOS) folks can use the Riot-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot>
 
 ### For Fedora...
 
