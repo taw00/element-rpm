@@ -1,10 +1,24 @@
 # changelog
+* Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.3.taw
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.2.rc.3.taw
 * Fri Apr 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.3.taw
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
   - 1.6.0
-  - new buildrequires: sqlcipher-devel cargo python gcc-c++ cmake
-  - leverage riot-desktop repo and leave the riot-web repo behind
+  - building from riot-web AND riot-desktop now. First web and then that  
+    feeds into desktop.
+  - new buildrequires: cargo python gcc-c++ cmake rust libxcrypt-compat  
+    sqlcipher-devel
+  - new requires: sqlcipher
+  - Can't build for:
+    - RHEL7: missing deps: libcrypt.so.1, sqlcipher, sqlcipher-devel
+    - RHEL8: missing deps: sqlcipher, sqlcipher-devel and rustc is too old
+             Note: if RHEL ever works: libxcrypt instead of libxcrypt-compat
+    - OpenSUSE 15.1: missing deps: libcrypt.so.1
+  - OpenSUSE Tumbleweed note: use libcrypt1 instead of libxcrypt-compat
+  - Other note: contrib tarball now supplies a tweaked config.sample.json  
+    because the upstream is missing a config option that enables Message  
+    search even in encrypted environments.  
+    The option: "feature_event_indexing": "enable"
 
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
   - 1.6.0

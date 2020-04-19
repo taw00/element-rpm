@@ -38,7 +38,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.2
+  %define _pkgrel 0.3
 %endif
 
 # MINORBUMP
@@ -101,19 +101,25 @@ ExclusiveArch: x86_64 i686 i586 i386
 # * Sources as part of source RPM can be found at
 #   https://github.com/taw00/riot-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-desktop
-%define _source0 %{_name_d}-%{version}
-%define _source1 %{_name_w}-%{version}
+%define _version %{version}
 %if 0%{?buildQualifier:1}
-  %define _source0 %{_name_d}-%{version}-%{buildQualifier}
-  %define _source1 %{_name_w}-%{version}-%{buildQualifier}
+  %define _version %{version}-%{buildQualifier}
 %endif
+%define _source0 %{_name_d}-%{_version}
+%define _source1 %{_name_w}-%{_version}
+
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
-Source0: https://github.com/vector-im/%{_name_d}/archive/v%{version}/%{_source0}.tar.gz
-Source1: https://github.com/vector-im/%{_name_w}/archive/v%{version}/%{_source1}.tar.gz
-Source2: https://github.com/taw00/riot-rpm/blob/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+Source0: https://github.com/vector-im/%{_name_d}/archive/v%{_version}/%{_source0}.tar.gz
+Source1: https://github.com/vector-im/%{_name_w}/archive/v%{_version}/%{_source1}.tar.gz
+Source2: https://github.com/taw00/riot-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 # This is used to declare whether we pull additional sources dependencies from the contrib tarball
 %define useExtraSources 1
+
+#t0dd: I add tree, vim-enhanced, and less for mock environment introspection
+%if ! %{targetIsProduction}
+BuildRequires: tree vim-enhanced less findutils mlocate dnf
+%endif
 
 #
 #TODO: Need to reduce the build-time fetches from the internet via...
@@ -128,49 +134,63 @@ BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
+BuildRequires: python
+%if 0%{?suse_version} <= 1500
+###NOLONGERSUPPORTED##
+###NOLONGERSUPPORTED##BuildRequires: libcrypt1
+%else
+BuildRequires: libcrypt1
+%endif
 %endif
 
 %if 0%{?rhel:1}
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 %if 0%{?rhel} < 8
-# This is super ugly
-# EL7 is too far behind on many many packages. Therefore, you have to pull
-# from other repos. In this case, nodejs and yarn.
-# Include these repos into your mock or build environments...
-#   https://rpm.nodesource.com/pub_10.x/el/7/$basearch
-#   https://dl.yarnpkg.com/rpm/
-# Note that this version of nodejs installs npm as well.
-BuildRequires: nodejs >= 2:10
-BuildRequires: yarn
+###NOLONGERSUPPORTED### This is super ugly
+###NOLONGERSUPPORTED### EL7 is too far behind on many many packages. Therefore, you have to pull
+###NOLONGERSUPPORTED### from other repos. In this case, nodejs and yarn.
+###NOLONGERSUPPORTED### Include these repos into your mock or build environments...
+###NOLONGERSUPPORTED###   https://rpm.nodesource.com/pub_10.x/el/7/$basearch
+###NOLONGERSUPPORTED###   https://dl.yarnpkg.com/rpm/
+###NOLONGERSUPPORTED### Note that this version of nodejs installs npm as well.
+###NOLONGERSUPPORTED##BuildRequires: nodejs >= 2:10
+###NOLONGERSUPPORTED##BuildRequires: yarn
+###NOLONGERSUPPORTED##BuildRequires: python
+###NOLONGERSUPPORTED##BuildRequires: libxcrypt -- NOPE, not available
 %else
 # EL8 is based on Fedora 28
 BuildRequires: nodejs npm
+BuildRequires: python3
+BuildRequires: libxcrypt
 %endif
 %endif
 
 %if 0%{?fedora:1}
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: python
 %if 0%{?fedora} >= 29
 BuildRequires: nodejs npm nodejs-yarn
+BuildRequires: libxcrypt-compat
 %else
 BuildRequires: nodejs npm
+BuildRequires: libxcrypt
 %endif
 %endif
 
 # BuildRequires for all platforms . . .
-BuildRequires: python cargo gcc-c++ cmake
-BuildRequires: libxcrypt-compat
+BuildRequires: cargo gcc-c++ cmake rust
 BuildRequires: curl
-BuildRequires: sqlcipher-devel
-# Requires for all platforms . . .
-Requires: sqlcipher
 
-#t0dd: I add tree, vim-enhanced, and less for mock environment introspection
-%if ! %{targetIsProduction}
-BuildRequires: tree vim-enhanced less findutils mlocate
+# Everyone but RHEL can do sqlcipher
+# XXX THIS IS A PROBLEM XXX
+%if 0%{?rhel:1}
+%else
+BuildRequires: sqlcipher-devel
+Requires: sqlcipher
 %endif
+
 
 # Unarchived source tree structure (extracted in {_builddir})
 #   sourceroot               riot-1.6
@@ -204,27 +224,23 @@ Riot is free. Riot is secure.
 # Prep section starts us in directory {_builddir}
 
 # The prep section is the first place we can run shell commands. Therefore,
-# these checks are here...
-%if 0%{?suse_version:1}
+# these checks are here . .. Unsupported OS versions:
+%if 0%{?rhel} && 0%{?rhel} < 8
+  echo "======== EL version: %{rhel}"
+  %{error: "EL7-based platforms (CentOS7/RHEL7), and older, are not supportable build targets."}
+%endif
+
+%if 0%{?suse_version} && 0%{?suse_version} <= 1500
   echo "======== OpenSUSE version: %{suse_version}"
   echo "-------- Note that Leap 15.1+ will report at 1500"
+  %{error: "Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
 %endif
 
-%if 0%{?fedora:1}
+%if 0%{?fedora} && 0%{?fedora} < 30
   echo "======== Fedora version: %{fedora}"
-%if 0%{?fedora} < 28
-  echo "Fedora 27 and older can't be supported. Sorry."
-  exit 1
-%endif
+  %{error: "Builds for this version of Fedora can no longer be supported."}
 %endif
 
-%if 0%{?rhel:1}
-  echo "======== EL version: %{rhel}"
-%if 0%{?rhel} < 7
-  echo "EL 6 and older can't be supported. Sorry."
-  exit 1
-%endif
-%endif
 
 # Extract into {_builddir}/{sourceroot}/
 mkdir %{sourceroot}
@@ -262,6 +278,7 @@ cd ${_pwd_w}
 #
 %if 0%{?suse_version:1}
   echo "======== OpenSUSE version: %{suse_version}"
+  echo "-------- Note that Leap 15.1+ will report at 1500"
   npm install yarn
   #source ~/.bashrc
   #which yarn > /dev/null 2>&1
@@ -272,8 +289,9 @@ cd ${_pwd_w}
 alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
     source ~/.bashrc
   #fi
-  yarn add electron-builder --dev
-  yarn add electron-packager --dev
+  # Not needed as of 1.6.0?
+  #yarn add electron-builder --dev
+  #yarn add electron-packager --dev
 %endif
 
 #
@@ -303,11 +321,12 @@ alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
       echo "\
 # yarn alias inserted here by the Riot RPM specfile build script
 # this can be removed after build is complete
-alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
+alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
       source ~/.bashrc
     #fi
-    yarn add electron-builder --dev
-    yarn add electron-packager --dev
+    # Not needed as of 1.6.0?
+    #yarn add electron-builder --dev
+    #yarn add electron-packager --dev
   %endif
 %endif
 
@@ -316,6 +335,12 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 %if 0%{?rhel:1}
   echo "======== EL version: %{rhel}"
+  # I don't grok how to declare what python you are using so that scripting
+  # tools know where to find it. So we do this hack.
+  mkdir -p $HOME/.local/bin
+  if [ ! -e "$HOME/.local/bin/python" ] ;  then
+    ln -s /usr/bin/python3 $HOME/.local/bin/python
+  fi
   %if 0%{?rhel} < 8
     # Note: If you did not add the two extra repos mentioned in the BuildRequires
     # section for EL7 into your build system, that build will fail.
@@ -328,13 +353,14 @@ alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
       echo "\
 # yarn alias inserted here by the Riot RPM specfile build script
 # this can be removed after build is complete
-alias yarn='${_pwd}/node_modules/.bin/yarn'" >> ~/.bashrc
+alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
       source ~/.bashrc
     #fi
   %endif
   # EL all versions
-  yarn add electron-builder --dev
-  yarn add electron-packager --dev
+  # Not needed as of 1.6.0?
+  #yarn add electron-builder --dev
+  #yarn add electron-packager --dev
 %endif
 
 #
@@ -358,7 +384,7 @@ install -D -m644 -p config.sample.json webapp/config.json
 ##else
 ## ./node_modules/.bin/electron-builder -l tar.gz --ia32
 ##endif
-##install -D -m644 -p config.sample.json %{linuxunpacked_w}/resources/webapp/config.json
+##install -D -m644 -p config.sample.json %%{linuxunpacked_w}/resources/webapp/config.json
 
 ### Build riot-desktop ###
 cd ${_pwd_d}
@@ -423,8 +449,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # /usr/lib/riot or /usr/lib64/riot...
 ## REMOVING FOR NOW. I DON'T THINK IT IS NEEDED AND IT HAS LEGAL ISSUES ##
-##install -D -m755 -p %{buildroot}%{installtree}/libffmpeg.so %{buildroot}%{_libdir}/%{name}/libffmpeg.so
-##rm %{buildroot}%{installtree}/libffmpeg.so
+##install -D -m755 -p %%{buildroot}%%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/%%{name}/libffmpeg.so
+##rm %%{buildroot}%%{installtree}/libffmpeg.so
 install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_riot.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/riot.conf
 
 
@@ -457,14 +483,26 @@ umask 007
 
 
 %changelog
+* Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.3.taw
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.2.rc.3.taw
 * Fri Apr 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.3.taw
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
   - 1.6.0
-  - new buildrequires: cargo python gcc-c++ cmake libxcrypt-compat sqlcipher-devel
+  - building from riot-web AND riot-desktop now. First web and then that  
+    feeds into desktop.
+  - new buildrequires: cargo python gcc-c++ cmake rust libxcrypt-compat  
+    sqlcipher-devel
   - new requires: sqlcipher
-  - leverage riot-desktop AND riot-web repos
-  - changes to builds for both.
+  - Can't build for:
+    - RHEL7: missing deps: libcrypt.so.1, sqlcipher, sqlcipher-devel
+    - RHEL8: missing deps: sqlcipher, sqlcipher-devel and rustc is too old
+             Note: if RHEL ever works: libxcrypt instead of libxcrypt-compat
+    - OpenSUSE 15.1: missing deps: libcrypt.so.1
+  - OpenSUSE Tumbleweed note: use libcrypt1 instead of libxcrypt-compat
+  - Other note: contrib tarball now supplies a tweaked config.sample.json  
+    because the upstream is missing a config option that enables Message  
+    search even in encrypted environments.  
+    The option: "feature_event_indexing": "enable"
 
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-2.taw
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.5.15-1.1.testing.taw

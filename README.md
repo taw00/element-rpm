@@ -23,10 +23,14 @@ All \*.src.rpm packages provided in this github repository should be signed with
 It's easy to install and run Riot. Currently built for these platforms (x86\_64 only)...  
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
-* Fedora: versions 29, 30
-* CentOS (and RHEL): version 7 (version 8 when the COPR repos include EL8)
-* OpenSUSE: Tumbleweed and Leap 15 (15.1)  
+* Fedora: versions 30+
+* CentOS (and RHEL): Riot 1.5 and older
+* OpenSUSE:
+  - Tumbleweed: all versions of Riot
+  - Leap 15 (15.1): Riot 1.5 and older
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
+
+NOTE: I am trying to get newer Riot to build on Leap 15.1 and RHEL8, but thus far, I have been unsuccessful.
 
 ### For Fedora...
 
