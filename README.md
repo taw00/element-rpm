@@ -2,13 +2,13 @@
 
 _Riot messaging client packaged (RPMs) for Fedora, CentOS, Red Hat Enterprise Linux, and OpenSUSE_
 
-Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of linux operating systems. So... here they be!
+Riot is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of Linux operating systems. So... here they be!
 
 _**What is Riot (and Matrix)?**_ In short, Riot is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
 
-This github repository maintains source RPM packages and specfiles so you can rebuild Riot if you are so inclined. From these source packages runnable binaries have been conveniently built for you. See below for how to install and run Riot on your linux desktop.
+This GitHub repository maintains source RPM packages and spec files so you can rebuild Riot if you are so inclined. From these source packages runnable binaries have been conveniently built for you. See below for how to install and run Riot on your Linux desktop.
 
-All \*.src.rpm packages provided in this github repository should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [Copr GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
+All \*.src.rpm packages provided in this GitHub repository should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/Riot/pubkey.gpg)
 
 #### More about...
 
@@ -24,13 +24,13 @@ It's easy to install and run Riot. Currently built for these platforms (x86\_64 
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
 * Fedora: versions 30+
-* CentOS (and RHEL): Riot 1.5 and older. See also github issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33).
+* CentOS (and RHEL): Riot 1.5 and older. See also GitHub issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33).
 * OpenSUSE:
   - Tumbleweed: all versions of Riot
-  - Leap 15.1: Riot 1.5 and older. See also github issue [#32](https://github.com/taw00/riot-rpm/issues/32).
-  - Leap 15.2: We'll see. See also github issue [#34](https://github.com/taw00/riot-rpm/issues/34).
+  - Leap 15.1: Riot 1.5 and older. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32).
+  - Leap 15.2: We'll see. See also GitHub issue [#34](https://github.com/taw00/riot-rpm/issues/34).
 * The test repositories: I will usually try to build test packages for any OS that is in beta if I have time.
-* Flatpak: Though I personally view Flatpaks as last resort packaging solutions (they are a brute force / ineffecient method of package), they do serve their purpose. Leap 15.1 and EL8(RHEL/CentOS) folks can use the Riot-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot>
+* Flatpak: Though I personally view Flatpaks as last resort packaging solutions (they are a brute force / relatively-inefficient method of packaging), they do serve their purpose. Leap 15.1 and EL8(RHEL/CentOS) folks can use the Riot-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot>
 
 ### For Fedora...
 
@@ -116,15 +116,15 @@ sudo zypper install riot
 
 ## I installed it, now I want to run Riot!
 
-Search for and select "Riot" from your desktop or run `riot` from the commandline.
+Search for and select "Riot" from your desktop or run `riot` from the command line.
 
-Note: If none of this made sense or you couldn't get it to work, Riot can also be run as SaaS from your browser at <https://riot.im/app>
+Note: If none of this made sense or you couldn't get it to work, Riot can also be run as directly from your browser at <https://riot.im/app>
 
 ## I installed it, now I want to ensure I get future updates!
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
 
-Note that with updates you may have to do a `killall riot-web`. Quiting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
+Note that with updates you may have to do a `killall riot-web` (`riot-desktop` in Riot v1.6). Quiting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
 
 ```bash
 # Fedora (any version) and RHEL/CentOS (version 8)...
@@ -147,7 +147,7 @@ Yes!
 
 1. Follow the steps described above to install the repository configure file.  
    _You will have to refresh it if you have done this before today._
-2. Disable the stable repo and enable the testing repo...
+2. Disable the stable repository and enable the testing repository...
 ```
 # Fedora (any version) and RHEL/CentOS (version 8) only
 sudo dnf config-manager --set-disabled riot-stable
@@ -158,7 +158,7 @@ sudo dnf list --refresh |grep riot
 
 # Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the orginators of Riot -- [New Vector](https://vector.im/) -- but I do thank them for their contribution.
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Riot -- [New Vector](https://vector.im/) -- but I do thank them for their contribution.
 
 # Questions or comments...
 
