@@ -28,7 +28,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # ie. if the dev team includes things like rc.3 in the filename
 %undefine buildQualifier
-%define buildQualifier rc.3
+%define buildQualifier rc.4
 
 # VERSION
 %define vermajor 1.6
@@ -483,11 +483,14 @@ umask 007
 
 
 %changelog
+* Thu Apr 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.4.taw
+  - 1.6.0 RC4
+
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.3.taw
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.2.rc.3.taw
 * Fri Apr 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.3.taw
 * Thu Apr 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.2.taw
-  - 1.6.0
+  - 1.6.0 RC3
   - building from riot-web AND riot-desktop now. First web and then that  
     feeds into desktop.
   - new buildrequires: cargo python gcc-c++ cmake rust libxcrypt-compat  
