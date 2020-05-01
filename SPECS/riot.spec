@@ -28,7 +28,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # ie. if the dev team includes things like rc.3 in the filename
 %undefine buildQualifier
-%define buildQualifier rc.4
+%define buildQualifier rc.6
 
 # VERSION
 %define vermajor 1.6
@@ -483,6 +483,9 @@ umask 007
 
 
 %changelog
+* Fri May 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.6.taw
+  - 1.6.0 RC6
+
 * Thu Apr 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.4.taw
   - 1.6.0 RC4
 
