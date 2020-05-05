@@ -24,11 +24,11 @@ Name: riot
 %define _name_w %{name}-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
-%undefine buildQualifier
 %define buildQualifier rc.6
+%undefine buildQualifier
 
 # VERSION
 %define vermajor 1.6
@@ -38,7 +38,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.3
+  %define _pkgrel 0.4
 %endif
 
 # MINORBUMP
@@ -483,6 +483,13 @@ umask 007
 
 
 %changelog
+* Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-1.taw
+* Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.4.testing.taw
+  - 1.6.0
+  - RHEL will not build with 1.6.0 rustc is too dated and sqlcipher is missing.
+  - OpenSUSE 15.1 has similar issues.
+  - RHEL and OpenSUSE 15.1 users will have to trying using the flatpak instead
+
 * Fri May 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.6.taw
   - 1.6.0 RC6
 

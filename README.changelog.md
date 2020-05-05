@@ -1,4 +1,17 @@
 # changelog
+* Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-1.taw
+* Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.4.testing.taw
+  - 1.6.0
+  - RHEL will not build with 1.6.0 rustc is too dated and sqlcipher is missing.
+  - OpenSUSE 15.1 has similar issues.
+  - RHEL and OpenSUSE 15.1 users will have to trying using the flatpak instead
+
+* Fri May 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.6.taw
+  - 1.6.0 RC6
+
+* Thu Apr 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.4.taw
+  - 1.6.0 RC4
+
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.3.taw
 * Sat Apr 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.2.rc.3.taw
 * Fri Apr 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.1.rc.3.taw
