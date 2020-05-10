@@ -2,9 +2,9 @@
 * Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-1.taw
 * Tue May 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.4.testing.taw
   - 1.6.0
-  - RHEL will not build with 1.6.0 rustc is too dated and sqlcipher is missing.
-  - OpenSUSE 15.1 has similar issues.
-  - RHEL and OpenSUSE 15.1 users will have to trying using the flatpak instead
+  - riot on RHEL will not build. rustc is too dated and sqlcipher is missing.
+  - riot on OpenSUSE 15.1 has similar issues.
+  - RHEL and OpenSUSE 15.1 users: use the flatpak instead
 
 * Fri May 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.0-0.3.rc.6.taw
   - 1.6.0 RC6
