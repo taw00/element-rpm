@@ -1,4 +1,10 @@
 # changelog
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-2.taw
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.1.testing.taw
+  - The riot package provides too many things. Libraries in particular.  
+    Removing that cruft.
+  - Adjusting suse logic to allow for leap 15.2 builds.
+
 * Fri May 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.taw
 * Fri May 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-0.1.testing.taw
   - 1.6.2

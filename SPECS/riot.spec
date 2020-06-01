@@ -36,9 +36,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -134,8 +134,8 @@ BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
-BuildRequires: python
-%if 0%{?suse_version} <= 1500
+BuildRequires: python2
+%if 0%{?sle_version} && %{?sle_version}  <= 150100
 ###NOLONGERSUPPORTED##
 ###NOLONGERSUPPORTED##BuildRequires: libcrypt1
 %else
@@ -191,7 +191,6 @@ BuildRequires: sqlcipher-devel
 Requires: sqlcipher
 %endif
 
-
 # Unarchived source tree structure (extracted in {_builddir})
 #   sourceroot               riot-1.6
 #      \_sourcetree_d            \_riot-desktop-1.6.0 (or riot-desktop-1.6.0-rc.3)
@@ -203,6 +202,10 @@ Requires: sqlcipher
 %define sourcetree_contrib %{name}-%{vermajor}-contrib
 # /usr/share/riot
 %define installtree %{_datadir}/%{name}
+
+# Riot should not be providing any libraries. Certainly not libffmpeg.
+%global __provides_exclude ^((libffmpeg[.]so.*)|(lib.*\\.so.*))$
+%global __requires_exclude ^((libffmpeg[.]so.*)|(lib.*\\.so.*))$
 
 
 %description
@@ -226,14 +229,11 @@ Riot is free. Riot is secure.
 # The prep section is the first place we can run shell commands. Therefore,
 # these checks are here . .. Unsupported OS versions:
 %if 0%{?rhel} && 0%{?rhel} < 8
-  echo "======== EL version: %{rhel}"
-  %{error: "EL7-based platforms (CentOS7/RHEL7), and older, are not supportable build targets."}
+  %{error: "======== EL version: %{rhel}: EL7-based platforms (CentOS7/RHEL7), and older, are not supportable build targets."}
 %endif
 
-%if 0%{?suse_version} && 0%{?suse_version} <= 1500
-  echo "======== OpenSUSE version: %{suse_version}"
-  echo "-------- Note that Leap 15.1+ will report at 1500"
-  %{error: "Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
+%if 0%{?sle_version} && 0%{?sle_version} <= 150100
+  %{error: "======== OpenSUSE version: %{sle_version}: Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} < 30
@@ -277,8 +277,10 @@ cd ${_pwd_w}
 # OPENSUSE
 #
 %if 0%{?suse_version:1}
-  echo "======== OpenSUSE version: %{suse_version}"
-  echo "-------- Note that Leap 15.1+ will report at 1500"
+  echo "======== OpenSUSE version: %{suse_version} %{sle_version}"
+  echo "-------- Leap 15.1  will report as 1500 150100"
+  echo "-------- Leap 15.2  will report as 1500 150200"
+  echo "-------- Tumbleweed will report as 1550 undefined"
   npm install yarn
   #source ~/.bashrc
   #which yarn > /dev/null 2>&1
@@ -483,6 +485,12 @@ umask 007
 
 
 %changelog
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-2.taw
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.1.testing.taw
+  - The riot package provides too many things. Libraries in particular.  
+    Removing that cruft.
+  - Adjusting suse logic to allow for leap 15.2 builds.
+
 * Fri May 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.taw
 * Fri May 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-0.1.testing.taw
   - 1.6.2
