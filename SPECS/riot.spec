@@ -24,7 +24,7 @@ Name: riot
 %define _name_w %{name}-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -135,7 +135,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 BuildRequires: python2
-%if 0%{?sle_version} && %{?sle_version}  <= 150100
+%if 0%{?sle_version} && 0%{?sle_version} <= 150100
 ###NOLONGERSUPPORTED##
 ###NOLONGERSUPPORTED##BuildRequires: libcrypt1
 %else
@@ -485,7 +485,6 @@ umask 007
 
 
 %changelog
-* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-2.taw
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.1.testing.taw
   - The riot package provides too many things. Libraries in particular.  
     Removing that cruft.
