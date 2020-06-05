@@ -24,7 +24,7 @@ Name: riot
 %define _name_w %{name}-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -32,13 +32,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.6
-%define verminor 2
+%define verminor 4
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -485,6 +485,11 @@ umask 007
 
 
 %changelog
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-1.taw
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-0.1.testing.taw
+  - 1.6.4
+  - Fixes a security issue, a regression, and a login bug.
+
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.1.testing.taw
   - The riot package provides too many things. Libraries in particular.  
     Removing that cruft.

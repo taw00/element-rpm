@@ -1,4 +1,9 @@
 # changelog
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-1.taw
+* Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-0.1.testing.taw
+  - 1.6.4
+  - Fixes a security issue, a regression, and a login bug.
+
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-2.taw
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.2-1.1.testing.taw
   - The riot package provides too many things. Libraries in particular.  
