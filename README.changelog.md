@@ -1,4 +1,9 @@
 # changelog
+* Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-1.taw
+* Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-0.1.testing.taw
+  - 1.6.5
+  - Fixes some regression and includes some minor upgrades.
+
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-1.taw
 * Mon Jun 01 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.4-0.1.testing.taw
   - 1.6.4
