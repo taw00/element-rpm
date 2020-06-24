@@ -27,10 +27,10 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 * **CentOS (and RHEL):** Riot 1.5 and older. See also GitHub issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33). See "Flatpak" below.
 * **OpenSUSE:**
   - Tumbleweed: all versions of Riot
-  - Leap 15.1: Riot 1.5 and older. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). See "Flatpak" below.
-  - Leap 15.2: We'll see. See also GitHub issue [#34](https://github.com/taw00/riot-rpm/issues/34).
+  - Leap 15.1: Riot 1.5 and older. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). Install "Flatpak" instead, see below.
+  - Leap 15.2: OS is missing needed requirements. See also GitHub issue [#34](https://github.com/taw00/riot-rpm/issues/34). Install "Flatpak" instead, see below.
 * The **test repositories:** I will usually try to build test packages for any OS that is in beta if I have time.
-* **Flatpak:** Though I personally view Flatpaks as last resort packaging solutions (it is a brute force, relatively inefficient, but more secure! method of packaging), they do serve their purpose. **Leap 15.1 and EL8(RHEL/CentOS) folks can use the Riot-team supplied Flatpak:** <https://flathub.org/apps/details/im.riot.Riot>
+* **Flatpak:** Though I personally view Flatpaks as last resort packaging solutions (it is a brute force, relatively inefficient, but more secure! method of packaging), they do serve their purpose. **Leap 15.1, 15.2, and EL8(RHEL/CentOS) folks can use the Riot-team supplied Flatpak:** <https://flathub.org/apps/details/im.riot.Riot>
 
 ### For Fedora...
 
