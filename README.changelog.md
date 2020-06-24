@@ -1,4 +1,11 @@
 # changelog
+* Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
+* Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
+  - 1.6.6
+  - riot.desktop and riot.appdata.xml now follow the freedesktop standard and  
+    are named im.riot.Riot.desktop and im.riot.Riot.appdata.xml
+  - libsecret-devel is a new BuildRequires
+
 * Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-1.taw
 * Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-0.1.testing.taw
   - 1.6.5

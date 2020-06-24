@@ -32,7 +32,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.6
-%define verminor 5
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -134,7 +134,7 @@ BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
-BuildRequires: python2
+BuildRequires: python2 libsecret-devel
 %if 0%{?sle_version} && 0%{?sle_version} <= 150100
 ###NOLONGERSUPPORTED##
 ###NOLONGERSUPPORTED##BuildRequires: libcrypt1
@@ -146,6 +146,7 @@ BuildRequires: libcrypt1
 %if 0%{?rhel:1}
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: libsecret-devel
 %if 0%{?rhel} < 8
 ###NOLONGERSUPPORTED### This is super ugly
 ###NOLONGERSUPPORTED### EL7 is too far behind on many many packages. Therefore, you have to pull
@@ -170,6 +171,7 @@ BuildRequires: libxcrypt
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: python
+BuildRequires: libsecret-devel
 %if 0%{?fedora} >= 29
 BuildRequires: nodejs npm nodejs-yarn
 BuildRequires: libxcrypt-compat
@@ -444,9 +446,9 @@ install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.256x256.png 
 install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
 install -m755  %{sourcetree_contrib}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
-install -D -m644 -p %{sourcetree_contrib}/desktop/riot.desktop %{buildroot}%{_datadir}/applications/riot.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/riot.desktop
-install -D -m644 -p %{sourcetree_contrib}/desktop/riot.appdata.xml %{buildroot}%{_metainfodir}/riot.appdata.xml
+install -D -m644 -p %{sourcetree_contrib}/desktop/im.riot.Riot.desktop %{buildroot}%{_datadir}/applications/im.riot.Riot.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/im.riot.Riot.desktop
+install -D -m644 -p %{sourcetree_contrib}/desktop/im.riot.Riot.appdata.xml %{buildroot}%{_metainfodir}/im.riot.Riot.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # /usr/lib/riot or /usr/lib64/riot...
@@ -462,8 +464,8 @@ install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_riot.conf %{buildroot
 # We own /usr/share/riot and everything under it...
 %{installtree}
 %{_datadir}/icons/*
-%{_datadir}/applications/riot.desktop
-%{_metainfodir}/riot.appdata.xml
+%{_datadir}/applications/im.riot.Riot.desktop
+%{_metainfodir}/im.riot.Riot.appdata.xml
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
@@ -485,6 +487,13 @@ umask 007
 
 
 %changelog
+* Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
+* Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
+  - 1.6.6
+  - riot.desktop and riot.appdata.xml now follow the freedesktop standard and  
+    are named im.riot.Riot.desktop and im.riot.Riot.appdata.xml
+  - libsecret-devel is a new BuildRequires
+
 * Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-1.taw
 * Tue Jun 16 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.5-0.1.testing.taw
   - 1.6.5
