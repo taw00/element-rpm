@@ -1,4 +1,10 @@
 # changelog
+* Thu Jun 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.1.testing.taw
+  - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
+    libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.
+  - Leap 15.1 and 15.2 still have issues due to a dated rust version that ships  
+    with the OS. See also, https://github.com/taw00/riot-rpm/issues/34
+
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
   - 1.6.6
