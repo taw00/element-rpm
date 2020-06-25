@@ -24,7 +24,7 @@ Name: riot
 %define _name_w %{name}-web
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -38,7 +38,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -135,10 +135,19 @@ BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 BuildRequires: python2 libsecret-devel
-%if 0%{?sle_version} && 0%{?sle_version} <= 150100
-###NOLONGERSUPPORTED##
-###NOLONGERSUPPORTED##BuildRequires: libcrypt1
+%if 0%{?sle_version}
+# Leap
+# provides libcrypto.so.1
+BuildRequires: libopenssl1_0_0
+%if 0%{?sle_version} == 150100
+# Leap 15.1
+%endif
+%if 0%{?sle_version} == 150200
+# Leap 15.2
+%endif
 %else
+# Tumbleweed
+# provides libcrypto.so.1
 BuildRequires: libcrypt1
 %endif
 %endif
@@ -163,6 +172,7 @@ BuildRequires: libsecret-devel
 # EL8 is based on Fedora 28
 BuildRequires: nodejs npm
 BuildRequires: python3
+# provides libcrypto.so.1
 BuildRequires: libxcrypt
 %endif
 %endif
@@ -174,9 +184,11 @@ BuildRequires: python
 BuildRequires: libsecret-devel
 %if 0%{?fedora} >= 29
 BuildRequires: nodejs npm nodejs-yarn
+# provides libcrypto.so.1
 BuildRequires: libxcrypt-compat
 %else
 BuildRequires: nodejs npm
+# provides libcrypto.so.1
 BuildRequires: libxcrypt
 %endif
 %endif
@@ -235,7 +247,7 @@ Riot is free. Riot is secure.
 %endif
 
 %if 0%{?sle_version} && 0%{?sle_version} <= 150100
-  %{error: "======== OpenSUSE version: %{sle_version}: Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
+  #%%{error: "======== OpenSUSE version: %{sle_version}: Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} < 30
@@ -303,7 +315,11 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 %if 0%{?fedora:1}
   echo "======== Fedora version: %{fedora}"
-  # Fedora 29+
+  %if 0%{?fedora} <= 29
+    echo "Builds for Fedora 29 and older are no longer supported."
+    exit 1
+  %endif
+  # Rules for Fedora 29+
   %if 0%{?fedora} >= 29
     #source ~/.bashrc
     #which yarn > /dev/null 2>&1
@@ -316,7 +332,7 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
       source ~/.bashrc
     #fi
-  # Fedora 28-
+  # Rules for Fedora 28-
   %else
     npm install yarn
     #source ~/.bashrc
@@ -328,7 +344,7 @@ alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
 alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
       source ~/.bashrc
     #fi
-    # Not needed as of 1.6.0?
+    # Not needed as of Riot 1.6.0?
     #yarn add electron-builder --dev
     #yarn add electron-packager --dev
   %endif
@@ -487,6 +503,12 @@ umask 007
 
 
 %changelog
+* Thu Jun 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.1.testing.taw
+  - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
+    libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.
+  - Leap 15.1 and 15.2 still have issues due to a dated rust version that ships  
+    with the OS. See also, https://github.com/taw00/riot-rpm/issues/34
+
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
   - 1.6.6
