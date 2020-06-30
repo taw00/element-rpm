@@ -22,9 +22,10 @@
 Name: riot
 %define _name_d %{name}-desktop
 %define _name_w %{name}-web
+%define tld_vendor_product_id im.riot.Riot
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -32,13 +33,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.6
-%define verminor 6
+%define verminor 7
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
 %define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -462,9 +463,9 @@ install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.256x256.png 
 install -D -m644 -p %{sourcetree_contrib}/desktop/riot.highcontrast.svg         %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/riot.svg
 
 install -m755  %{sourcetree_contrib}/desktop/riot.wrapper.sh %{buildroot}%{_bindir}/
-install -D -m644 -p %{sourcetree_contrib}/desktop/im.riot.Riot.desktop %{buildroot}%{_datadir}/applications/im.riot.Riot.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/im.riot.Riot.desktop
-install -D -m644 -p %{sourcetree_contrib}/desktop/im.riot.Riot.appdata.xml %{buildroot}%{_metainfodir}/im.riot.Riot.appdata.xml
+install -D -m644 -p %{sourcetree_contrib}/desktop/%{tld_vendor_product_id}.desktop %{buildroot}%{_datadir}/applications/%{tld_vendor_product_id}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{tld_vendor_product_id}.desktop
+install -D -m644 -p %{sourcetree_contrib}/desktop/%{tld_vendor_product_id}.appdata.xml %{buildroot}%{_metainfodir}/%{tld_vendor_product_id}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # /usr/lib/riot or /usr/lib64/riot...
@@ -480,8 +481,8 @@ install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_riot.conf %{buildroot
 # We own /usr/share/riot and everything under it...
 %{installtree}
 %{_datadir}/icons/*
-%{_datadir}/applications/im.riot.Riot.desktop
-%{_metainfodir}/im.riot.Riot.appdata.xml
+%{_datadir}/applications/%{tld_vendor_product_id}.desktop
+%{_metainfodir}/%{tld_vendor_product_id}.appdata.xml
 %{_bindir}/*
 %{_sysconfdir}/ld.so.conf.d/riot.conf
 %dir %attr(755,root,root) %{_libdir}/%{name}
@@ -503,6 +504,10 @@ umask 007
 
 
 %changelog
+* Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-1.taw
+* Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-0.1.testing.taw
+  - 1.6.7
+
 * Thu Jun 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.1.testing.taw
   - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
     libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.
