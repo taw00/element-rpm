@@ -1,4 +1,12 @@
 # changelog
+* Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-1.taw
+* Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-0.1.testing.taw
+  - 1.6.8
+
+* Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-1.taw
+* Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-0.1.testing.taw
+  - 1.6.7
+
 * Thu Jun 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.1.testing.taw
   - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
     libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.

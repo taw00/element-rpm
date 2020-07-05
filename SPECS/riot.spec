@@ -33,7 +33,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.6
-%define verminor 7
+%define verminor 8
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -354,6 +354,9 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 #
 # RHEL / CENTOS
 #
+%if 0%{?centos}
+  echo "======== Centos version(s): %{centos} and %{centos_ver}"
+%endif
 %if 0%{?rhel:1}
   echo "======== EL version: %{rhel}"
   # I don't grok how to declare what python you are using so that scripting
@@ -504,6 +507,10 @@ umask 007
 
 
 %changelog
+* Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-1.taw
+* Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-0.1.testing.taw
+  - 1.6.8
+
 * Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-1.taw
 * Mon Jun 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.7-0.1.testing.taw
   - 1.6.7
