@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Element
+Comment=Element is a decentralized, secure messaging client for collaborative group communication.
+GenericName=Group Messaging
+Exec=element.wrapper.sh %U
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Network;InstantMessaging;Chat;VideoConference;
+MimeType=x-scheme-handler/element;
+StartupNotify=true
+Icon=element
+X-Desktop-File-Install-Version=0.23
+

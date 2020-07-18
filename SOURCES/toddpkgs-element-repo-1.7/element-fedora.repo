@@ -1,0 +1,39 @@
+# Element messaging client for Fedora
+# Stable and Testing repository streams - binaries and sources
+#
+# Note: Element was once branded Riot.
+#
+# This file is a convenience file.  If you are familiar with Fedora COPR, you
+# can follow the direct enablement procedures here instead if you like:
+#   https://copr.fedorainfracloud.org/coprs/taw/element/
+#   https://copr.fedorainfracloud.org/coprs/taw/riot-testing/
+#
+# Feedback: t0dd@protonmail.com
+
+[element-stable]
+enabled=1
+name=Element - fedora-$releasever-$basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+repo_gpgcheck=0
+metadata_expire=1d
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0
+
+[element-testing]
+enabled=0
+name=Element - testing - fedora-$releasever-$basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+repo_gpgcheck=0
+metadata_expire=0
+# leave this off, see
+# https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
+enabled_metadata=0

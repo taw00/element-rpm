@@ -1,4 +1,9 @@
 # changelog
+* Sun Jul 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.taw
+* Sun Jul 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-0.1.testing.taw
+  - 1.7.1
+  - App name change. From Riot to Element (as of 1.7.0).
+
 * Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-1.taw
 * Sun Jul 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.8-0.1.testing.taw
   - 1.6.8

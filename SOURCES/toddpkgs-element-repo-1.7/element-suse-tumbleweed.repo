@@ -1,0 +1,22 @@
+[element-stable]
+name=Element - opensuse tumbleweed $basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/opensuse-tumbleweed-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+
+[element-testing]
+enabled=0
+name=Element - testing - opensuse tumbleweed $basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/opensuse-tumbleweed-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+repo_gpgcheck=0
+metadata_expire=0
+enabled_metadata=1

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Riot
+Comment=Riot is a decentralized, secure messaging client for collaborative group communication.
+GenericName=Group Messaging
+Exec=riot.wrapper.sh %U
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Network;InstantMessaging;Chat;VideoConference;
+MimeType=x-scheme-handler/riot;
+StartupNotify=true
+Icon=riot
+X-Desktop-File-Install-Version=0.23
+

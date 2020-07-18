@@ -1,0 +1,23 @@
+[element-stable]
+enabled=1
+enabled_metadata=1
+name=Element - opensuse leap $basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/opensuse-leap-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+repo_gpgcheck=0
+
+[element-testing]
+enabled=1
+enabled_metadata=1
+name=Element - testing - opensuse leap $basearch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/opensuse-leap-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
