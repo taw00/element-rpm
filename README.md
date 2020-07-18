@@ -2,7 +2,7 @@
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
-_**What is Element?**_ Decentralised, encrypted chat & collaboration powered by [matrix].
+_**What is Element?**_ Decentralized, encrypted chat & collaboration powered by [matrix].
 
 _**What is Matrix?**_ An open network for secure, decentralized communication.
 
@@ -10,7 +10,7 @@ In short, Element is an open-source, decentralized, end-to-end encrypted, team c
 
 > Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
 
-More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though pre-built binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
+More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though prebuilt binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
 All `*.src.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg)
 
@@ -32,9 +32,11 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 Successful builds:
 * **Fedora:** versions 31+
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
-* **Flatpak:** _(not my build)_ **Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak:** <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak are a brute-force solution, but it is a solution.
 
-Unsucessful builds:
+Alternative builds:
+* **Flatpak:** Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak are a brute-force solution, but it is a solution.
+
+Unsuccessful builds:
 * **CentOS (and RHEL):**
   - Last successful build version: Riot 1.5.
   - See also GitHub issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33). See "Flatpak" above.
@@ -109,7 +111,7 @@ Note: If none of this made sense or you couldn't get it to work, Element can als
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
 
-Note that with updates you may have to do a `killall element-desktop`). Quiting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
+Note that with updates you may have to do a `killall element-desktop`). Quitting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
 
 ```bash
 # Fedora . . .
