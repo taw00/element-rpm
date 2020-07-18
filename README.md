@@ -6,7 +6,7 @@ _**What is Element?**_ Decentralised, encrypted chat & collaboration powered by 
 
 _**What is Matrix?**_ An open network for secure, decentralized communication.
 
-In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
+In short, Element is an open-source, decentralized, end-to-end encrypted, team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
 
 > Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
 
