@@ -2,7 +2,7 @@
 
 _Element messaging client, packaged (RPMs) for Fedora, CentOS, Red Hat Enterprise Linux, and OpenSUSE_
 
-> Important note: Element was once branded Riot. The name changed as of version 1.7.0.
+> Important note: Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
 
 Element is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. It's a great client, but it needed RPM packages built for the Red Hat family of Linux operating systems. So... here they be!
 
@@ -27,7 +27,7 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 
 Successful builds:
 * **Fedora:** versions 31+
-* **OpenSUSE:** Tumbleweed
+* **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
 * **Flatpak:** Though I personally view Flatpaks as last resort packaging solutions (it is a brute force, relatively inefficient, but more secure! method of packaging), they do serve their purpose. **Leap 15.1, 15.2, and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak:** <https://flathub.org/apps/details/im.element.Element>
 
 Unsucessful builds:
@@ -35,8 +35,7 @@ Unsucessful builds:
   - Last successful build version: Riot 1.5.
   - See also GitHub issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33). See "Flatpak" below.
 * **OpenSUSE:**
-  - Leap 15.1: Success for Riot 1.5 and older. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). Install "Flatpak" instead, see below.
-  - Leap 15.2: OS is missing needed requirements. See also GitHub issue [#34](https://github.com/taw00/riot-rpm/issues/34). Install "Flatpak" instead, see below.
+  - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). Install "Flatpak" instead, see below.
 
 ### For Fedora or CentOS/RHEL...
 
