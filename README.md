@@ -3,11 +3,11 @@
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
 
-_**What is Element?**_ In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
+_**What is Element?**_ In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
 
 > Important note: Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
 
-More fully, Element is a client implementing the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Red Hat and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though pre-built binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
+More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though pre-built binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
 All \*.src.rpm packages provided in this GitHub repository should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg)
 
