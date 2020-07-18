@@ -1,4 +1,7 @@
-# The Element Messaging Application - packaged for Fedora and OpenSUSE_
+# The Element Messaging Desktop Application
+
+_.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
+
 
 _**What is Element?**_ In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, etc.
 
