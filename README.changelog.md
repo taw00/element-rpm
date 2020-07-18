@@ -1,6 +1,10 @@
 # changelog
-* Sun Jul 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.taw
-* Sun Jul 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-0.1.testing.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.1.testing.taw
+  - riot.im moved to element.io, not element.im
+
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-0.1.testing.taw
   - 1.7.1
   - App name change. From Riot to Element (as of 1.7.0).
 

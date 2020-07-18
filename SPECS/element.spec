@@ -9,7 +9,7 @@
 # https://github/taw00/riot-rpm
 # https://copr.fedorainfracloud.org/coprs/taw/Riot/
 #
-# https://element.im
+# https://element.io
 # old: https://riot.im/
 # old: https://vector.im
 # https://github.com/vector-im/riot-desktop (1.6+)
@@ -27,7 +27,7 @@ Name: element
 %define name_old riot
 %define name_d_old %{name_old}-desktop
 %define name_w_old %{name_old}-web
-%define tld_vendor_product_id im.element.Element
+%define tld_vendor_product_id io.element.Element
 Summary: A decentralized, secure messaging client for collaborative group communication
 
 %define targetIsProduction 1
@@ -42,9 +42,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -92,7 +92,7 @@ Obsoletes: riot < 1.7.1
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing
 # Apache Software License 2.0
 License: ASL 2.0
-URL: https://element.im/
+URL: https://element.io/
 # Note, for example, this will not build on ppc64le
 ExclusiveArch: x86_64 i686 i586 i386
 
@@ -520,6 +520,10 @@ umask 007
 
 
 %changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.1.testing.taw
+  - riot.im moved to element.io, not element.im
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-0.1.testing.taw
   - 1.7.1

@@ -2,9 +2,9 @@ Name:       toddpkgs-element-repo
 Version:    1.7
 
 %define targetIsProduction 1
-%define _release 1
+%define _release 2
 %if ! %{targetIsProduction}
-  %define _release 0.1.testing
+  %define _release 1.1.testing
 %endif
 Release:   %{_release}%{?dist}.taw
 
@@ -125,6 +125,8 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-2.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-1.1.testing.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-1.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-0.1.testing.taw
   - Riot is now Element
