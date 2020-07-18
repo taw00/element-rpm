@@ -1,4 +1,4 @@
-# Element: decentralized, encrypted chat and collaboration
+# Element: decentralized, encrypted chat & collaboration
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
@@ -45,7 +45,7 @@ Unsucessful builds:
 
 **Prep&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Configuration: should only need to do once
+# Should only need to do this prep phase once
 # Configure the COPR repository
 sudo dnf copr enable taw/element
 # Install Fedora's distribution GPG keys
@@ -53,8 +53,11 @@ sudo dnf install -y distribution-gpg-keys
 ```
 .&nbsp;.&nbsp;.&nbsp;alternative&nbsp;.&nbsp;.&nbsp;.
 ```bash
+# Should only need to do this prep phase once
+# Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+# Configure and enable the Element repository
 sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/fedora-32-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.fc32.taw.noarch.rpm
 ```
 
@@ -66,19 +69,24 @@ sudo dnf install -y element --refresh
 
 ### [OpenSUSE]
 
-**Prep (OpenSUSE Leap 15.2)&nbsp;.&nbsp;.&nbsp;.**
+**Prep (Leap 15.2)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
+# Should only need to do this prep phase once
+# Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+# Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-leap-15.2-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.suse.lp152.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
 ```
 
-**Prep (OpenSUSE Tumbleweed)&nbsp;.&nbsp;.&nbsp;.**
+**Prep (Tumbleweed)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Repository configuration (should only need to do once)
+# Should only need to do this prep phase once
+# Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+# Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-tumbleweed-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.suse.tw.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
 ```
