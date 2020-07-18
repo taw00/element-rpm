@@ -9,7 +9,9 @@ _**What is Element?**_ In short, Element is an open source, decentralized, end-t
 
 More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though pre-built binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
-All \*.src.rpm packages provided in this GitHub repository should be signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg)
+All `*.src.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg)
+
+> Please note that packages also exist for Android, Apple products, and Microsoft Windows. Element for the web (Chromebook and anyone) is available here: <https://app.element.io/> — slick!
 
 #### More about&nbsp;.&nbsp;.&nbsp;.
 
@@ -21,7 +23,7 @@ All \*.src.rpm packages provided in this GitHub repository should be signed with
 
 ## I just want to install Element!
 
-It's easy to install, run, and maintain Element. Current builds are provided these platforms (x86\_64 only)&nbsp;.&nbsp;.&nbsp;.  
+It's easy to install, run, and maintain Element. Current builds are provided for these platforms (x86\_64 only)&nbsp;.&nbsp;.&nbsp;.  
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
 Successful builds:
@@ -36,7 +38,7 @@ Unsucessful builds:
 * **OpenSUSE:**
   - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). Install "Flatpak" instead, see below.
 
-### Fedora&nbsp;.&nbsp;.&nbsp;.
+### [Fedora]
 
 **Prep&nbsp;.&nbsp;.&nbsp;.**
 ```bash
@@ -59,7 +61,7 @@ sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/
 sudo dnf install -y element --refresh
 ```
 
-### OpenSUSE&nbsp;.&nbsp;.&nbsp;.
+### [OpenSUSE]
 
 **Prep (OpenSUSE Leap 15.2)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
