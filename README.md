@@ -1,11 +1,14 @@
-# The Element Messaging Desktop Application
+# Element: decentralized, encrypted chat and collaboration
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
+_**What is Element?**_ Decentralised, encrypted chat & collaboration powered by [matrix].
 
-_**What is Element?**_ In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
+_**What is Matrix?**_ An open network for secure, decentralized communication.
 
-> Important note: Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
+In short, Element is an open source, decentralized, end-to-end encrypted team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
+
+> Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
 
 More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though pre-built binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
@@ -131,7 +134,7 @@ sudo dnf list - - refresh |grep element
 
 # Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element -- [New Vector Ltd/Element](https://element.im/) -- but I do thank them for their contribution.
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.im/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
 
 # Questions or comments&nbsp;.&nbsp;.&nbsp;.
 
