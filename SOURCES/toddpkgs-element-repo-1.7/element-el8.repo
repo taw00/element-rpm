@@ -12,7 +12,7 @@
 
 [element-stable]
 enabled=1
-name=Element - epel-$releasever-$basearch
+name=Element for EPEL $releasever - $basearch
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/epel-8-$basearch/
 type=rpm-md
 skip_if_unavailable=True
@@ -26,7 +26,7 @@ metadata_expire=1d
 
 [element-testing]
 enabled=0
-name=Element - testing - epel-$releasever-$basearch
+name=Element for EPEL $releasever - $basearch - testing
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/epel-8-$basearch/
 type=rpm-md
 skip_if_unavailable=True

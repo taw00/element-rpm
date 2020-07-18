@@ -1,5 +1,5 @@
 [element-stable]
-name=Element - opensuse tumbleweed $basearch
+name=Element for OpenSUSE Tumbleweed - $basearch
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/opensuse-tumbleweed-$basearch/
 type=rpm-md
 skip_if_unavailable=True
@@ -11,7 +11,7 @@ enabled_metadata=1
 
 [element-testing]
 enabled=0
-name=Element - testing - opensuse tumbleweed $basearch
+name=Element for OpenSUSE Tumbleweed - $basearch - testing
 baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/opensuse-tumbleweed-$basearch/
 type=rpm-md
 skip_if_unavailable=True
