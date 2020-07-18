@@ -28,7 +28,7 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 Successful builds:
 * **Fedora:** versions 31+
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
-* **Flatpak:** Though I personally view Flatpaks as last resort packaging solutions (it is a brute force, relatively inefficient, but more secure! method of packaging), they do serve their purpose. **Leap 15.1, 15.2, and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak:** <https://flathub.org/apps/details/im.element.Element>
+* **Flatpak:** Though I personally view Flatpaks as last resort packaging solutions (it is a brute force, relatively inefficient, but more secure! method of packaging), they do serve their purpose. **Leap 15.1, 15.2, and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak:** <https://flathub.org/apps/details/im.riot.Riot>
 
 Unsucessful builds:
 * **CentOS (and RHEL):**
