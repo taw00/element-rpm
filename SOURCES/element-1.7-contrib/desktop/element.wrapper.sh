@@ -5,7 +5,7 @@
 
 # Electron + KDE Plasma has issues
 # https://github.com/electron/electron/issues/12791
-# https://github.com/taw00/riot-rpm/issues/16
+# https://github.com/taw00/element-rpm/issues/16
 
 # I wrote this little wrapper script that attempts to bypass these issues until
 # they are fixed. The workarounds involve setting environment variables so that

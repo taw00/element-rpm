@@ -32,27 +32,27 @@ functionality like never before.</p>
 
       <p>Element is free. Element is secure.</p>
 
-      <p>Package builder page: https://github.com/taw00/riot-rpm</p>
+      <p>Package builder page: https://github.com/taw00/element-rpm</p>
   </description>
 
   <screenshots>
     <screenshot type="default">
       <caption>Login</caption>
-      <image>https://github.com/taw00/riot-rpm/raw/master/screenshots/riot1.png</image>
+      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot1.png</image>
     </screenshot>
     <screenshot>
       <caption>Chat room (light themed)</caption>
-      <image>https://github.com/taw00/riot-rpm/raw/master/screenshots/riot2.png</image>
+      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot2.png</image>
     </screenshot>
      <screenshot>
       <caption>Chat room (dark themed)</caption>
-      <image>https://github.com/taw00/riot-rpm/raw/master/screenshots/riot3.png</image>
+      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot3.png</image>
     </screenshot>
   </screenshots>
 
   <url type="homepage">https://element.io</url>
   <url type="bugtracker">https://github.com/vector-im/riot-desktop/issues</url>
-  <url type="bugtracker">https://github.com/taw00/riot-rpm/issues</url>
+  <url type="bugtracker">https://github.com/taw00/element-rpm/issues</url>
 
   <developer_name>Element/New Vector Ltd</developer_name>
   <custom>
