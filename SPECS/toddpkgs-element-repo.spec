@@ -2,9 +2,9 @@ Name:       toddpkgs-element-repo
 Version:    1.7
 
 %define targetIsProduction 1
-%define _release 2
+%define _release 3
 %if ! %{targetIsProduction}
-  %define _release 1.1.testing
+  %define _release 2.1.testing
 %endif
 Release:   %{_release}%{?dist}.taw
 
@@ -16,8 +16,8 @@ Summary:    Repository configuration to enable management of Element packages
 
 Group:      System Environment/Base
 License:    MIT
-URL:        https://github.com/taw00/riot-rpm
-Source0:    https://github.com/taw00/riot-rpm/raw/master/SOURCES/toddpkgs-element-repo-1.7.tar.gz
+URL:        https://github.com/taw00/element-rpm
+Source0:    https://github.com/taw00/element-rpm/raw/master/SOURCES/toddpkgs-element-repo-1.7.tar.gz
 BuildArch:  noarch
 
 
@@ -51,7 +51,7 @@ whether you want the stable or the testing repositories.
 
 Notes about GPG keys:
 * An RPM signing key is included. It is used to sign RPMs that I build by
-  hand. Namely any *.src.rpm found in github.com/taw00/riot-rpm and (for now)
+  hand. Namely any *.src.rpm found in github.com/taw00/element-rpm and (for now)
   all the binary OpenSuse packages
 * RPMs from the copr repositories are signed by fedoraproject build system
   keys.
@@ -125,6 +125,10 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-3.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-2.1.testing.taw
+  - github repo: taw00/riot-rpm --> taw00/element-rpm
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-2.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-1.1.testing.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-1.taw

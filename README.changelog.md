@@ -1,4 +1,7 @@
 # changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.1.testing.taw
+  - github repo: taw00/riot-rpm --> taw00/element-rpm
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.1.testing.taw
   - riot.im moved to element.io, not element.im
@@ -20,7 +23,7 @@
   - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
     libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.
   - Leap 15.1 and 15.2 still have issues due to a dated rust version that ships  
-    with the OS. See also, https://github.com/taw00/riot-rpm/issues/34
+    with the OS. See also, https://github.com/taw00/element-rpm/issues/34
 
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
@@ -283,7 +286,7 @@
   - OpenSUSE Tumbleweed builds once again. Turns out, you need to include  
     ca certs in the base install. I am unsure which ones, so... I  
     installed a pile of them. Addresses github pull request #20  
-    <https://github.com/taw00/riot-rpm/pull/20>
+    <https://github.com/taw00/element-rpm/pull/20>
 
 * Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.taw
 * Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-0.1.testing.taw
@@ -338,7 +341,7 @@
 * Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.1.testing.taw
   - wrapper script in order to enable riot to better deal with the  
     KDE+Electron issue (mentioned below). And discussed here...  
-    <https://github.com/taw00/riot-rpm/issues/16>  
+    <https://github.com/taw00/element-rpm/issues/16>  
     Using a more generic approach to the problem since the prior solution  
     assumed all desktops needed to be fixed, which is not the case. This  
     may introduce other issues, but it is headed in the right direction.

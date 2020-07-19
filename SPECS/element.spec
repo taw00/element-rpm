@@ -6,7 +6,7 @@
 #
 # Riot was renamed Element as of v1.7.0
 #
-# https://github/taw00/riot-rpm
+# https://github/taw00/element-rpm
 # https://copr.fedorainfracloud.org/coprs/taw/Riot/
 #
 # https://element.io
@@ -30,7 +30,7 @@ Name: element
 %define tld_vendor_product_id io.element.Element
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -42,9 +42,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP
@@ -110,7 +110,7 @@ ExclusiveArch: x86_64 i686 i586 i386
 
 # https://fedoraproject.org/wiki/Packaging:SourceURL
 # * Sources as part of source RPM can be found at
-#   https://github.com/taw00/riot-rpm
+#   https://github.com/taw00/element-rpm
 # * Source0 tarball can be snagged from https://github.com/vector-im/riot-desktop
 %define _version %{version}
 %if 0%{?buildQualifier:1}
@@ -122,7 +122,7 @@ ExclusiveArch: x86_64 i686 i586 i386
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
 Source0: https://github.com/vector-im/%{name_d_old}/archive/v%{_version}/%{_source0}.tar.gz
 Source1: https://github.com/vector-im/%{name_w_old}/archive/v%{_version}/%{_source1}.tar.gz
-Source2: https://github.com/taw00/riot-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
+Source2: https://github.com/taw00/element-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 # This is used to declare whether we pull additional sources dependencies from the contrib tarball
 %define useExtraSources 1
@@ -520,6 +520,9 @@ umask 007
 
 
 %changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.1.testing.taw
+  - github repo: taw00/riot-rpm --> taw00/element-rpm
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-1.1.testing.taw
   - riot.im moved to element.io, not element.im
@@ -541,7 +544,7 @@ umask 007
   - fixed buildrequires for OpenSUSE Leap (libcrypto.so.1 is supplied by  
     libopenssl1_0_0 on Leap 15.1 and 15.2). Thank you, @DJViking.
   - Leap 15.1 and 15.2 still have issues due to a dated rust version that ships  
-    with the OS. See also, https://github.com/taw00/riot-rpm/issues/34
+    with the OS. See also, https://github.com/taw00/element-rpm/issues/34
 
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-1.taw
 * Tue Jun 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.6.6-0.1.testing.taw
@@ -800,7 +803,7 @@ umask 007
   - OpenSUSE Tumbleweed builds once again. Turns out, you need to include  
     ca certs in the base install. I am unsure which ones, so... I  
     installed a pile of them. Addresses github pull request #20  
-    <https://github.com/taw00/riot-rpm/pull/20>
+    <https://github.com/taw00/element-rpm/pull/20>
 
 * Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-1.taw
 * Sun Mar 24 2019 Todd Warner <t0dd_at_protonmail.com> 1.0.5-0.1.testing.taw
@@ -856,7 +859,7 @@ umask 007
 * Thu Dec 13 2018 Todd Warner <t0dd_at_protonmail.com> 0.17.8-1.1.testing.taw
   - wrapper script in order to enable riot to better deal with the  
     KDE+Electron issue (mentioned below). And discussed here...  
-    <https://github.com/taw00/riot-rpm/issues/16>  
+    <https://github.com/taw00/element-rpm/issues/16>  
     Using a more generic approach to the problem since the prior solution  
     assumed all desktops needed to be fixed, which is not the case. This  
     may introduce other issues, but it is headed in the right direction.
