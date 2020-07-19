@@ -39,9 +39,9 @@ Alternative builds:
 Unsuccessful builds:
 * **CentOS (and RHEL):**
   - Last successful build version: Riot 1.5.
-  - See also GitHub issues [#31](https://github.com/taw00/riot-rpm/issues/31) and [#33](https://github.com/taw00/riot-rpm/issues/33). See "Flatpak" above.
+  - See also GitHub issues [#31](https://github.com/taw00/element-rpm/issues/31) and [#33](https://github.com/taw00/element-rpm/issues/33). See "Flatpak" above.
 * **OpenSUSE:**
-  - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/riot-rpm/issues/32). Install "Flatpak" instead, see above.
+  - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead, see above.
 
 ### [Fedora]
 
