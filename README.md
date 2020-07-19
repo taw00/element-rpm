@@ -18,7 +18,7 @@ All `*.src.rpm` packages provided in this GitHub repository are signed with [my 
 
 #### More about&nbsp;.&nbsp;.&nbsp;.
 
-* Element: <https://element.im/> and the source repositories, [riot-desktop](https://github.com/vector-im/riot-desktop) and [riot-web](https://github.com/vector-im/riot-web)
+* Element: <https://element.io/> and the source repositories, [riot-desktop](https://github.com/vector-im/riot-desktop) and [riot-web](https://github.com/vector-im/riot-web)
 * Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
 * A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Element is superior to Slack and Rocket Chat._
 
@@ -105,7 +105,7 @@ sudo zypper install element
 
 Search for and select "Element" from your desktop or run `element` from the command line.
 
-Note: If none of this made sense or you couldn't get it to work, Element can also be run as directly from your browser at <https://element.im/app>
+Note: If none of this made sense or you couldn't get it to work, Element can also be run as directly from your browser at <https://app.element.io/>
 
 ## I installed it, now I want to ensure I get future updates!
 
@@ -144,7 +144,7 @@ sudo dnf list - - refresh |grep element
 
 # Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.im/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
+I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.io/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
 
 # Questions or comments&nbsp;.&nbsp;.&nbsp;.
 
