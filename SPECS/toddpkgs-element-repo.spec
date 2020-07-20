@@ -2,9 +2,9 @@ Name:       toddpkgs-element-repo
 Version:    1.7
 
 %define targetIsProduction 1
-%define _release 3
+%define _release 4
 %if ! %{targetIsProduction}
-  %define _release 2.1.testing
+  %define _release 3.1.testing
 %endif
 Release:   %{_release}%{?dist}.taw
 
@@ -23,25 +23,16 @@ BuildArch:  noarch
 
 %description
 Todd (aka, taw, taw00, t0dd in various communities) packages applications for
-Fedora Linux, RHEL/CentOS/EPEL, and OpenSUSE. This package deploys the
-repository configuration file necessary to enable on-going management of the
-Element messaging client RPM package.
+the Fedora, Red Hat(IBM), and OpenSUSE family of desktop linuxes. This package
+deploys the repository configuration file necessary to enable on-going
+management of the Element messaging client RPM package.
 
 Install this package, and then...
 
-* For fedora:
+* For fedora or CentOS/RHEL:
   sudo dnf install element -y --refresh
 
-* For CentOS or RHEL:
-  sudo yum clean expire-cache
-  sudo yum install element -y
-
-* For OpenSuse Leap
-  sudo zypper refresh
-  sudo zypper modifyrepo -er "element-stable"
-  sudo zypper install element
-
-* For OpenSuse Tumbleweed
+* For OpenSUSE Leap or Tumbleweed
   sudo zypper refresh
   sudo zypper modifyrepo -er "element-stable"
   sudo zypper install element
@@ -125,6 +116,10 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-4.taw
+* Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-3.1.testing.taw
+  - s/copr-be.cloud/download.copr/cg
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-3.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-2.1.testing.taw
   - github repo: taw00/riot-rpm --> taw00/element-rpm
