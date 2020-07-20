@@ -13,11 +13,11 @@
 [element-stable]
 enabled=1
 name=Element for EPEL $releasever - $basearch
-baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/epel-8-$basearch/
+baseurl=https://download.copr.fedoraproject.org/results/taw/element/epel-8-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+gpgkey=https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 repo_gpgcheck=0
 # leave this off, see
 # https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/
@@ -27,11 +27,11 @@ metadata_expire=1d
 [element-testing]
 enabled=0
 name=Element for EPEL $releasever - $basearch - testing
-baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/epel-8-$basearch/
+baseurl=https://download.copr.fedoraproject.org/results/taw/riot-testing/epel-8-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+gpgkey=https://download.copr.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
 repo_gpgcheck=0
 # leave this off, see
 # https://srvfail.com/packagekit-cant-find-file-in-var-cache-packagekit/

@@ -2,22 +2,22 @@
 enabled=1
 enabled_metadata=1
 name=Element for OpenSUSE Leap $releasever - $basearch
-baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/element/opensuse-leap-$releasever-$basearch/
+baseurl=https://download.copr.fedoraproject.org/results/taw/element/opensuse-leap-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+gpgkey=https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 repo_gpgcheck=0
 
 [element-testing]
 enabled=1
 enabled_metadata=1
 name=Element for OpenSUSE Leap $releasever - $basearch - testing
-baseurl=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/opensuse-leap-$releasever-$basearch/
+baseurl=https://download.copr.fedoraproject.org/results/taw/riot-testing/opensuse-leap-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://copr-be.cloud.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+gpgkey=https://download.copr.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
 repo_gpgcheck=0
 enabled=1
 enabled_metadata=1

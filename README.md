@@ -12,7 +12,7 @@ In short, Element is an open-source, decentralized, end-to-end encrypted, team c
 
 More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though prebuilt binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
-All `*.src.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg)
+All `*.src.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg)
 
 > Please note that packages also exist for Android, Apple products, and Microsoft Windows. Element for the web (Chromebook and anyone) is available here: <https://app.element.io/> — slick!
 
@@ -58,7 +58,7 @@ sudo dnf install -y distribution-gpg-keys
 # Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/fedora-32-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.fc32.taw.noarch.rpm
 ```
@@ -76,7 +76,7 @@ sudo dnf install -y element --refresh
 # Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-leap-15.2-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.suse.lp152.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
@@ -87,7 +87,7 @@ sudo zypper modifyrepo -er "element-stable"
 # Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://copr-be.cloud.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-tumbleweed-x86_64/01558173-toddpkgs-element-repo/toddpkgs-element-repo-1.7-1.suse.tw.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
