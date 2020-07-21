@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Wrapper script to run Element group messaging.
+# This script exists because there are multiple issues with various desktop
+# configurations. I believe the QT issues are resolved.
+# The Electron + KDE Plasma hasn't been resolved since 2018.
+
 # QT5 + GNOME + Wayland has issues
 # https://bugreports.qt.io/browse/QTBUG-68619
 
