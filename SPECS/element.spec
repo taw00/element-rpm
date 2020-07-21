@@ -27,7 +27,7 @@ Name: element
 %define name_old riot
 %define name_d_old %{name_old}-desktop
 %define name_w_old %{name_old}-web
-%define tld_vendor_product_id io.element.Element
+%define appid io.element.Element
 Summary: A decentralized, secure messaging client for collaborative group communication
 
 %define targetIsProduction 0
@@ -44,7 +44,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 2.1
+  %define _pkgrel 2.2
 %endif
 
 # MINORBUMP
@@ -225,8 +225,8 @@ Requires: sqlcipher
 %define sourcetree_d %{_source0}
 %define sourcetree_w %{_source1}
 %define sourcetree_contrib %{name}-%{vermajor}-contrib
-# /usr/share/element
-%define installtree %{_datadir}/%{name}
+# /usr/share/io.element.Element
+%define installtree %{_datadir}/%{appid}
 
 # Element should not be providing any libraries. Certainly not libffmpeg.
 %global __provides_exclude ^((libffmpeg[.]so.*)|(lib.*\\.so.*))$
@@ -258,7 +258,7 @@ Element is free. Element is secure.
 %endif
 
 %if 0%{?sle_version} && 0%{?sle_version} <= 150100
-  #%%{error: "======== OpenSUSE version: %{sle_version}: Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
+  #%%{error: "======== OpenSUSE version: %%{sle_version}: Builds for OpenSUSE 15.1 (and older) can no longer be supported due to outdated or unavailable packages."}
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} < 30
@@ -272,9 +272,6 @@ mkdir %{sourceroot}
 %setup -q -T -D -a 0 -n %{sourceroot}
 %setup -q -T -D -a 1 -n %{sourceroot}
 %setup -q -T -D -a 2 -n %{sourceroot}
-
-# Make sure the right library path is used...
-echo "%{_libdir}/%{name}" > %{sourcetree_contrib}/etc-ld.so.conf.d_%{name}.conf
 
 # For debugging purposes...
 %if ! %{targetIsProduction}
@@ -445,11 +442,10 @@ yarn run build
 #   _libdir = /usr/lib or /usr/lib64 (depending on system)
 
 # Create directories
-install -d %{buildroot}%{_libdir}/%{name}
+#install -d %%{buildroot}%%{_libdir}/%%{appid}
 install -d -m755 -p %{buildroot}%{_bindir}
 install -d %{buildroot}%{installtree}
 install -d %{buildroot}%{_datadir}/applications
-install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
 %define _metainfodir %{_datadir}/metainfo
 
 cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
@@ -457,38 +453,14 @@ cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
 # a little ugly - symbolic link creation
 ln -s %{installtree}/%{name_d} %{buildroot}%{_bindir}/%{name}
 
-install -D -m644 -p %{sourcetree_d}/build/icons/128x128.png     %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/16x16.png         %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/24x24.png         %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/256x256.png     %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/48x48.png         %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/512x512.png     %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/64x64.png         %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/element.png
-install -D -m644 -p %{sourcetree_d}/build/icons/96x96.png         %{buildroot}%{_datadir}/icons/hicolor/96x96/apps/element.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
+install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.highcontrast.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
 
-install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/element.svg
-
-install -D -m644 -p %{sourcetree_contrib}/desktop/128.highcontrast.png       %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/16.highcontrast.png          %{buildroot}%{_datadir}/icons/HighContrast/16x16/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/24.highcontrast.png          %{buildroot}%{_datadir}/icons/HighContrast/24x24/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/256.highcontrast.png       %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/48.highcontrast.png          %{buildroot}%{_datadir}/icons/HighContrast/48x48/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/512.highcontrast.png       %{buildroot}%{_datadir}/icons/HighContrast/512x512/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/64.highcontrast.png          %{buildroot}%{_datadir}/icons/HighContrast/64x64/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/96.highcontrast.png          %{buildroot}%{_datadir}/icons/HighContrast/96x96/apps/element.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.highcontrast.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/element.svg
-
-install -m755  %{sourcetree_contrib}/desktop/element.wrapper.sh %{buildroot}%{_bindir}/
-install -D -m644 -p %{sourcetree_contrib}/desktop/%{tld_vendor_product_id}.desktop %{buildroot}%{_datadir}/applications/%{tld_vendor_product_id}.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{tld_vendor_product_id}.desktop
-install -D -m644 -p %{sourcetree_contrib}/desktop/%{tld_vendor_product_id}.appdata.xml %{buildroot}%{_metainfodir}/%{tld_vendor_product_id}.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
-
-# /usr/lib/riot or /usr/lib64/riot...
-## REMOVING FOR NOW. I DON'T THINK IT IS NEEDED AND IT HAS LEGAL ISSUES ##
-##install -D -m755 -p %%{buildroot}%%{installtree}/libffmpeg.so %%{buildroot}%%{_libdir}/%%{name}/libffmpeg.so
-##rm %%{buildroot}%%{installtree}/libffmpeg.so
-install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_element.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/element.conf
+install -m755  %{sourcetree_contrib}/desktop/%{appid}.wrapper.sh %{buildroot}%{_bindir}/
+install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.desktop %{buildroot}%{_datadir}/applications/%{appid}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
+install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.metainfo.xml %{buildroot}%{_metainfodir}/%{appid}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %files
@@ -497,12 +469,9 @@ install -D -m644 -p %{sourcetree_contrib}/etc-ld.so.conf.d_element.conf %{buildr
 # We own /usr/share/riot and everything under it...
 %{installtree}
 %{_datadir}/icons/*
-%{_datadir}/applications/%{tld_vendor_product_id}.desktop
-%{_metainfodir}/%{tld_vendor_product_id}.appdata.xml
+%{_datadir}/applications/%{appid}.desktop
+%{_metainfodir}/%{appid}.metainfo.xml
 %{_bindir}/*
-%{_sysconfdir}/ld.so.conf.d/element.conf
-%dir %attr(755,root,root) %{_libdir}/%{name}
-#%%{_libdir}/%%{name}/libffmpeg.so
 #%%{_docsdir}/*
 #%%{_mandir}/*
 
@@ -520,6 +489,17 @@ umask 007
 
 
 %changelog
+* Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.2.testing.taw
+  - spec adherance refinement:
+    - icons: element.png (and .svg) --> io.element.Element.png (and .svg)
+    - icons: only installing the .svg images (pngs are redundant)
+    - .appdata.xml --> .metainfo.xml
+  - /usr/share/element --> /usr/share/io.element.Element
+  - element.wrapper.sh --> io.element.Element.wrapper.sh
+  - the libdir configuration stuff is not needed. Removed.
+  - call appid what it is, appid (instead of tld_vendor_product_id)
+  - metainfo.xml file was missing the launchable tag and corrected screenshot urls
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.1.testing.taw
   - github repo: taw00/riot-rpm --> taw00/element-rpm
 

@@ -35,18 +35,20 @@ functionality like never before.</p>
       <p>Package builder page: https://github.com/taw00/element-rpm</p>
   </description>
 
+  <launchable type="desktop-id">io.element.Element.desktop</launchable>
+
   <screenshots>
     <screenshot type="default">
       <caption>Login</caption>
-      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot1.png</image>
+      <image>https://raw.githubusercontent.com/taw00/element-rpm/master/screenshots/element1.png</image>
     </screenshot>
     <screenshot>
       <caption>Chat room (light themed)</caption>
-      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot2.png</image>
+      <image>https://raw.githubusercontent.com/taw00/element-rpm/master/screenshots/element2.png</image>
     </screenshot>
      <screenshot>
       <caption>Chat room (dark themed)</caption>
-      <image>https://github.com/taw00/element-rpm/raw/master/screenshots/riot3.png</image>
+      <image>https://raw.githubusercontent.com/taw00/element-rpm/master/screenshots/element3.png</image>
     </screenshot>
   </screenshots>
 

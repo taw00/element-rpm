@@ -2,9 +2,9 @@ Name:       toddpkgs-element-repo
 Version:    1.7
 
 %define targetIsProduction 1
-%define _release 4
+%define _release 5
 %if ! %{targetIsProduction}
-  %define _release 3.1.testing
+  %define _release 4.1.testing
 %endif
 Release:   %{_release}%{?dist}.taw
 
@@ -116,6 +116,11 @@ install -D -m644 todd-694673ED-public-2030-01-04.2016-11-07.asc %{buildroot}%{_s
 
 
 %changelog
+* Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-5.taw
+* Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-4.1.testing.taw
+  - s/fedoraproject/fedorainfracloud/cg
+  - this was a BAD error on my part, the packager ... oi
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-4.taw
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7-3.1.testing.taw
   - s/copr-be.cloud/download.copr/cg

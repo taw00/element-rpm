@@ -1,4 +1,15 @@
 # changelog
+* Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.2.testing.taw
+  - spec adherance refinement:
+    - icons: element.png (and .svg) --> io.element.Element.png (and .svg)
+    - icons: only installing the .svg images (pngs are redundant)
+    - .appdata.xml --> .metainfo.xml
+  - /usr/share/element --> /usr/share/io.element.Element
+  - element.wrapper.sh --> io.element.Element.wrapper.sh
+  - the libdir configuration stuff is not needed. Removed.
+  - call appid what it is, appid (instead of tld\_vendor\_product\_id)
+  - metainfo.xml file was missing the launchable tag and corrected screenshot urls
+
 * Sat Jul 18 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.1.testing.taw
   - github repo: taw00/riot-rpm --> taw00/element-rpm
 
