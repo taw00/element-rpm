@@ -2,7 +2,7 @@
 <!-- https://fedoraproject.org/wiki/Packaging:AppData -->
 <!-- https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html -->
 <component type="desktop-application">
-  <id>element.desktop</id>
+  <id>io.element.Element</id>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   <name>Element</name>
