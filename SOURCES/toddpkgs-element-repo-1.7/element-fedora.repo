@@ -13,11 +13,11 @@
 [element-stable]
 enabled=1
 name=Element for Fedora $releasever - $basearch
-baseurl=https://download.copr.fedoraproject.org/results/taw/element/fedora-$releasever-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/taw/element/fedora-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
+gpgkey=https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg
 repo_gpgcheck=0
 metadata_expire=1d
 # leave this off, see
@@ -27,11 +27,11 @@ enabled_metadata=0
 [element-testing]
 enabled=0
 name=Element for Fedora $releasever - $basearch - testing
-baseurl=https://download.copr.fedoraproject.org/results/taw/riot-testing/fedora-$releasever-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/taw/riot-testing/fedora-$releasever-$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
-gpgkey=https://download.copr.fedoraproject.org/results/taw/riot-testing/pubkey.gpg
+gpgkey=https://download.copr.fedorainfracloud.org/results/taw/riot-testing/pubkey.gpg
 repo_gpgcheck=0
 metadata_expire=0
 # leave this off, see
