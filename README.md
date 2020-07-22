@@ -1,11 +1,10 @@
 # Element: decentralized, encrypted chat & collaboration
 
-> IMPORTANT!!!  
-> If you have come here because there is an error reported by DNF or Zypper in
-> reguards an incorrect URL, that exists because I pushed out an error. The
-> worst kind of error that breaks updates. Just follow the "Prep" step below
-> for your distribution and you will be functional again. My apologies. Ugh.
-> -todd
+> IMPORTANT!!!
+> * If you encounter a problem that looks like this: `Curl error (6): Couldn't resolve host name for https://download.copr.fedoraproject.org/...` when you run dnf or zypper.
+> * There is a solution: Follow the "Prep" step below for your distribution and you will be functional again.
+> * Why does this happen: Because I screwed up and pushed out a repo configuration with the wrong URL. A deeply embarassing mistake.
+> My apologies -todd
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
