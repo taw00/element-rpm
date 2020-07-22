@@ -1,12 +1,12 @@
 # Element: decentralized, encrypted chat & collaboration
 
+_.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
+
 > IMPORTANT!!!
 > * If you encounter a problem that looks like this: `Curl error (6): Couldn't resolve host name for https://download.copr.fedoraproject.org/...` when you run dnf or zypper.
 > * There is a solution: Follow the "Prep" step below for your distribution and you will be functional again.
 > * Why does this happen: Because I screwed up and pushed out a repo configuration with the wrong URL. A deeply embarassing mistake.
 > My apologies -todd
-
-_.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
 _**What is Element?**_ Decentralized, encrypted chat & collaboration powered by [matrix].
 
