@@ -9,8 +9,11 @@
   <summary>A decentralized, secure messaging client for collaborative group communication</summary>
 
   <description>
-      <p>Create, share, communicate, chat and call securely, and bridge to other apps.</p>
-      <p>More than group chat: communication</p>
+      <p>Create, share, communicate, chat and call securely, and bridge to other applications.</p>
+
+      <p>More than a messaging app, Element is a shared work-space for the web. Element is a place to connect with teams. Element is a place to to collaborate, to work, to discuss your current projects. Element removes the barriers between apps, allowing you to connect teams and functionality like never before.</p>
+
+      <p>More than group chat—communication</p>
       <ul>
           <li>Communicate with your team and out of network colleagues more efficiently: use dedicated rooms which persist information from their creation and forever.</li>
           <li>Forget group emails: join or create rooms per topic, per team, per event. Decide the level of transparency you want to provide across the organisation or project.</li>
@@ -19,16 +22,8 @@
           <li>Deploy bots for fun or practical use with our integrations store.</li>
       </ul>
 
-      <p>Element is a decentralized, secure messaging client for collaborative group
-communication. Element's core architecture is an implementation of the matrix
+      <p>Element's core architecture is an implementation of the matrix
 protocol.</p>
-
-      <p>Element is more than a messaging app. Element is a shared work-space for the web.
-Element is a place to connect with teams. Element is a place to to collaborate, to
-work, to discuss your current projects.</p>
-
-      <p>Element removes the barriers between apps, allowing you to connect teams and
-functionality like never before.</p>
 
       <p>Element is free. Element is secure.</p>
 
