@@ -1,4 +1,14 @@
 # changelog
+* Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.4.testing.taw
+  - reducing the PNG icon set to 64, 128, 256, and 512
+
+* Wed Jul 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.3.testing.taw
+  - adding back the png icons: the spec does not require both png and svg  
+    icons, but certain external desktop components expect PNGs. Plus the  
+    appstream spec states that PNGs are preferred. gnome-software goes one  
+    step further and will only work with PNGs.
+  - a bit more explicit about what this rpm owns on the file system
+
 * Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.2.testing.taw
   - spec adherance refinement:
     - icons: element.png (and .svg) --> io.element.Element.png (and .svg)

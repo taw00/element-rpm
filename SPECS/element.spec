@@ -23,12 +23,14 @@
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
 Name: element
+Summary: A decentralized, secure messaging client for collaborative group communication
+
+%define appid io.element.Element
+
 %define name_d %{name}-desktop
 %define name_old riot
 %define name_d_old %{name_old}-desktop
 %define name_w_old %{name_old}-web
-%define appid io.element.Element
-Summary: A decentralized, secure messaging client for collaborative group communication
 
 %define targetIsProduction 0
 
@@ -44,7 +46,7 @@ Version: %{vermajor}.%{verminor}
 # RELEASE
 %define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 2.2
+  %define _pkgrel 2.4
 %endif
 
 # MINORBUMP
@@ -442,38 +444,62 @@ yarn run build
 #   _libdir = /usr/lib or /usr/lib64 (depending on system)
 
 # Create directories
-#install -d %%{buildroot}%%{_libdir}/%%{appid}
 install -d -m755 -p %{buildroot}%{_bindir}
 install -d %{buildroot}%{installtree}
 install -d %{buildroot}%{_datadir}/applications
 %define _metainfodir %{_datadir}/metainfo
 
+# /usr/share/io.element.Element/*
 cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
 
-# a little ugly - symbolic link creation
+# /usr/bin/element and /usr/bin/element-wrapper.sh
+# this symbolic link is a bit ugly
 ln -s %{installtree}/%{name_d} %{buildroot}%{_bindir}/%{name}
+install -m755  %{sourcetree_contrib}/desktop/%{appid}.wrapper.sh %{buildroot}%{_bindir}/%{appid}.wrapper.sh
 
-install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
-install -D -m644 -p %{sourcetree_contrib}/desktop/scalable.highcontrast.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
-
-install -m755  %{sourcetree_contrib}/desktop/%{appid}.wrapper.sh %{buildroot}%{_bindir}/
+# /usr/share/applications/io.element.Element.desktop
 install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.desktop %{buildroot}%{_datadir}/applications/%{appid}.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
+# /usr/share/metainfo/io.element.Element.metainfo.xml
 install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.metainfo.xml %{buildroot}%{_metainfodir}/%{appid}.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+
+install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-64-%{appid}.png       %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-128-%{appid}.png      %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-256-%{appid}.png      %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-512-%{appid}.png      %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-scalable-%{appid}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
+
+install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-64-%{appid}.png       %{buildroot}%{_datadir}/icons/HighContrast/64x64/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-128-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-256-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-512-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/512x512/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-scalable-%{appid}.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
 
 
 %files
 %defattr(-,root,root,-)
 %license %{sourcetree_d}/LICENSE
-# We own /usr/share/riot and everything under it...
+# /usr/share/io.element.Element
 %{installtree}
-%{_datadir}/icons/*
+
+%{_bindir}/%{name}
+%{_bindir}/%{appid}.wrapper.sh
+
 %{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.metainfo.xml
-%{_bindir}/*
-#%%{_docsdir}/*
-#%%{_mandir}/*
+
+%{_datadir}/icons/hicolor/64x64/apps/%{appid}.png
+%{_datadir}/icons/hicolor/128x128/apps/%{appid}.png
+%{_datadir}/icons/hicolor/256x256/apps/%{appid}.png
+%{_datadir}/icons/hicolor/512x512/apps/%{appid}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
+
+%{_datadir}/icons/HighContrast/64x64/apps/%{appid}.png
+%{_datadir}/icons/HighContrast/128x128/apps/%{appid}.png
+%{_datadir}/icons/HighContrast/256x256/apps/%{appid}.png
+%{_datadir}/icons/HighContrast/512x512/apps/%{appid}.png
+%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
 
 
 %post
@@ -489,6 +515,16 @@ umask 007
 
 
 %changelog
+* Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.4.testing.taw
+  - reducing the PNG icon set to 64, 128, 256, and 512
+
+* Wed Jul 22 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.3.testing.taw
+  - adding back the png icons: the spec does not require both png and svg  
+    icons, but certain external desktop components expect PNGs. Plus the  
+    appstream spec states that PNGs are preferred. gnome-software goes one  
+    step further and will only work with PNGs.
+  - a bit more explicit about what this rpm owns on the file system
+
 * Tue Jul 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.2.testing.taw
   - spec adherance refinement:
     - icons: element.png (and .svg) --> io.element.Element.png (and .svg)

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- https://fedoraproject.org/wiki/Packaging:AppData -->
-<!-- https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html -->
+<!-- https://www.freedesktop.org/software/appstream/docs/ -->
 <component type="desktop-application">
+  <id>io.element.Element.desktop</id>
+  <!-- please note that the correct ID tag value should be just the appid
+      https://bugzilla.redhat.com/show_bug.cgi?id=1860130
   <id>io.element.Element</id>
-  <metadata_license>MIT</metadata_license>
-  <project_license>MIT</project_license>
+  -->
+
   <name>Element</name>
   <summary>A decentralized, secure messaging client for collaborative group communication</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
 
   <description>
       <p>Create, share, communicate, chat and call securely, and bridge to other applications.</p>
@@ -31,6 +36,7 @@ protocol.</p>
   </description>
 
   <launchable type="desktop-id">io.element.Element.desktop</launchable>
+  <!-- this doesn't validate <icon type="stock">io.element.Element</icon> -->
 
   <screenshots>
     <screenshot type="default">
@@ -59,6 +65,7 @@ protocol.</p>
 
   <provides>
       <binary>element</binary>
+      <binary>io.element.Element.wrapper.sh</binary>
   </provides>
 
   <releases>
@@ -144,4 +151,7 @@ protocol.</p>
       <release version="0.9.6" date="2017-01-16" />
       <release version="0.9.5" date="2017-01-01" />
   </releases>
+  <mimetypes>
+      <mimetype>application/x-element</mimetype>
+  </mimetypes>
 </component>
