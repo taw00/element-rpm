@@ -32,7 +32,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d_old %{name_old}-desktop
 %define name_w_old %{name_old}-web
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -515,6 +515,7 @@ umask 007
 
 
 %changelog
+* Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.taw
 * Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.4.testing.taw
   - reducing the PNG icon set to 64, 128, 256, and 512
 
