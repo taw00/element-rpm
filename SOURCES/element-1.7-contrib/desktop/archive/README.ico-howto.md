@@ -6,5 +6,5 @@ To convert...
 sudo dnf install ImageMagick -y
 
 # convert png to ico
-convert 256.png 256.ico
+convert hicolor-256-io.element.Element.png hicolor-256-io.element.Element.ico
 ```
