@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- https://www.freedesktop.org/software/appstream/docs/ -->
 <component type="desktop-application">
   <id>io.element.element.desktop</id>
   <!-- please note that the correct ID tag value should be just the appid
@@ -155,3 +154,7 @@ protocol.</p>
       <mimetype>application/x-element</mimetype>
   </mimetypes>
 </component>
+
+<!-- .desktop spec: https://www.freedesktop.org/wiki/Specifications/desktop-entry-spec/ -->
+<!-- .metainfo.xml spec: https://www.freedesktop.org/software/appstream/docs/ -->
+

@@ -1,4 +1,9 @@
 # changelog
+* Sat Jul 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-5.taw
+* Sat Jul 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-4.1.testing.taw
+  - .desktop file: added StartupWMClass and removed the  
+    X-Desktop-Install-Version cut-n-paste cruft
+
 * Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-4.taw
 * Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.1.testing.taw
   - io.element.Element --> io.element.element because apparently, all  
