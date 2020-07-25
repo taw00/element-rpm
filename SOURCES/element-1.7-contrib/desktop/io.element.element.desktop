@@ -4,9 +4,9 @@ Comment=Element is a decentralized, secure messaging client for collaborative gr
 GenericName=Group Messaging
 Exec=io.element.element.wrapper.sh %U
 Terminal=false
-X-MultipleArgs=false
 Type=Application
-Categories=Network;InstantMessaging;Chat;VideoConference;
+# https://specifications.freedesktop.org/menu-spec/latest/apa.html
+Categories=Network;InstantMessaging;Chat;VideoConference;X-E2EE;
 MimeType=x-scheme-handler/element;
 StartupWMClass=Element
 StartupNotify=true
