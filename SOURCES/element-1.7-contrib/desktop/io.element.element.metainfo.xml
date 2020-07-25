@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://www.freedesktop.org/software/appstream/docs/ -->
 <component type="desktop-application">
-  <id>io.element.Element.desktop</id>
+  <id>io.element.element.desktop</id>
   <!-- please note that the correct ID tag value should be just the appid
       https://bugzilla.redhat.com/show_bug.cgi?id=1860130
-  <id>io.element.Element</id>
+  <id>io.element.element</id>
   -->
 
   <name>Element</name>
@@ -35,7 +35,7 @@ protocol.</p>
       <p>Package builder page: https://github.com/taw00/element-rpm</p>
   </description>
 
-  <launchable type="desktop-id">io.element.Element.desktop</launchable>
+  <launchable type="desktop-id">io.element.element.desktop</launchable>
   <!-- this doesn't validate <icon type="stock">io.element.Element</icon> -->
 
   <screenshots>

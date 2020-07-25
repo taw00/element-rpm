@@ -1,4 +1,9 @@
 # changelog
+* Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-4.taw
+* Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.1.testing.taw
+  - io.element.Element --> io.element.element because apparently, all  
+    lowercase is now the standard whereas before it was not. Oi.
+
 * Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.taw
 * Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.4.testing.taw
   - reducing the PNG icon set to 64, 128, 256, and 512

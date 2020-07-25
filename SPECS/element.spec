@@ -25,7 +25,7 @@
 Name: element
 Summary: A decentralized, secure messaging client for collaborative group communication
 
-%define appid io.element.Element
+%define appid io.element.element
 
 %define name_d %{name}-desktop
 %define name_old riot
@@ -44,9 +44,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 3
+%define _pkgrel 4
 %if ! %{targetIsProduction}
-  %define _pkgrel 2.4
+  %define _pkgrel 3.1
 %endif
 
 # MINORBUMP
@@ -227,7 +227,7 @@ Requires: sqlcipher
 %define sourcetree_d %{_source0}
 %define sourcetree_w %{_source1}
 %define sourcetree_contrib %{name}-%{vermajor}-contrib
-# /usr/share/io.element.Element
+# /usr/share/io.element.element
 %define installtree %{_datadir}/%{appid}
 
 # Element should not be providing any libraries. Certainly not libffmpeg.
@@ -449,7 +449,7 @@ install -d %{buildroot}%{installtree}
 install -d %{buildroot}%{_datadir}/applications
 %define _metainfodir %{_datadir}/metainfo
 
-# /usr/share/io.element.Element/*
+# /usr/share/io.element.element/*
 cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
 
 # /usr/bin/element and /usr/bin/element-wrapper.sh
@@ -457,10 +457,10 @@ cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
 ln -s %{installtree}/%{name_d} %{buildroot}%{_bindir}/%{name}
 install -m755  %{sourcetree_contrib}/desktop/%{appid}.wrapper.sh %{buildroot}%{_bindir}/%{appid}.wrapper.sh
 
-# /usr/share/applications/io.element.Element.desktop
+# /usr/share/applications/io.element.element.desktop
 install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.desktop %{buildroot}%{_datadir}/applications/%{appid}.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
-# /usr/share/metainfo/io.element.Element.metainfo.xml
+# /usr/share/metainfo/io.element.element.metainfo.xml
 install -D -m644 -p %{sourcetree_contrib}/desktop/%{appid}.metainfo.xml %{buildroot}%{_metainfodir}/%{appid}.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
@@ -470,17 +470,17 @@ install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-256-%{appid}.png      
 install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-512-%{appid}.png      %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{appid}.png
 install -D -m644 -p %{sourcetree_contrib}/desktop/hicolor-scalable-%{appid}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
 
-install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-64-%{appid}.png       %{buildroot}%{_datadir}/icons/HighContrast/64x64/apps/%{appid}.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-128-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/%{appid}.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-256-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/%{appid}.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-512-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/512x512/apps/%{appid}.png
-install -D -m644 -p %{sourcetree_contrib}/desktop/HighContrast-scalable-%{appid}.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
+install -D -m644 -p %{sourcetree_contrib}/desktop/highcontrast-64-%{appid}.png       %{buildroot}%{_datadir}/icons/HighContrast/64x64/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/highcontrast-128-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/128x128/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/highcontrast-256-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/256x256/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/highcontrast-512-%{appid}.png      %{buildroot}%{_datadir}/icons/HighContrast/512x512/apps/%{appid}.png
+install -D -m644 -p %{sourcetree_contrib}/desktop/highcontrast-scalable-%{appid}.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/%{appid}.svg
 
 
 %files
 %defattr(-,root,root,-)
 %license %{sourcetree_d}/LICENSE
-# /usr/share/io.element.Element
+# /usr/share/io.element.element
 %{installtree}
 
 %{_bindir}/%{name}
@@ -515,6 +515,11 @@ umask 007
 
 
 %changelog
+* Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-4.taw
+* Fri Jul 24 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.1.testing.taw
+  - io.element.Element --> io.element.element because apparently, all  
+    lowercase is now the standard whereas before it was not. Oi.
+
 * Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-3.taw
 * Thu Jul 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-2.4.testing.taw
   - reducing the PNG icon set to 64, 128, 256, and 512
