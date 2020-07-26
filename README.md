@@ -107,7 +107,7 @@ Note: If none of this made sense or you couldn't get it to work, Element can als
 
 ## I installed it, now I want to ensure I get future updates!
 
-> Note that with updates you may have to do a `killall element-desktop`). Quitting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
+> Note after an update/upgrade of Element, you have to either reboot or force a complete shutdown of Element to see the changes. You can force the shutdown with `killall element-desktop`.
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with&nbsp;.&nbsp;.&nbsp;.
 
