@@ -40,28 +40,25 @@ Successful builds:
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
 
 Alternative builds:
-* **Flatpak:** Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak are a brute-force solution, but it is a solution.
+* **Flatpak:** Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
 Unsuccessful builds:
 * **CentOS (and RHEL):**
   - Last successful build version: Riot 1.5.
   - See also GitHub issues [#31](https://github.com/taw00/element-rpm/issues/31) and [#33](https://github.com/taw00/element-rpm/issues/33). See "Flatpak" above.
 * **OpenSUSE:**
-  - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead, see above.
+  - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead—see above—or upgrade to a newer OpenSUSE.
 
 ### [Fedora]
 
 **Prep&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Should only need to do this prep phase once
-# Configure the COPR repository
-sudo dnf copr enable taw/element
-# Install Fedora's distribution GPG keys
+sudo dnf install dnf-plugins-core
 sudo dnf install -y distribution-gpg-keys
+sudo dnf copr enable taw/element
 ```
 .&nbsp;.&nbsp;.&nbsp;alternative&nbsp;.&nbsp;.&nbsp;.
 ```bash
-# Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
@@ -71,7 +68,6 @@ sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/
 
 **Install&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Install Element
 sudo dnf install -y element --refresh
 ```
 
@@ -79,45 +75,42 @@ sudo dnf install -y element --refresh
 
 **Prep (Leap 15.2)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-leap-15.2-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.suse.lp152.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
+sudo zypper refresh
 ```
 
 **Prep (Tumbleweed)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Should only need to do this prep phase once
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
 sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-tumbleweed-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.suse.tw.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
+sudo zypper refresh
 ```
 
 **Install&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-# Clean out the cache in case the change didn't get picked up
-sudo zypper refresh
-# Install element
 sudo zypper install element
 ```
 
 ## I installed it, now I want to run Element!
 
-Search for and select "Element" from your desktop or run `element` from the command line.
+Search for and select "Element" from your desktop environment. Done!
 
 Note: If none of this made sense or you couldn't get it to work, Element can also be run as directly from your browser at <https://app.element.io/>
 
 ## I installed it, now I want to ensure I get future updates!
 
-Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with...
+> Note that with updates you may have to do a `killall element-desktop`). Quitting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
 
-Note that with updates you may have to do a `killall element-desktop`). Quitting the application doesn't really "quit it" nor does the flush cache reload function in the UI.
+Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with&nbsp;.&nbsp;.&nbsp;.
 
 ```bash
 # Fedora . . .
@@ -150,8 +143,9 @@ sudo dnf list - - refresh |grep element
 
 # Disclaimer
 
-I built these for my own use. I offer these builds for your own convenience. If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.io/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
+I built these for my own use. I offer these builds for your own convenience (and have now for a long time). If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.io/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
 
 # Questions or comments&nbsp;.&nbsp;.&nbsp;.
 
 Contact: **t0dd_at_protonmail.com** or find me at **@t0dd:matrix.org** after you have installed Element!
+
