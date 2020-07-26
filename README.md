@@ -53,8 +53,7 @@ Unsuccessful builds:
 
 **Prep&nbsp;.&nbsp;.&nbsp;.**
 ```bash
-sudo dnf install dnf-plugins-core
-sudo dnf install -y distribution-gpg-keys
+sudo dnf install -y dnf-plugins-core distribution-gpg-keys
 sudo dnf copr enable taw/element
 ```
 .&nbsp;.&nbsp;.&nbsp;alternative&nbsp;.&nbsp;.&nbsp;.
