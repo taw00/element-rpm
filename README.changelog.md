@@ -1,4 +1,8 @@
 # changelog
+* Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.taw
+* Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-0.1.testing.taw
+  - 1.7.2
+
 * Sat Jul 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-5.taw
 * Sat Jul 25 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.1-4.1.testing.taw
   - .desktop file: added StartupWMClass and removed the  

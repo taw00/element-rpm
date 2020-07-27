@@ -5,13 +5,14 @@ GenericName=Group Messaging
 Exec=io.element.element.wrapper.sh %U
 Terminal=false
 Type=Application
-# https://specifications.freedesktop.org/menu-spec/latest/apa.html
 Categories=Network;InstantMessaging;Chat;VideoConference;X-E2EE;
 MimeType=x-scheme-handler/element;
 StartupWMClass=Element
 StartupNotify=true
 Icon=io.element.element
 
-# .desktop spec: https://www.freedesktop.org/wiki/Specifications/desktop-entry-spec/
+# .desktop spec:
+#   the spec: https://www.freedesktop.org/wiki/Specifications/desktop-entry-spec/
+#   Categories: https://specifications.freedesktop.org/menu-spec/latest/apa.html
 # .metainfo.xml spec: https://www.freedesktop.org/software/appstream/docs/
 
