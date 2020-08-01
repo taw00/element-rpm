@@ -84,7 +84,7 @@ Version: %{vermajor}.%{verminor}
 Release: %{_release}
 # ----------- end of release building section
 
-# Name of package is no longer element-web
+# Name of package is no longer riot-web
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
 # Name of package is no longer riot
