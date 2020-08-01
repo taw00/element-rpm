@@ -12,8 +12,8 @@
 # https://element.io
 # old: https://riot.im/
 # old: https://vector.im
-# https://github.com/vector-im/riot-desktop (1.6+)
-# https://github.com/vector-im/riot-web (1.5 and earlier)
+# https://github.com/vector-im/element-desktop
+# https://github.com/vector-im/element-web
 
 # ---
 
@@ -44,9 +44,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -84,7 +84,7 @@ Version: %{vermajor}.%{verminor}
 Release: %{_release}
 # ----------- end of release building section
 
-# Name of package is no longer riot-web
+# Name of package is no longer element-web
 Provides: riot-web = 0.9.6
 Obsoletes: riot-web < 0.9.6
 # Name of package is no longer riot
@@ -113,7 +113,7 @@ ExclusiveArch: x86_64 i686 i586 i386
 # https://fedoraproject.org/wiki/Packaging:SourceURL
 # * Sources as part of source RPM can be found at
 #   https://github.com/taw00/element-rpm
-# * Source0 tarball can be snagged from https://github.com/vector-im/riot-desktop
+# * Source0 tarball can be snagged from https://github.com/vector-im/element-desktop
 %define _version %{version}
 %if 0%{?buildQualifier:1}
   %define _version %{version}-%{buildQualifier}
@@ -220,8 +220,8 @@ Requires: sqlcipher
 
 # Unarchived source tree structure (extracted in {_builddir})
 #   sourceroot               element-1.7
-#      \_sourcetree_d            \_riot-desktop-1.7.1 (or riot-desktop-1.7.1-rc.3)
-#      \_sourcetree_w            \_riot-web-1.7.1 (or riot-web-1.7.1-rc.3)
+#      \_sourcetree_d            \_element-desktop-1.7.3 (or element-desktop-1.7.3-rc.3)
+#      \_sourcetree_w            \_element-web-1.7.3 (or element-web-1.7.3-rc.3)
 #      \_sourcetree_contrib      \_element-1.7-contrib
 %define sourceroot %{name}-%{vermajor}
 %define sourcetree_d %{_source0}
@@ -294,7 +294,7 @@ mv %{sourcetree_contrib}/build/*.tgz %{sourcetree_w}/depends/sources/
 _pwd_d=$(pwd)/%{sourcetree_d}
 _pwd_w=$(pwd)/%{sourcetree_w}
 
-# Start in riot-web
+# Start in element-web
 cd ${_pwd_w}
 
 #
@@ -403,15 +403,17 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 #%%define linuxunpacked_w_old electron_app/dist/linux-unpacked
 #%%define linuxunpacked_w dist/linux-unpacked
 
-### Build riot-web ###
+### Build element-web ###
 cd ${_pwd_w}
 yarn install 
 yarn run build
-# bug https://github.com/vector-im/riot-web/issues/9166 ... alerted by user "Aaron"
+# bug https://github.com/vector-im/element-web/issues/9166 ... alerted by user "Aaron"
 install -D -m644 -p config.sample.json webapp/config.json
+# element-desktop/REAMD.md says you need this, but you do not.
+#ln -s ${_pwd_w}/webapp ${_pwd_d}
 
-# Used only if building a distributable riot-web
-# and not a support build for riot-desktop
+# Used only if building a distributable element-web
+# and not a support build for element-desktop
 ##ifarch x86_64 amd64
 ## ./node_modules/.bin/electron-builder -l tar.gz --x64
 ##else
@@ -419,15 +421,13 @@ install -D -m644 -p config.sample.json webapp/config.json
 ##endif
 ##install -D -m644 -p config.sample.json %%{linuxunpacked_w}/resources/webapp/config.json
 
-### Build riot-desktop ###
+### Build element-desktop ###
 cd ${_pwd_d}
 yarn install 
 yarn run build:native
-# Pull webapp tree from riot-web, stage here, and place in archive
-#cp -a ${_pwd_w}/webapp ./
-./node_modules/.bin/asar pack ${_pwd_w}/webapp webapp.asar
-#./node_modules/asar/bin/asar.js pack ${_pwd_w}/webapp webapp.asar
 yarn run build
+# pull in the build from element-web
+./node_modules/.bin/asar pack ${_pwd_w}/webapp %{linuxunpacked_d}/resources/webapp.asar
 
 
 %install
@@ -515,6 +515,12 @@ umask 007
 
 
 %changelog
+* Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.taw
+* Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.1.testing.taw
+  - fixing the build of native modules for the desktop (like search in e2ee  
+    environments). Oops.  
+    See bug: https://github.com/taw00/element-rpm/issues/36
+
 * Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.taw
 * Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-0.1.testing.taw
   - 1.7.2

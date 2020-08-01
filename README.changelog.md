@@ -1,4 +1,10 @@
 # changelog
+* Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.taw
+* Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.1.testing.taw
+  - fixing the build of native modules for the desktop (like search in e2ee  
+    environments). Oops.  
+    See bug: https://github.com/taw00/element-rpm/issues/36
+
 * Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.taw
 * Mon Jul 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-0.1.testing.taw
   - 1.7.2
