@@ -1,4 +1,9 @@
 # changelog
+* Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-3.taw
+* Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.1.testing.taw
+  - fixing a missing requires in SUSE builds, reference:
+    https://github.com/taw00/element-rpm/issues/36
+
 * Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.taw
 * Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.1.testing.taw
   - fixing the build of native modules for the desktop (like search in e2ee  

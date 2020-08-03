@@ -44,9 +44,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP
@@ -215,7 +215,11 @@ BuildRequires: curl
 %if 0%{?rhel:1}
 %else
 BuildRequires: sqlcipher-devel
+%if 0%{?suse_version:1}
+Requires: tcl-sqlcipher
+%else
 Requires: sqlcipher
+%endif
 %endif
 
 # Unarchived source tree structure (extracted in {_builddir})
@@ -515,6 +519,11 @@ umask 007
 
 
 %changelog
+* Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-3.taw
+* Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.1.testing.taw
+  - fixing a missing requires in SUSE builds, reference:
+    https://github.com/taw00/element-rpm/issues/36
+
 * Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.taw
 * Fri Jul 31 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-1.1.testing.taw
   - fixing the build of native modules for the desktop (like search in e2ee  
