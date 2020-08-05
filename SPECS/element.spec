@@ -28,9 +28,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define appid io.element.element
 
 %define name_d %{name}-desktop
-%define name_old riot
-%define name_d_old %{name_old}-desktop
-%define name_w_old %{name_old}-web
+%define name_w %{name}-web
 
 %define targetIsProduction 1
 
@@ -40,13 +38,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 2
+%define verminor 3
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 3
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 2.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -118,12 +116,12 @@ ExclusiveArch: x86_64 i686 i586 i386
 %if 0%{?buildQualifier:1}
   %define _version %{version}-%{buildQualifier}
 %endif
-%define _source0 %{name_d_old}-%{_version}
-%define _source1 %{name_w_old}-%{_version}
+%define _source0 %{name}-desktop-%{_version}
+%define _source1 %{name}-web-%{_version}
 
 #Source0: https://github.com/PROJECT_NAME/%%{name}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
-Source0: https://github.com/vector-im/%{name_d_old}/archive/v%{_version}/%{_source0}.tar.gz
-Source1: https://github.com/vector-im/%{name_w_old}/archive/v%{_version}/%{_source1}.tar.gz
+Source0: https://github.com/vector-im/%{name}-desktop/archive/v%{_version}/%{_source0}.tar.gz
+Source1: https://github.com/vector-im/%{name}-web/archive/v%{_version}/%{_source1}.tar.gz
 Source2: https://github.com/taw00/element-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
 # This is used to declare whether we pull additional sources dependencies from the contrib tarball
@@ -284,11 +282,10 @@ mkdir %{sourceroot}
   cd .. ; tree -df -L 1 %{sourceroot} ; cd -
 %endif
 
-# We ship with riot supplied olm tarball. Use it . . .
+# We ship with the element supplied olm tarball. Use it . . .
 %if %{useExtraSources}
-mkdir -p %{sourcetree_w}/depends/sources
-mv %{sourcetree_contrib}/build/config.sample.json %{sourcetree_w}/
-mv %{sourcetree_contrib}/build/*.tgz %{sourcetree_w}/depends/sources/
+  mkdir -p %{sourcetree_w}/depends/sources
+  mv %{sourcetree_contrib}/build/*.tgz %{sourcetree_w}/depends/sources/
 %endif
 
 
@@ -458,7 +455,7 @@ cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
 
 # /usr/bin/element and /usr/bin/element-wrapper.sh
 # this symbolic link is a bit ugly
-ln -s %{installtree}/%{name_d} %{buildroot}%{_bindir}/%{name}
+ln -s %{installtree}/%{name}-desktop %{buildroot}%{_bindir}/%{name}
 install -m755  %{sourcetree_contrib}/desktop/%{appid}.wrapper.sh %{buildroot}%{_bindir}/%{appid}.wrapper.sh
 
 # /usr/share/applications/io.element.element.desktop
@@ -519,6 +516,15 @@ umask 007
 
 
 %changelog
+* Wed Aug 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.3-1.taw
+* Wed Aug 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.3-0.1.testing.taw
+  - 1.7.3
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.3
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.3
+  - upstream tarballs (riot-web- and riot-desktop-) have been rebranded
+  - removed the contrib config.sample.json since it hasn't diverged from  
+    upstream in many releases
+
 * Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-3.taw
 * Mon Aug 03 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.2-2.1.testing.taw
   - fixing a missing requires in SUSE builds, reference:
