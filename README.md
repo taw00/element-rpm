@@ -60,7 +60,7 @@ sudo dnf copr enable taw/element
 ```bash
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository (fc31, fc32, etc ... doesn't matter)
 sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/fedora-32-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.fc32.taw.noarch.rpm
 ```
@@ -76,7 +76,7 @@ sudo dnf install -y element --refresh
 ```bash
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-leap-15.2-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.suse.lp152.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
@@ -87,7 +87,7 @@ sudo zypper refresh
 ```bash
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
-sudo rpm --import https://download.copr.fedoraproject.org/results/taw/element/pubkey.gpg
+sudo rpm --import https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg
 # Configure and enable the Element repository
 sudo zypper install https://download.copr.fedorainfracloud.org/results/taw/element/opensuse-tumbleweed-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.suse.tw.taw.noarch.rpm
 sudo zypper modifyrepo -er "element-stable"
