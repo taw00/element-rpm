@@ -38,7 +38,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 3
+%define verminor 4
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -516,11 +516,17 @@ umask 007
 
 
 %changelog
+* Mon Aug 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.4-1.taw
+* Mon Aug 17 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.4-0.1.testing.taw
+  - 1.7.4
+    - https://github.com/vector-im/element-web/releases/tag/v1.7.4
+    - https://github.com/vector-im/element-desktop/releases/tag/v1.7.4
+
 * Wed Aug 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.3-1.taw
 * Wed Aug 05 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.3-0.1.testing.taw
   - 1.7.3
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.3
-  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.3
+    - https://github.com/vector-im/element-web/releases/tag/v1.7.3
+    - https://github.com/vector-im/element-desktop/releases/tag/v1.7.3
   - upstream tarballs (riot-web- and riot-desktop-) have been rebranded
   - removed the contrib config.sample.json since it hasn't diverged from  
     upstream in many releases
