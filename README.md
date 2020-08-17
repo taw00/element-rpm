@@ -107,7 +107,14 @@ Note: If none of this made sense or you couldn't get it to work, Element can als
 
 ## I installed it, now I want to ensure I get future updates!
 
-> Note after an update/upgrade of Element, you have to either reboot or force a complete shutdown of Element to see the changes. You can force the shutdown with `killall element-desktop`.
+> Please Note
+>
+> If within your Element settings > Preferences, you have enabled _"Show tray
+> icon and minimize window to it on close"_ when you exit Element, it minimizes
+> and does not truly exit and upgrades will not be evident until the next
+> reboot.
+> 
+> If you disable that setting, when you exit Element, it truly exits.
 
 Once you have followed the repository and installation instructions above, you should be notified of any future updates enabling you to update the software automatically. And you can always force a check with&nbsp;.&nbsp;.&nbsp;.
 
