@@ -30,7 +30,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -516,7 +516,8 @@ umask 007
 
 
 %changelog
-* Tue Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-0.1.testing.taw
+* Thu Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-1.taw
+* Thu Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-0.1.testing.taw
   - 1.7.12
   - https://github.com/vector-im/element-web/releases/tag/v1.7.12
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.12

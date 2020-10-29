@@ -1,6 +1,6 @@
 # changelog
-* Tue Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-1.taw
-* Tue Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-0.1.testing.taw
+* Thu Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-1.taw
+* Thu Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-0.1.testing.taw
   - 1.7.12
   - https://github.com/vector-im/element-web/releases/tag/v1.7.12
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.12
