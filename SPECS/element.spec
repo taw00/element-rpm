@@ -30,7 +30,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -38,7 +38,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 11
+%define verminor 12
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -516,6 +516,11 @@ umask 007
 
 
 %changelog
+* Tue Oct 29 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.12-0.1.testing.taw
+  - 1.7.12
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.12
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.12
+
 * Tue Oct 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.11-1.taw
 * Tue Oct 27 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.11-0.1.testing.taw
   - 1.7.11
