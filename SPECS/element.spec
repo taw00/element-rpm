@@ -42,9 +42,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -214,7 +214,10 @@ BuildRequires: curl
 %else
 BuildRequires: sqlcipher-devel
 %if 0%{?suse_version:1}
-Requires: tcl-sqlcipher
+# Requiring tcl-sqlcipher is such a kludge
+#Requires: tcl-sqlcipher
+# sqlcipher-devel provides /usr/lib64/libsqlcipher.so
+Requires: sqlcipher-devel
 %else
 Requires: sqlcipher
 %endif
@@ -516,6 +519,15 @@ umask 007
 
 
 %changelog
+* Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-2.taw
+* Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.1.testing.taw
+  - Trying to get the best requirement mix corrected for OpenSUSE.  
+    sqlcipher-devel provides /usr/lib64/libsqlcipher.so ... that is all that  
+    should be required. Certainly better than tcl-sqlcipher  
+    This should address issues:  
+    - https://github.com/taw00/element-rpm/issues/41 and
+    - https://github.com/taw00/element-rpm/issues/36
+
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.taw
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-0.1.testing.taw
   - 1.7.13

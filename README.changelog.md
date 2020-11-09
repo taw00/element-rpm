@@ -1,4 +1,13 @@
 # changelog
+* Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-2.taw
+* Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.1.testing.taw
+  - Trying to get the best requirement mix corrected for OpenSUSE.  
+    sqlcipher-devel provides /usr/lib64/libsqlcipher.so ... that is all that  
+    should be required. Certainly better than tcl-sqlcipher  
+    This should address issues:  
+    - https://github.com/taw00/element-rpm/issues/41 and
+    - https://github.com/taw00/element-rpm/issues/36
+
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.taw
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-0.1.testing.taw
   - 1.7.13
