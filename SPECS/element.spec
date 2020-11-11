@@ -3,17 +3,21 @@
 #
 # Element - Element is a decentralized, secure messaging client for
 #           collaborative group communication.
-#
-# Riot was renamed Element as of v1.7.0
+
+# https://element.io
+# https://github.com/vector-im/element-web
+# https://github.com/vector-im/element-desktop
 #
 # https://github/taw00/element-rpm
-# https://copr.fedorainfracloud.org/coprs/taw/Riot/
-#
-# https://element.io
+# https://copr.fedorainfracloud.org/coprs/taw/element/
+
+# ---
+
+# Note: Element the project, prior to version 1.7.0, was named Riot
+#       Element the sponsoring company was named Vector
 # old: https://riot.im/
 # old: https://vector.im
-# https://github.com/vector-im/element-desktop
-# https://github.com/vector-im/element-web
+# old: https://copr.fedorainfracloud.org/coprs/taw/Riot/
 
 # ---
 
