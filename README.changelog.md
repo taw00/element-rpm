@@ -1,4 +1,10 @@
 # changelog
+* Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-1.taw
+* Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-0.1.testing.taw
+  - 1.7.14
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.14
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.14
+
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-2.taw
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.1.testing.taw
   - Trying to get the best requirement mix corrected for OpenSUSE.  
