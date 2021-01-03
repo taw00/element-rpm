@@ -60,13 +60,15 @@ Please note that some of the links on that first page have changed. Read
 * **OpenSUSE:**
   - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead—see above—or upgrade to a newer OpenSUSE.
 
-### [Fedora]
+### [Fedora and CentOS]
 
 **Prep&nbsp;.&nbsp;.&nbsp;.**
 ```bash
 sudo dnf install -y dnf-plugins-core distribution-gpg-keys
 sudo dnf copr enable taw/element
 ```
+
+<!--
 .&nbsp;.&nbsp;.&nbsp;alternative&nbsp;.&nbsp;.&nbsp;.
 ```bash
 # Install GPG keys
@@ -75,6 +77,7 @@ sudo rpm --import https://download.copr.fedorainfracloud.org/results/taw/element
 # Configure and enable the Element repository (fc31, fc32, etc ... doesn't matter)
 sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/fedora-32-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.fc32.taw.noarch.rpm
 ```
+-->
 
 **Install&nbsp;.&nbsp;.&nbsp;.**
 ```bash
