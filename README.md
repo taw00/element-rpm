@@ -36,13 +36,14 @@ It's easy to install, run, and maintain Element. Current builds are provided for
 _Note: I will stop building for any version of an OS that is itself no longer supported_
 
 Successful builds:
+* **CentOS:** versions 8 and Stream (as of Element 1.7.16)
 * **Fedora:** versions 31+
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
 
 Alternative builds:
 * **Flatpak:** Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
-Unsuccessful builds:
+Unsuccessful and Struggling builds:
 * **CentOS (and RHEL):**
   - A missing sqlcipher RPM is a major issue for CentOS builds. See also GitHub
     issues [#31](https://github.com/taw00/element-rpm/issues/31) and
