@@ -1,4 +1,13 @@
 # changelog
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.taw
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.1.testing.taw
+  - build for RHEL/CentOS by building our own sqlcipher and including it in the repos
+
+* Mon Dec 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.taw
+* Mon Dec 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.16-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.16
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.16
+
 * Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-1.taw
 * Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-0.1.testing.taw
   - 1.7.14

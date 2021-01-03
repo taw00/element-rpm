@@ -46,9 +46,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -215,6 +215,8 @@ BuildRequires: curl
 # Everyone but RHEL can do sqlcipher
 # XXX THIS IS A PROBLEM XXX
 %if 0%{?rhel:1}
+# Retesting after we began building our own sqlcipher on 2021-01-03
+BuildRequires: sqlcipher-devel
 %else
 BuildRequires: sqlcipher-devel
 %if 0%{?suse_version:1}
@@ -523,6 +525,10 @@ umask 007
 
 
 %changelog
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.taw
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.1.testing.taw
+  - build for RHEL/CentOS by building our own sqlcipher and including it in the repos
+
 * Mon Dec 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.taw
 * Mon Dec 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.16-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.16

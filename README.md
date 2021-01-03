@@ -44,8 +44,18 @@ Alternative builds:
 
 Unsuccessful builds:
 * **CentOS (and RHEL):**
-  - Last successful build version: Riot 1.5.
-  - See also GitHub issues [#31](https://github.com/taw00/element-rpm/issues/31) and [#33](https://github.com/taw00/element-rpm/issues/33). See "Flatpak" above.
+  - A missing sqlcipher RPM is a major issue for CentOS builds. See also GitHub
+    issues [#31](https://github.com/taw00/element-rpm/issues/31) and
+[#33](https://github.com/taw00/element-rpm/issues/33). Until now (see next
+bullet) one had to rely on the element flatpak for support. No longer! Or no
+longer at least for now. :)
+  - I was finally, as of 2021-01-03, able to work around it by building my own
+    sqlcipher RPM for the CentOS repos. CentOS8 is essentially Fedora 28. I
+rebuilt the sqlcipher RPM found
+[here](https://rpms.remirepo.net/rpmphp/zoom.php?rpm=sqlcipher) (specifically
+[here](https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/28/Everything/source/tree/Packages/s/sqlcipher-3.4.1-2.fc28.src.rpm)).
+Please note that some of the links on that first page have changed. Read
+[this](https://dl.fedoraproject.org/pub/fedora/linux/releases/28/README).
 * **OpenSUSE:**
   - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead—see above—or upgrade to a newer OpenSUSE.
 
