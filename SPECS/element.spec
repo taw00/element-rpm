@@ -34,7 +34,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -46,9 +46,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 3
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 2.1
 %endif
 
 # MINORBUMP
@@ -97,8 +97,11 @@ Obsoletes: riot < 1.7.1
 # Apache Software License 2.0
 License: ASL 2.0
 URL: https://element.io/
+
 # Note, for example, this will not build on ppc64le
-ExclusiveArch: x86_64 i686 i586 i386
+# Note2, as of yet, aarch64 builds have not been successful
+#ExclusiveArch: x86_64 i686 i586 i386 aarch64
+ExclusiveArch: x86_64
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -525,6 +528,9 @@ umask 007
 
 
 %changelog
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.1.testing.taw
+  - builds for aarch64 --> FAILED
+
 * Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.taw
 * Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.1.testing.taw
   - build for RHEL/CentOS by building our own sqlcipher and including it in the repos

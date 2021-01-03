@@ -1,4 +1,7 @@
 # changelog
+* Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.1.testing.taw
+  - builds for aarch64 --> FAILED
+
 * Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.taw
 * Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-1.1.testing.taw
   - build for RHEL/CentOS by building our own sqlcipher and including it in the repos
