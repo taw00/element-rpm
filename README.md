@@ -2,11 +2,23 @@
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
+> IMPORTANT REPOSITORY NOTICE  
+> .  
+> Due to github quotas, I am ending storage of the `.src.rpm` convenience files
+> in all (or most) of my build repositories. You can duplicate my builds with
+> files provided within this repository and with upstream source `.tar.gz`
+> files. If you can read an RPM spec file you should be good to go.  
+> .  
+> For the rest of you who simply want to use the application, follow the
+> instructions for installation of the binary package and enjoy.
+
+<!--
 > IMPORTANT!!!
 > * If you encounter a problem that looks like this: `Curl error (6): Couldn't resolve host name for https://download.copr.fedoraproject.org/...` when you run dnf or zypper.
 > * There is a solution: Follow the "Prep" step below for your distribution and you will be functional again.
 > * Why does this happen: Because I screwed up and pushed out a repo configuration with the wrong URL. A deeply embarassing mistake.
 > My apologies -todd
+-->
 
 _**What is Element?**_ Decentralized, encrypted chat & collaboration powered by [matrix].
 
