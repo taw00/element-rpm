@@ -3,12 +3,12 @@
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
 > IMPORTANT REPOSITORY NOTICE  
-> .  
+>   
 > Due to github quotas, I am ending storage of the `.src.rpm` convenience files
 > in all (or most) of my build repositories. You can duplicate my builds with
 > files provided within this repository and with upstream source `.tar.gz`
 > files. If you can read an RPM spec file you should be good to go.  
-> .  
+>   
 > For the rest of you who simply want to use the application, follow the
 > instructions for installation of the binary package and enjoy.
 
