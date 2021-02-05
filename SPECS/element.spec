@@ -34,7 +34,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
