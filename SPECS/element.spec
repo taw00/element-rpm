@@ -42,7 +42,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 20
+%define verminor 21
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -528,6 +528,10 @@ umask 007
 
 
 %changelog
+* Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-1.taw
+* Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.21
+
 * Thu Feb 4 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.20-1.taw
 * Thu Feb 4 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.20-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.20
