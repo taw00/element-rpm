@@ -42,7 +42,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 21
+%define verminor 22
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -101,7 +101,7 @@ URL: https://element.io/
 # Note, for example, this will not build on ppc64le
 # Note2, as of yet, aarch64 builds have not been successful
 #ExclusiveArch: x86_64 i686 i586 i386 aarch64
-ExclusiveArch: x86_64
+ExclusiveArch: x86_64 aarch64
 
 # how are debug info and build_ids managed (I only halfway understand this):
 # https://github.com/rpm-software-management/rpm/blob/master/macros.in
@@ -354,7 +354,10 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 # simply alias it so that embedded scripts don't stumble over this anomaly
 alias yarn='/usr/bin/yarnpkg'" >> ~/.bashrc
       source ~/.bashrc
-    #fi
+    #endif
+    #%%ifarch aarch64 -- doesn't work because there is no binary node-canvas for arch64 that I could find.
+    #    npm install canvas
+    #%%endif 
   # Rules for Fedora 28-
   %else
     npm install yarn
@@ -427,11 +430,11 @@ install -D -m644 -p config.sample.json webapp/config.json
 
 # Used only if building a distributable element-web
 # and not a support build for element-desktop
-##ifarch x86_64 amd64
+##%%ifarch x86_64 amd64
 ## ./node_modules/.bin/electron-builder -l tar.gz --x64
 ##else
 ## ./node_modules/.bin/electron-builder -l tar.gz --ia32
-##endif
+##%%endif
 ##install -D -m644 -p config.sample.json %%{linuxunpacked_w}/resources/webapp/config.json
 
 ### Build element-desktop ###
@@ -528,6 +531,13 @@ umask 007
 
 
 %changelog
+* Fri Mar 5 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.22-1.taw
+* Fri Mar 5 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.22-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.22
+
+* Tue Feb 23 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-1.1.testing.taw
+  - Testing aarch64 builds -- NOPE fails. Upstream binaries don't exist for node-canvas on aarch64 (that I can tell)
+
 * Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-1.taw
 * Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.21
