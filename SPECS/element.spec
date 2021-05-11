@@ -151,7 +151,6 @@ BuildRequires: tree vim-enhanced less findutils mlocate dnf
 BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
-BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 BuildRequires: python2 libsecret-devel
 %if 0%{?sle_version}
 # Leap
@@ -159,14 +158,17 @@ BuildRequires: python2 libsecret-devel
 BuildRequires: libopenssl1_0_0
 %if 0%{?sle_version} == 150100
 # Leap 15.1
+BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 %endif
 %if 0%{?sle_version} == 150200
 # Leap 15.2
 %endif
+BuildRequires: nodejs12 npm12 nodejs12-devel nodejs-common
 %else
 # Tumbleweed
 # provides libcrypto.so.1
 BuildRequires: libcrypt1
+BuildRequires: nodejs-default npm-default nodejs-common
 %endif
 %endif
 
@@ -534,6 +536,7 @@ umask 007
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-1.taw
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.27
+  - Had to update OpenSUSE BuildRequires for nodejs and npm
 
 * Mon Apr 26 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.26-1.taw
 * Mon Apr 26 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.26-0.1.testing.taw
