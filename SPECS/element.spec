@@ -42,7 +42,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 27
+%define verminor 28
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -168,7 +168,8 @@ BuildRequires: nodejs12 npm12 nodejs12-devel nodejs-common
 # Tumbleweed
 # provides libcrypto.so.1
 BuildRequires: libcrypt1
-BuildRequires: nodejs-default npm-default nodejs-common
+BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
+#BuildRequires: nodejs-default npm-default nodejs-common
 %endif
 %endif
 
@@ -424,6 +425,7 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 ### Build element-web ###
 cd ${_pwd_w}
 yarn install 
+export NODE_OPTIONS=--max-old-space-size=8192
 yarn run build
 # bug https://github.com/vector-im/element-web/issues/9166 ... alerted by user "Aaron"
 install -D -m644 -p config.sample.json webapp/config.json
@@ -533,6 +535,13 @@ umask 007
 
 
 %changelog
+* Tue May 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.28-1.taw
+* Tue May 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.28-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.28
+  - Tumbleweed defaults to nodejs16. Alas, it's too new for some build  
+    elements. Forced it to build using v10.
+  - We keep getting javascript heap overruns, so forced heapsize upwards.
+
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-1.taw
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.27
