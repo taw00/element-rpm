@@ -42,7 +42,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 28
+%define verminor 29
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -535,52 +535,69 @@ umask 007
 
 
 %changelog
+* Mon May 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.29-1.taw
+* Mon May 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.29-0.1.testing.taw
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.29
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.29-rc.1
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.29
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.29-rc.1
+
 * Tue May 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.28-1.taw
 * Tue May 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.28-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.28
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.28
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.28-rc.1
   - Tumbleweed defaults to nodejs16. Alas, it's too new for some build  
     elements. Forced it to build using v10.
   - We keep getting javascript heap overruns, so forced heapsize upwards.
 
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-1.taw
 * Mon May 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.27-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.27
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.27
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.27-rc.1
   - Had to update OpenSUSE BuildRequires for nodejs and npm
 
 * Mon Apr 26 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.26-1.taw
 * Mon Apr 26 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.26-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.26
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.26
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.26-rc.1
 
 * Sun Apr 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.25-1.taw
 * Sun Apr 18 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.25-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.25
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.25
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.25-rc.1
 
 * Mon Mar 29 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.24-1.taw
 * Mon Mar 29 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.24-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.24
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.24
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.24-rc.1
 
 * Mon Mar 15 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.23-1.taw
 * Mon Mar 15 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.23-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.23
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.23
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.23-rc.1
+
 
 * Fri Mar 5 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.22-1.taw
 * Fri Mar 5 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.22-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.22
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.22
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.22-rc.1
 
 * Tue Feb 23 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-1.1.testing.taw
   - Testing aarch64 builds -- NOPE fails. Upstream binaries don't exist for node-canvas on aarch64 (that I can tell)
 
 * Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-1.taw
 * Tue Feb 16 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.21-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.21
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.21
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.21-rc.1
 
 * Thu Feb 4 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.20-1.taw
 * Thu Feb 4 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.20-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.20
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.20
 
 * Fri Jan 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.17-1.taw
 * Fri Jan 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.17-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.17
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.17
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.17-rc.1
 
 * Sun Jan 03 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.16-2.1.testing.taw
   - builds for aarch64 --> FAILED (backed out the changes)
@@ -593,16 +610,19 @@ umask 007
 * Mon Dec 21 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.16-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.16
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.16
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.16-rc.1
 
 * Mon Dec 07 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.15-1.taw
 * Mon Dec 07 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.15-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.15
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.15
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.15-rc.1
 
 * Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-1.taw
 * Mon Nov 23 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.14-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.14
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.14
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.14-rc.1
 
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-2.taw
 * Mon Nov 09 2020 Todd Warner <t0dd_at_protonmail.com> 1.7.13-1.1.testing.taw
