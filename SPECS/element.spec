@@ -42,7 +42,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 30
+%define verminor 31
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -535,12 +535,20 @@ umask 007
 
 
 %changelog
+* Wed Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-1.taw
+* Wed Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.31
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.31-rc.1
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31-rc.1
+  - OpenSUSE Tumbleweed is NOT building. I am unsure why.
+
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-1.taw
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-0.1.testing.taw
-  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30
-  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30-rc.1
   - https://github.com/vector-im/element-web/releases/tag/v1.7.30
   - https://github.com/vector-im/element-web/releases/tag/v1.7.30-rc.1
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30-rc.1
   - OpenSUSE Tumbleweed is NOT building. I am unsure why.
 
 * Mon May 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.29-1.taw
