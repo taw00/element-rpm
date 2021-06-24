@@ -26,6 +26,9 @@
 # https://fedoraproject.org/wiki/Packaging:Versioning
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
+# Filters out unneccessary provides
+%{?nodejs_default_filter}
+
 Name: element
 Summary: A decentralized, secure messaging client for collaborative group communication
 
@@ -34,7 +37,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 1
+%define targetIsProduction 0
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -157,18 +160,20 @@ BuildRequires: python2 libsecret-devel
 # provides libcrypto.so.1
 BuildRequires: libopenssl1_0_0
 %if 0%{?sle_version} == 150100
-# Leap 15.1
+# Leap 15.1 -- NO LONGER BUILDABLE
 BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 %endif
 %if 0%{?sle_version} == 150200
 # Leap 15.2
 %endif
-BuildRequires: nodejs12 npm12 nodejs12-devel nodejs-common
+BuildRequires: nodejs npm nodejs-devel nodejs-common
+#BuildRequires: nodejs14 npm14 nodejs14-devel nodejs-common
 %else
 # Tumbleweed
 # provides libcrypto.so.1
 BuildRequires: libcrypt1
-BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
+BuildRequires: nodejs npm nodejs-devel nodejs-common
+#BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common
 #BuildRequires: nodejs-default npm-default nodejs-common
 %endif
 %endif
@@ -185,12 +190,17 @@ BuildRequires: libsecret-devel
 ###NOLONGERSUPPORTED###   https://rpm.nodesource.com/pub_10.x/el/7/$basearch
 ###NOLONGERSUPPORTED###   https://dl.yarnpkg.com/rpm/
 ###NOLONGERSUPPORTED### Note that this version of nodejs installs npm as well.
-###NOLONGERSUPPORTED##BuildRequires: nodejs >= 2:10
+###NOLONGERSUPPORTED##BuildRequires: nodejs >= 14
 ###NOLONGERSUPPORTED##BuildRequires: yarn
 ###NOLONGERSUPPORTED##BuildRequires: python
 ###NOLONGERSUPPORTED##BuildRequires: libxcrypt -- NOPE, not available
 %else
-# EL8 is based on Fedora 28
+# Reminder, EL8 is based on Fedora 28
+# We struggled with the OS-provided nodejs, so I punted an am using nodesource's
+# https://rpm.nodesource.com/pub_16.x/el/$releasever/$basearch (added to COPR chroot repo list)
+# But this doesn't work because the nodejs modules from the OS trump everything. Very annoying.
+#BuildRequires: nodejs >= 2:16
+#BuildRequires: npm
 BuildRequires: nodejs npm
 BuildRequires: python3
 # provides libcrypto.so.1
@@ -321,7 +331,8 @@ cd ${_pwd_w}
   echo "-------- Leap 15.1  will report as 1500 150100"
   echo "-------- Leap 15.2  will report as 1500 150200"
   echo "-------- Tumbleweed will report as 1550 undefined"
-  npm install yarn
+  npm install npm@7.18.1
+  npm install yarn --legacy-peer-deps
   #source ~/.bashrc
   #which yarn > /dev/null 2>&1
   #if [ "$?" -ne 0 ] ; then
@@ -535,13 +546,14 @@ umask 007
 
 
 %changelog
-* Wed Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-1.taw
-* Wed Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-0.1.testing.taw
+* Tue Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-1.taw
+* Tue Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.31
   - https://github.com/vector-im/element-web/releases/tag/v1.7.31-rc.1
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31-rc.1
-  - OpenSUSE Tumbleweed is NOT building. I am unsure why.
+  - OpenSUSE Tumbleweed is NOT building. I am unsure why. Something to do with versions of react.
+  - OpenSUSE Leap 15.2 and EL8 NOT building because of nodejs versions. Have to wait until they update a smidge.
 
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-1.taw
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-0.1.testing.taw
