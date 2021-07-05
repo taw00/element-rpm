@@ -37,7 +37,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 0
+%define targetIsProduction 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.6
@@ -45,7 +45,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 31
+%define verminor 32
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -546,6 +546,14 @@ umask 007
 
 
 %changelog
+* Mon Jul 05 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-1.taw
+* Mon Jul 05 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.32
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.32-rc.1
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.32
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.32-rc.1
+  - OpenSUSE Leap and Tumbleweed and EL8 are not building, see below.
+
 * Tue Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-1.taw
 * Tue Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.31
