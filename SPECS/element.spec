@@ -171,6 +171,9 @@ BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
 %if 0%{?sle_version} == 150200
 # Leap 15.2
 %endif
+%if 0%{?sle_version} == 150300
+# Leap 15.3
+%endif
 BuildRequires: nodejs npm nodejs-devel nodejs-common
 #BuildRequires: nodejs14 npm14 nodejs14-devel nodejs-common
 %else
@@ -339,6 +342,7 @@ cd ${_pwd_w}
   echo "======== OpenSUSE version: %{suse_version} %{sle_version}"
   echo "-------- Leap 15.1  will report as 1500 150100"
   echo "-------- Leap 15.2  will report as 1500 150200"
+  echo "-------- Leap 15.3  will report as 1500 150300"
   echo "-------- Tumbleweed will report as 1550 undefined"
   npm install npm@7.18.1
   npm install yarn --legacy-peer-deps
