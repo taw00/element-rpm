@@ -1,0 +1,17 @@
+diff -ruN element-desktop-1.7.32--orig/hak/matrix-seshat/check.js element-desktop-1.7.32--remove-rustup-check/hak/matrix-seshat/check.js
+--- element-desktop-1.7.32--orig/hak/matrix-seshat/check.js	2021-07-05 11:55:20.000000000 -0400
++++ element-desktop-1.7.32--remove-rustup-check/hak/matrix-seshat/check.js	2021-07-05 15:34:11.387827572 -0400
+@@ -61,6 +61,7 @@
+         });
+     }
+ 
++/*
+     // Ensure Rust target exists
+     await new Promise((resolve, reject) => {
+         childProcess.execFile('rustup', ['target', 'list', '--installed'], (err, out) => {
+@@ -74,4 +75,5 @@
+             resolve();
+         });
+     });
++*/
+ };

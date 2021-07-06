@@ -134,6 +134,11 @@ Source0: https://github.com/vector-im/%{name}-desktop/archive/v%{_version}/%{_so
 Source1: https://github.com/vector-im/%{name}-web/archive/v%{_version}/%{_source1}.tar.gz
 Source2: https://github.com/taw00/element-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
+# Have to patch because this commit broke my builds ...
+# https://github.com/vector-im/element-desktop/commit/c57a1736
+BuildRequires: patch
+Patch1: https://github.com/taw00/element-rpm/blob/master/SOURCES/element-1.7.32-remove-rustup-check.patch
+
 # This is used to declare whether we pull additional sources dependencies from the contrib tarball
 %define useExtraSources 1
 
@@ -301,6 +306,10 @@ mkdir %{sourceroot}
 %setup -q -T -D -a 0 -n %{sourceroot}
 %setup -q -T -D -a 1 -n %{sourceroot}
 %setup -q -T -D -a 2 -n %{sourceroot}
+
+cd %{sourcetree_d}
+%patch1 -p1
+cd ..
 
 # For debugging purposes...
 %if ! %{targetIsProduction}
@@ -552,6 +561,9 @@ umask 007
   - https://github.com/vector-im/element-web/releases/tag/v1.7.32-rc.1
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.32
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.32-rc.1
+  - Removing irrelevant dependency on rustup that breaks all builds: 
+    element-1.7.32-remove-rustup-check.patch  
+    The commit that broke everything: https://github.com/vector-im/element-desktop/commit/c57a1736
   - OpenSUSE Leap and Tumbleweed and EL8 are not building, see below.
 
 * Tue Jun 22 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.31-1.taw
