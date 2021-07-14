@@ -49,9 +49,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -160,29 +160,35 @@ BuildRequires: ca-certificates-cacert ca-certificates-mozilla ca-certificates
 BuildRequires: desktop-file-utils
 BuildRequires: appstream-glib /bin/sh
 BuildRequires: python2 libsecret-devel
-%if 0%{?sle_version}
-# Leap
-# provides libcrypto.so.1
-BuildRequires: libopenssl1_0_0
+%if 0%{?suse_version} == 1500
+%if 0%{?sle_version:1}
 %if 0%{?sle_version} == 150100
-# Leap 15.1 -- NO LONGER BUILDABLE
-BuildRequires: nodejs10 npm10 nodejs10-devel nodejs-common
+  # Leap 15.1
+  %{error: "======== OpenSUSE Leap 15.1 — versions %{suse_version} %{sle_version} — builds no longer supported."}
 %endif
 %if 0%{?sle_version} == 150200
-# Leap 15.2
-%endif
-%if 0%{?sle_version} == 150300
-# Leap 15.3
-%endif
-BuildRequires: nodejs npm nodejs-devel nodejs-common
-#BuildRequires: nodejs14 npm14 nodejs14-devel nodejs-common
-%else
-# Tumbleweed
+  # Leap 15.2
 # provides libcrypto.so.1
+BuildRequires: libopenssl1_0_0
+#BuildRequires: nodejs npm nodejs-devel nodejs-common
+BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
+%endif
+#%%if 0%%{?sle_version} == 150300 --- This is not set! Why!?!
+%else
+  # Leap 15.3
 BuildRequires: libcrypt1
-BuildRequires: nodejs npm nodejs-devel nodejs-common
-#BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common
-#BuildRequires: nodejs-default npm-default nodejs-common
+#BuildRequires: nodejs npm nodejs-devel nodejs-common
+BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
+%endif
+%endif
+
+%if 0%{?suse_version} > 1500
+  # Tumbleweed
+BuildRequires: libcrypt1
+#BuildRequires: nodejs npm nodejs-devel nodejs-common yarn
+BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common yarn
+#BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common yarn
+#BuildRequires: nodejs-default npm-default nodejs-common yarn
 %endif
 %endif
 
@@ -205,11 +211,11 @@ BuildRequires: libsecret-devel
 %else
 # Reminder, EL8 is based on Fedora 28
 # We struggled with the OS-provided nodejs, so I punted an am using nodesource's
-# https://rpm.nodesource.com/pub_16.x/el/$releasever/$basearch (added to COPR chroot repo list)
+# https://rpm.nodesource.com/pub_14.x/el/$releasever/$basearch (added to COPR chroot repo list)
 # But this doesn't work because the nodejs modules from the OS trump everything. Very annoying.
-#BuildRequires: nodejs >= 2:16
+#BuildRequires: nodejs >= 2:14
 #BuildRequires: npm
-BuildRequires: nodejs npm
+BuildRequires: nodejs >= 14.17.0 npm
 BuildRequires: python3
 # provides libcrypto.so.1
 BuildRequires: libxcrypt
@@ -342,11 +348,31 @@ cd ${_pwd_w}
   echo "======== OpenSUSE version: %{suse_version} %{sle_version}"
   echo "-------- Leap 15.1  will report as 1500 150100"
   echo "-------- Leap 15.2  will report as 1500 150200"
-  echo "-------- Leap 15.3  will report as 1500 150300"
+  echo "-------- Leap 15.3  should report as 1500 150300 (but doesn't!)"
   echo "-------- Tumbleweed will report as 1550 undefined"
-  npm install npm@7.18.1
+%if 0%{?suse_version} == 1500
+%if 0%{?sle_version:1}
+%if 0%{?sle_version} == 150200
+  # Leap 15.2 ...
+  ##npm install npm@7.19.1
+  echo "\
+# npm alias inserted here by the Element RPM specfile build script
+# this can be removed after build is complete
+alias npm='/usr/bin/npm14'" >> ~/.bashrc
+  source ~/.bashrc
+%endif
+#%%if 0%%{?sle_version} == 150300 --- This is not set! Why!?!
+%else
+  # Leap 15.3 ...
+  ##npm install npm@7.19.1
+  echo "\
+# npm alias inserted here by the Element RPM specfile build script
+# this can be removed after build is complete
+alias npm='/usr/bin/npm14'" >> ~/.bashrc
+  source ~/.bashrc
+%endif
+  # note, tumbleweed ships with a yarn package, Leap does not. Le'sigh.
   npm install yarn --legacy-peer-deps
-  #source ~/.bashrc
   #which yarn > /dev/null 2>&1
   #if [ "$?" -ne 0 ] ; then
     echo "\
@@ -355,9 +381,13 @@ cd ${_pwd_w}
 alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
     source ~/.bashrc
   #fi
-  # Not needed as of 1.6.0?
-  #yarn add electron-builder --dev
-  #yarn add electron-packager --dev
+#  # Not needed as of element-1.6.0?
+#  #yarn add electron-builder --dev
+#  #yarn add electron-packager --dev
+%endif
+%if 0%{?suse_version} > 1500
+echo "--------------we are tumbleweed"
+%endif
 %endif
 
 #
@@ -449,6 +479,7 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 ### Build element-web ###
 cd ${_pwd_w}
 yarn install 
+# kept running out of memory (heap) for javascript. Boosted here.
 export NODE_OPTIONS=--max-old-space-size=8192
 yarn run build
 # bug https://github.com/vector-im/element-web/issues/9166 ... alerted by user "Aaron"
@@ -559,6 +590,15 @@ umask 007
 
 
 %changelog
+* Wed Jul 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-2.taw
+* Wed Jul 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-1.1.testing.taw
+  - OpenSUSE builds failed with nodejs16, Tumbleweed moving back to nodejs14
+  - As of this build Leap 15.2, 15.3 are on nodejs 14.16, but element builds  
+    need 14.17.
+  - sle_version *should* be 150300 for Leap 15.3, but for whatever reason  
+    it is left unset. I am sure that will be corrected eventually, but we  
+    had to adjust.
+
 * Mon Jul 05 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-1.taw
 * Mon Jul 05 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.32
@@ -576,8 +616,8 @@ umask 007
   - https://github.com/vector-im/element-web/releases/tag/v1.7.31-rc.1
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.31-rc.1
-  - OpenSUSE Tumbleweed is NOT building. I am unsure why. Something to do with versions of react.
-  - OpenSUSE Leap 15.2 and EL8 NOT building because of nodejs versions. Have to wait until they update a smidge.
+  - OpenSUSE Tumbleweed is NOT building. I am unsure why. Something to do with versions of react?
+  - OpenSUSE Leap 15.2+ and EL8 NOT building because of nodejs versions. Have to wait until they update a smidge.
 
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-1.taw
 * Mon Jun 07 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.30-0.1.testing.taw
@@ -585,7 +625,8 @@ umask 007
   - https://github.com/vector-im/element-web/releases/tag/v1.7.30-rc.1
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.30-rc.1
-  - OpenSUSE Tumbleweed is NOT building. I am unsure why.
+  - OpenSUSE Tumbleweed is NOT building. I am unsure why.  
+    UPDATE: fixed with SUSE update to Nodejs 14.17
 
 * Mon May 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.29-1.taw
 * Mon May 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.29-0.1.testing.taw

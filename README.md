@@ -50,7 +50,7 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 
 Successful builds:
 * **CentOS:** versions 8 and Stream (as of Element 1.7.16)
-* **Fedora:** versions 31+
+* **Fedora:** versions 33+
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
 
 Alternative builds:
@@ -99,7 +99,7 @@ sudo dnf install -y element --refresh
 
 ### [OpenSUSE]
 
-**Prep (Leap 15.2)&nbsp;.&nbsp;.&nbsp;.**
+**Prep (Leap 15.2 and 15.3)&nbsp;.&nbsp;.&nbsp;.**
 ```bash
 # Install GPG keys
 sudo rpm --import https://keybase.io/toddwarner/key.asc
