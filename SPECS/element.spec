@@ -45,13 +45,13 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 32
+%define verminor 33
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
+%define _pkgrel 1
 %if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -134,10 +134,11 @@ Source0: https://github.com/vector-im/%{name}-desktop/archive/v%{_version}/%{_so
 Source1: https://github.com/vector-im/%{name}-web/archive/v%{_version}/%{_source1}.tar.gz
 Source2: https://github.com/taw00/element-rpm/raw/master/SOURCES/%{name}-%{vermajor}-contrib.tar.gz
 
-# Have to patch because this commit broke my builds ...
-# https://github.com/vector-im/element-desktop/commit/c57a1736
-BuildRequires: patch
-Patch1: https://github.com/taw00/element-rpm/blob/master/SOURCES/element-1.7.32-remove-rustup-check.patch
+# No longer needed as of 1.7.33
+## Have to patch because this commit broke my builds ...
+## https://github.com/vector-im/element-desktop/commit/c57a1736
+#BuildRequires: patch
+#Patch1: https://github.com/taw00/element-rpm/blob/master/SOURCES/element-1.7.32-remove-rustup-check.patch
 
 # This is used to declare whether we pull additional sources dependencies from the contrib tarball
 %define useExtraSources 1
@@ -317,7 +318,8 @@ mkdir %{sourceroot}
 %setup -q -T -D -a 2 -n %{sourceroot}
 
 cd %{sourcetree_d}
-%patch1 -p1
+# No longer needed as of 1.7.33
+#%%patch1 -p1
 cd ..
 
 # For debugging purposes...
@@ -590,6 +592,23 @@ umask 007
 
 
 %changelog
+* Tue Jul 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.33-1.taw
+* Tue Jul 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.33-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.33
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.33-rc.1
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.33
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.33-rc.1
+  - removed patch (see v1.7.32 build). Upstream incorporated the fix.
+  - suddenly builds for centos-stream-8-x86_64, but in COPR, you need to add  
+    this to individual repo metadata in the module section: nodejs:14 
+  - EL8 (epel-8-x86_64) builds used to work with a build metadata addition  
+    (again, in COPR), of repo: https://rpm.nodesource.com/pub_14.x/el/$releasever/$basearch  
+    and the same module field valure as for centos-stream-8-x86_64, but it  
+    doesn't work for this version
+  - OpenSUSE Leap now has the right version of nodejs available, but runs into  
+    another issue -- a dependency who relies on nodejs nightly
+  - OpenSUSE Tumbleweed currently builds
+
 * Wed Jul 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-2.taw
 * Wed Jul 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.32-1.1.testing.taw
   - OpenSUSE builds failed with nodejs16, Tumbleweed moving back to nodejs14

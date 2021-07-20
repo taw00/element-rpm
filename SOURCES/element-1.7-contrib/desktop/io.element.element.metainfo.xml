@@ -68,6 +68,7 @@ protocol.</p>
   </provides>
 
   <releases>
+      <release version="1.7.33" date="2021-07-19" />
       <release version="1.7.32" date="2021-07-05" />
       <release version="1.7.31" date="2021-06-21" />
       <release version="1.7.30" date="2021-06-07" />

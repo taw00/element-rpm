@@ -2,6 +2,11 @@
 
 _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
+_**What is this GitHub Repository?**_
+
+The purpose of this repository is to store all the bits and pieces needed to build and package the Element application for various RPM flavors of Linux: CentOS, Fedora, and OpenSUSE. The binary (installable and runnable) packages are then built by the [Fedora Project's COPR build system](https://copr.fedorainfracloud.org/coprs/taw/element/).
+
+<!--
 > IMPORTANT REPOSITORY NOTICE  
 >   
 > This repository will no longer host RPMs or SRPMs. Due to github quotas, I am
@@ -12,7 +17,7 @@ _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 >   
 > For the rest of you who simply want to use the application, follow the
 > instructions for installation of the binary package and enjoy.
-
+-->
 <!--
 > IMPORTANT!!!
 > * If you encounter a problem that looks like this: `Curl error (6): Couldn't resolve host name for https://download.copr.fedoraproject.org/...` when you run dnf or zypper.
@@ -31,7 +36,9 @@ In short, Element is an open-source, decentralized, end-to-end encrypted, team c
 
 More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though prebuilt binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
-All `*.src.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg)
+<!--
+Any `*.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs distrubuted via the COPR build system are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg)
+-->
 
 > Please note that packages also exist for Android, Apple products, and Microsoft Windows. Element for the web (Chromebook and anyone) is available here: <https://app.element.io/> — slick!
 
@@ -50,12 +57,15 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 
 Successful builds:
 * **CentOS:** versions 8 and Stream (as of Element 1.7.16)
+  - Note, EL8 for RHEL and CentOS proper is a bear to build for and may be dropped. CentOS Stream is currently staying current with the builds.
 * **Fedora:** versions 33+
 * **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
+  - Note, Leap is a bear to build for and may be behind in versions.
 
 Alternative builds:
-* **Flatpak:** Leap 15.1 and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have native builds available for Leap 15.1 and RHEL/CentOS, alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
+* **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
+<!--
 Unsuccessful and Struggling builds:
 * **CentOS (and RHEL):**
   - A missing sqlcipher RPM is a major issue for CentOS builds. See also GitHub
@@ -72,6 +82,7 @@ Please note that some of the links on that first page have changed. Read
 [this](https://dl.fedoraproject.org/pub/fedora/linux/releases/28/README).
 * **OpenSUSE:**
   - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead—see above—or upgrade to a newer OpenSUSE.
+-->
 
 ### [Fedora and CentOS]
 
