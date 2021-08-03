@@ -45,7 +45,7 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 
 # VERSION
 %define vermajor 1.7
-%define verminor 33
+%define verminor 34
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -592,6 +592,16 @@ umask 007
 
 
 %changelog
+* Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-1.taw
+* Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-0.1.testing.taw
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.34
+  - https://github.com/vector-im/element-web/releases/tag/v1.7.34-rc.1
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.34
+  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.34-rc.1
+  - All builds (centos-stream, f33, f34, Leap 15.2, Leap 15.3, and Tumbleweed)  
+    are functional again. Why? I don't know. The likely reason is that the  
+    OSes updated to match the library profile of the application build.
+
 * Tue Jul 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.33-1.taw
 * Tue Jul 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.33-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.33
@@ -599,8 +609,8 @@ umask 007
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.33
   - https://github.com/vector-im/element-desktop/releases/tag/v1.7.33-rc.1
   - removed patch (see v1.7.32 build). Upstream incorporated the fix.
-  - suddenly builds for centos-stream-8-x86_64, but in COPR, you need to add  
-    this to individual repo metadata in the module section: nodejs:14 
+  - suddenly builds for centos-stream-8-x86_64 work, but in COPR, you need to  
+    add this to individual repo metadata in the module section: nodejs:14
   - EL8 (epel-8-x86_64) builds used to work with a build metadata addition  
     (again, in COPR), of repo: https://rpm.nodesource.com/pub_14.x/el/$releasever/$basearch  
     and the same module field valure as for centos-stream-8-x86_64, but it  
