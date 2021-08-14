@@ -22,8 +22,8 @@
 # ---
 
 # Package (RPM) name-version-release.
-# <name>-<vermajor.<verminor>-<pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
-# https://fedoraproject.org/wiki/Packaging:Versioning
+# <name>-<vermajor>.<verminor>-<pkgrel>[.<extraver>][.<snapinfo>].DIST[.<minorbump>]
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
 # Filters out unneccessary provides
