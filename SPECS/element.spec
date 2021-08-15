@@ -30,7 +30,7 @@
 %{?nodejs_default_filter}
 
 Name: element
-Summary: A decentralized, secure messaging client for collaborative group communication
+Summary: Group Messaging
 
 %define appid io.element.element
 
@@ -49,9 +49,9 @@ Summary: A decentralized, secure messaging client for collaborative group commun
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
+%define _pkgrel 2
 %if ! %{targetIsProduction}
-  %define _pkgrel 0.1
+  %define _pkgrel 1.1
 %endif
 
 # MINORBUMP
@@ -592,6 +592,9 @@ umask 007
 
 
 %changelog
+* Sun Aug 15 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-1.1.testing.taw
+  - Summary tag reduced to make it more packaging-guideline compliant
+
 * Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-1.taw
 * Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-0.1.testing.taw
   - https://github.com/vector-im/element-web/releases/tag/v1.7.34
