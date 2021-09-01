@@ -27,6 +27,7 @@
 # https://fedoraproject.org/wiki/Package_Versioning_Examples
 
 # Filters out unneccessary provides
+# See also: https://docs.fedoraproject.org/en-US/packaging-guidelines/Node.js/
 %{?nodejs_default_filter}
 
 Name: element
@@ -37,21 +38,21 @@ Summary: Group Messaging
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define targetIsProduction 1
+%define isTestBuild 0
 
 # ie. if the dev team includes things like rc.3 in the filename
-%define buildQualifier rc.6
+%define buildQualifier rc.1
 %undefine buildQualifier
 
 # VERSION
-%define vermajor 1.7
-%define verminor 34
+%define vermajor 1.8
+%define verminor 2
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 2
-%if ! %{targetIsProduction}
-  %define _pkgrel 1.1
+%define _pkgrel 1
+%if %{isTestBuild}
+  %define _pkgrel 0.1
 %endif
 
 # MINORBUMP
@@ -66,7 +67,7 @@ Version: %{vermajor}.%{verminor}
 %if 0%{?buildQualifier:1}
   %define snapinfo %buildQualifier
 %endif
-%if %{targetIsProduction}
+%if ! %{isTestBuild}
   %undefine snapinfo
 %endif
 
@@ -144,7 +145,7 @@ Source2: https://github.com/taw00/element-rpm/raw/master/SOURCES/%{name}-%{verma
 %define useExtraSources 1
 
 #t0dd: I add tree, vim-enhanced, and less for mock environment introspection
-%if ! %{targetIsProduction}
+%if %{isTestBuild}
 BuildRequires: tree vim-enhanced less findutils mlocate dnf
 %endif
 
@@ -323,7 +324,7 @@ cd %{sourcetree_d}
 cd ..
 
 # For debugging purposes...
-%if ! %{targetIsProduction}
+%if %{isTestBuild}
   cd .. ; tree -df -L 1 %{sourceroot} ; cd -
 %endif
 
@@ -592,15 +593,24 @@ umask 007
 
 
 %changelog
+* Wed Sep 1 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.2-1.taw
+* Wed Sep 1 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.2-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.8.2
+
+* Tue Aug 17 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.1-1.taw
+* Tue Aug 17 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.1-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.8.1
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.8.0
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.8.0-rc.1
+  - in specfile: flipped the logic and changed the variable: s/targetIsProduction/isTestBuild
+
 * Sun Aug 15 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-1.1.testing.taw
   - Summary tag reduced to make it more packaging-guideline compliant
 
 * Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-1.taw
 * Mon Aug 2 2021 Todd Warner <t0dd_at_protonmail.com> 1.7.34-0.1.testing.taw
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.34
-  - https://github.com/vector-im/element-web/releases/tag/v1.7.34-rc.1
-  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.34
-  - https://github.com/vector-im/element-desktop/releases/tag/v1.7.34-rc.1
+  - https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.7.34
+  - https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.7.34-rc.1
   - All builds (centos-stream, f33, f34, Leap 15.2, Leap 15.3, and Tumbleweed)  
     are functional again. Why? I don't know. The likely reason is that the  
     OSes updated to match the library profile of the application build.
