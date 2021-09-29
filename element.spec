@@ -45,8 +45,8 @@ Summary: Group Messaging
 %undefine buildQualifier
 
 # VERSION
-%define vermajor 1.8
-%define verminor 5
+%define vermajor 1.9
+%define verminor 0
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -175,12 +175,12 @@ BuildRequires: libopenssl1_0_0
 #BuildRequires: nodejs npm nodejs-devel nodejs-common
 BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
 %endif
-#%%if 0%%{?sle_version} == 150300 --- This is not set! Why!?!
-%else
+%if 0%{?sle_version} == 150300
   # Leap 15.3
 BuildRequires: libcrypt1
 #BuildRequires: nodejs npm nodejs-devel nodejs-common
 BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
+%endif
 %endif
 %endif
 
@@ -355,27 +355,14 @@ cd ${_pwd_w}
   echo "-------- Tumbleweed will report as 1550 undefined"
 %if 0%{?suse_version} == 1500
 %if 0%{?sle_version:1}
+  echo "======== OpenSUSE version: %{suse_version} %{sle_version}"
 %if 0%{?sle_version} == 150200
-  # Leap 15.2 ...
-  ##npm install npm@7.19.1
-  echo "\
-# npm alias inserted here by the Element RPM specfile build script
-# this can be removed after build is complete
-alias npm='/usr/bin/npm14'" >> ~/.bashrc
-  source ~/.bashrc
 %endif
-#%%if 0%%{?sle_version} == 150300 --- This is not set! Why!?!
-%else
-  # Leap 15.3 ...
-  ##npm install npm@7.19.1
-  echo "\
-# npm alias inserted here by the Element RPM specfile build script
-# this can be removed after build is complete
-alias npm='/usr/bin/npm14'" >> ~/.bashrc
-  source ~/.bashrc
+%if 0%{?sle_version} == 150300
 %endif
-  # note, tumbleweed ships with a yarn package, Leap does not. Le'sigh.
-  npm install yarn --legacy-peer-deps
+# IF ALL LEAP versions:
+  # Leap does not ship with a yarn package (tumblewee does).
+  /usr/bin/npm14 install yarn --legacy-peer-deps
   #which yarn > /dev/null 2>&1
   #if [ "$?" -ne 0 ] ; then
     echo "\
@@ -387,10 +374,15 @@ alias yarn='${_pwd_w}/node_modules/.bin/yarn'" >> ~/.bashrc
 #  # Not needed as of element-1.6.0?
 #  #yarn add electron-builder --dev
 #  #yarn add electron-packager --dev
+# ENDIF sle_version is defined
 %endif
+# ENDIF suse_version is 1500
+%endif
+
 %if 0%{?suse_version} > 1500
 echo "--------------we are tumbleweed"
 %endif
+# ENDIF suse_version is defined
 %endif
 
 #
@@ -593,6 +585,12 @@ umask 007
 
 
 %changelog
+* Wed Sep 29 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.0-1.taw
+* Wed Sep 29 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.0-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.0
+  - fixed if-else-endif errors in the specfile in the suse-logic
+  - npm binary is now correctly mapped by the suse packaging.
+
 * Tue Sep 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.5-1.taw
 * Tue Sep 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.8.5-0.1.testing.taw
   - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.8.5
