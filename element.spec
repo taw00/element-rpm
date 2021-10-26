@@ -46,7 +46,7 @@ Summary: Group Messaging
 
 # VERSION
 %define vermajor 1.9
-%define verminor 2
+%define verminor 3
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -585,6 +585,10 @@ umask 007
 
 
 %changelog
+* Mon Oct 25 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.3-1.taw
+* Mon Oct 25 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.3-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.3
+
 * Tue Oct 12 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.2-1.taw
 * Tue Oct 12 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.2-0.1.testing.taw
   - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.2
