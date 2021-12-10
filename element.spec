@@ -38,7 +38,7 @@ Summary: Group Messaging
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define isTestBuild 0
+%define isTestBuild 1
 
 # ie. if the dev team includes things like rc.3 in the filename
 %define buildQualifier rc.1
@@ -46,7 +46,7 @@ Summary: Group Messaging
 
 # VERSION
 %define vermajor 1.9
-%define verminor 5
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
@@ -585,6 +585,10 @@ umask 007
 
 
 %changelog
+* Fri Dec 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.6-1.taw
+* Fri Dec 10 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.6-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.6
+
 * Wed Nov 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.5-1.taw
 * Wed Nov 24 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.5-0.1.testing.taw
   - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.5
