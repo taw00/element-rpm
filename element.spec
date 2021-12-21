@@ -242,7 +242,7 @@ BuildRequires: libxcrypt
 
 # BuildRequires for all platforms . . .
 BuildRequires: cargo gcc-c++ cmake rust
-BuildRequires: curl
+BuildRequires: curl git
 
 # Everyone but RHEL can do sqlcipher
 # XXX THIS IS A PROBLEM XXX
@@ -588,6 +588,7 @@ umask 007
 * Mon Dec 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.8-1.taw
 * Mon Dec 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.8-0.1.testing.taw
   - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.8
+  - git is now required for builds, unfortunately
 
 * Tue Dec 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.7-1.taw
 * Tue Dec 14 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.7-0.1.testing.taw
