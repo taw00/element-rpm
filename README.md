@@ -44,7 +44,7 @@ Any `*.rpm` packages provided in this GitHub repository are signed with [my GPG 
 
 #### More about&nbsp;.&nbsp;.&nbsp;.
 
-* Element: <https://element.io/> and the source repositories, [riot-desktop](https://github.com/vector-im/riot-desktop) and [riot-web](https://github.com/vector-im/riot-web)
+* Element: <https://element.io/> and the source repositories, [element-desktop](https://github.com/vector-im/element-desktop) and [element-web](https://github.com/vector-im/element-web)
 * Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
 * A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Element is superior to Slack and Rocket Chat._
 
@@ -63,7 +63,7 @@ Successful builds:
   - Note, Leap is a bear to build for and may be behind in versions.
 
 Alternative builds:
-* **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
+* **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
 <!--
 Unsuccessful and Struggling builds:
