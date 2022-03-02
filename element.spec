@@ -38,56 +38,26 @@ Summary: Group Messaging
 %define name_d %{name}-desktop
 %define name_w %{name}-web
 
-%define isTestBuild 1
-
-# ie. if the dev team includes things like rc.3 in the filename
-%define buildQualifier rc.1
-%undefine buildQualifier
-
 # VERSION
-%define vermajor 1.9
-%define verminor 8
+%define isTestBuild 1
+%define vermajor 1.10
+%define verminor 6
 Version: %{vermajor}.%{verminor}
 
 # RELEASE
-%define _pkgrel 1
-%if %{isTestBuild}
-  %define _pkgrel 0.1
-%endif
-
-# MINORBUMP
+# release qualifiers: MINORBUMP and SNAPINFO
 %define minorbump taw
-
-#
-# Build the release string - don't edit this
-#
-
 %define snapinfo testing
-# Let's replace the default snapinfo with the archive qualifier
-%if 0%{?buildQualifier:1}
-  %define snapinfo %buildQualifier
-%endif
+# build qualifier: i.e. if the dev team includes things like rc.3 in the filename
+%define buildQualifier rc.1
+%undefine buildQualifier
 %if ! %{isTestBuild}
-  %undefine snapinfo
-%endif
-
-# pkgrel will always be defined, snapinfo and minorbump may not be
-%define _release %{_pkgrel}
-%if 0%{?snapinfo:1}
-  %if 0%{?minorbump:1}
-    %define _release %{_pkgrel}.%{snapinfo}%{?dist}.%{minorbump}
-  %else
-    %define _release %{_pkgrel}.%{snapinfo}%{?dist}
-  %endif
+  %define _release 1%{?dist}.%{minorbump}
 %else
-  %if 0%{?minorbump:1}
-    %define _release %{_pkgrel}%{?dist}.%{minorbump}
-  %else
-    %define _release %{_pkgrel}%{?dist}
-  %endif
+  %define _release 0.1.%{snapinfo}%{?dist}.%{minorbump}
 %endif
-
 Release: %{_release}
+
 # ----------- end of release building section
 
 # Name of package is no longer riot-web
@@ -179,7 +149,8 @@ BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
   # Leap 15.3
 BuildRequires: libcrypt1
 #BuildRequires: nodejs npm nodejs-devel nodejs-common
-BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
+#BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
+BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common
 %endif
 %endif
 %endif
@@ -188,8 +159,8 @@ BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common
   # Tumbleweed
 BuildRequires: libcrypt1
 #BuildRequires: nodejs npm nodejs-devel nodejs-common yarn
-BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common yarn
-#BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common yarn
+#BuildRequires: nodejs14 >= 14.17.0 npm14 nodejs14-devel nodejs-common yarn
+BuildRequires: nodejs16 npm16 nodejs16-devel nodejs-common yarn
 #BuildRequires: nodejs-default npm-default nodejs-common yarn
 %endif
 %endif
@@ -521,6 +492,8 @@ install -d %{buildroot}%{_datadir}/applications
 
 # /usr/share/io.element.element/*
 cp -a %{sourcetree_d}/%{linuxunpacked_d}/* %{buildroot}%{installtree}
+### --THIS BREAKS THE WORLD-- If libffmpeg.so snuck in, nuke it!
+##rm -rf %%{buildroot}%%{installtree}/libffmpeg.so
 
 # /usr/bin/element and /usr/bin/element-wrapper.sh
 # this symbolic link is a bit ugly
@@ -585,6 +558,31 @@ umask 007
 
 
 %changelog
+* Tue Mar 1 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.6-1.taw
+* Tue Mar 1 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.6-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.6
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.5
+  - OpenSUSE no longer builds at all. All related to NodeJS versions and such. I give up.
+
+* Thu Feb 17 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.4-1.taw
+* Thu Feb 17 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.4-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.4
+
+* Wed Feb 16 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.3-1.taw
+* Wed Feb 16 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.3-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.3
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.2
+  - simplified the release string logic in the spec
+
+* Sat Feb 5 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.1-1.taw
+* Sat Feb 5 2022 Todd Warner <t0dd_at_protonmail.com> 1.10.1-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.1
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.10.0
+
+* Tue Jan 18 2022 Todd Warner <t0dd_at_protonmail.com> 1.9.9-1.taw
+* Tue Jan 18 2022 Todd Warner <t0dd_at_protonmail.com> 1.9.9-0.1.testing.taw
+  - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.9
+
 * Mon Dec 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.8-1.taw
 * Mon Dec 20 2021 Todd Warner <t0dd_at_protonmail.com> 1.9.8-0.1.testing.taw
   - release notes: https://github.com/vector-im/element-[desktop,web]/releases/tag/v1.9.8
