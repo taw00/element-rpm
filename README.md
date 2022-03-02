@@ -17,7 +17,7 @@ The purpose of this repository is to store all the bits and pieces needed to bui
 1. a core upstream component of Element (the Electron platform) embeds non-free software (a couple codecs in libffmpeg.so) and I have been asked (told) to stop using my preferred build system (COPR)
 2. builds for OpenSUSE are *again* super-challenging
 
-As such, today—March 1, 2022, version 1.10.6—after almost four years of working on this project, I am ending my maintainence of Element builds for CentOS, Fedora, and OpenSUSE. I am a fan of the project and think they are clearly a superior solution in the groups-chat space, but I am tired of fighting all the technical debt baggage and complexity associated to NodeJS and Electron. At some point I will stop checking in changes and that will be that. If someone wants to use my spec files and start a new RPM build project, please do so. Just let me know so I can link to it here.
+As such, today—March 1, 2022, version 1.10.6—after almost four years of working on this project, I am ending my maintenance of Element builds for CentOS, Fedora, and OpenSUSE. I am a fan of the project and think they are clearly a superior solution in the groups-chat space, but I am tired of fighting all the technical debt baggage and complexity associated to NodeJS and Electron. At some point I will stop checking in changes and that will be that. If someone wants to use my spec files and start a new RPM build project, please do so. Just let me know so I can link to it here.
 
 **THERE IS AN ALTERNATIVE TO MY RPM BUILDS!**
 
