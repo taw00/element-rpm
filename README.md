@@ -4,7 +4,30 @@ _.&nbsp;.&nbsp;.&nbsp;packaged for Fedora and OpenSUSE_
 
 _**What is this GitHub Repository?**_
 
-The purpose of this repository is to store all the bits and pieces needed to build and package the Element application for various RPM flavors of Linux: CentOS, Fedora, and OpenSUSE. The binary (installable and runnable) packages are then built by the [Fedora Project's COPR build system](https://copr.fedorainfracloud.org/coprs/taw/element/).
+The purpose of this repository is to store all the bits and pieces needed to build and package the Element application for various RPM flavors of Linux: CentOS, Fedora, and OpenSUSE. The binary (installable and runnable) packages <s>are</s> were then built on the <s>[Fedora Project's COPR build system](https://copr.fedorainfracloud.org/coprs/taw/element/)</s>.
+
+---
+
+---
+
+**SHUT DOWN NOTICE**
+
+**I am closing down this project for two reasons:**
+
+1. a core upstream component of Element (the Electron platform) embeds non-free software (a couple codecs in libffmpeg.so) and I have been asked (told) to stop using my preferred build system (COPR)
+2. builds for OpenSUSE are *again* super-challenging
+
+As such, today—March 1, 2022, version 1.10.6—after almost four years of working on this project, I am ending my maintainence of Element builds for CentOS, Fedora, and OpenSUSE. I am a fan of the project and think they are clearly a superior solution in the groups-chat space, but I am tired of fighting all the technical debt baggage and complexity associated to NodeJS and Electron. At some point I will stop checking in changes and that will be that. If someone wants to use my spec files and start a new RPM build project, please do so. Just let me know so I can link to it here.
+
+**THERE IS AN ALTERNATIVE TO MY RPM BUILDS!**
+
+There is an alternative build out there that should work for everyone: a Flatpak! I am not a huge fan of the bloat and non-native-ness of Flatpak/Snap/AppData builds (they are a kludge), but like all kludges, they are often *good enough*. So ... instead of the RPM, just go ahead and [install the Flatpak](https://flathub.org/apps/details/im.riot.Riot).
+
+A big *thank you* goes out to all the good folks who supported and encouraged me over these four year. Cheers! -todd
+
+---
+
+---
 
 <!--
 > IMPORTANT REPOSITORY NOTICE  
@@ -32,7 +55,9 @@ _**What is Matrix?**_ An open network for secure, decentralized communication.
 
 In short, Element is an open-source, decentralized, end-to-end encrypted, team collaboration platform who's often compared to IRC, Rocket Chat, Mattermost, Slack, and Discord.
 
+<!--
 > Element was once branded Riot. The name changed as of version 1.7.0 (July, 2020).
+-->
 
 More fully, Element is a desktop application implementing the client-side of the matrix protocol enabling decentralized, secure messaging for collaborative groups. This repository enables Element to be easily installed and maintained on the Fedora, Red Hat(IBM), and OpenSUSE family of Linux operating systems and tracks the source surrounding those builds. This GitHub repository maintains source RPM packages and spec files so you can rebuild Element if you are so inclined, though prebuilt binaries have been conveniently built for you. See below for how to install and run Element on your Linux desktop.
 
@@ -40,14 +65,16 @@ More fully, Element is a desktop application implementing the client-side of the
 Any `*.rpm` packages provided in this GitHub repository are signed with [my GPG key](https://keybase.io/toddwarner/key.asc)<br />All binary RPMs distrubuted via the COPR build system are signed with the [Fedora Project's](https://fedoraproject.org/) [COPR GPG signing key](https://download.copr.fedorainfracloud.org/results/taw/element/pubkey.gpg)
 -->
 
-> Please note that packages also exist for Android, Apple products, and Microsoft Windows. Element for the web (Chromebook and anyone) is available here: <https://app.element.io/> — slick!
-
 #### More about&nbsp;.&nbsp;.&nbsp;.
 
-* Element: <https://element.io/> and the source repositories, [riot-desktop](https://github.com/vector-im/riot-desktop) and [riot-web](https://github.com/vector-im/riot-web)
+* Element: <https://element.io/> and the source repositories, [element-desktop](https://github.com/vector-im/element-desktop) and [element-web](https://github.com/vector-im/element-web)
 * Matrix: <https://matrix.org/> and <https://en.wikipedia.org/wiki/Matrix_(communication_protocol)>
 * A couple reviews from [some dude](http://www.1500wordmtu.com/2016/slack-no-more-why-you-should-use-riotim-and-matrixorg), [TechCrunch](https://techcrunch.com/2016/09/19/riot-wants-to-be-like-slack-but-with-the-flexibility-of-an-underlying-open-source-platform/), and the [Slant community](https://www.slant.co/options/12764/~matrix-review)<br />_Unsurprisingly, I personally think Element is superior to Slack and Rocket Chat._
+* Element for Microsoft, Apple, and Android products can be found at <https://element.io> and the Apple and Android Play Stores. Element for the web (Chromebook and anyone) is available here: <https://app.element.io/>.
 
+
+<!-- 
+=========================================================================================================
 # tl;dr&nbsp;.&nbsp;.&nbsp;.
 
 ## I just want to install Element!
@@ -58,14 +85,14 @@ _Note: I will stop building for any version of an OS that is itself no longer su
 Successful builds:
 * **CentOS:** versions 8 and Stream (as of Element 1.7.16)
   - Note, EL8 for RHEL and CentOS proper is a bear to build for and may be dropped. CentOS Stream is currently staying current with the builds.
-* **Fedora:** versions 33+
-* **OpenSUSE:** Tumbleweed and Leap 15.2 as of Element 1.7.1
+* **Fedora:** versions 34+
+* **OpenSUSE:** Tumbleweed and Leap 15.3 and Leap 15.2 as of Element 1.7.1
   - Note, Leap is a bear to build for and may be behind in versions.
 
 Alternative builds:
 * **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
-<!--
+<! - -
 Unsuccessful and Struggling builds:
 * **CentOS (and RHEL):**
   - A missing sqlcipher RPM is a major issue for CentOS builds. See also GitHub
@@ -82,7 +109,7 @@ Please note that some of the links on that first page have changed. Read
 [this](https://dl.fedoraproject.org/pub/fedora/linux/releases/28/README).
 * **OpenSUSE:**
   - Leap 15.1: Riot 1.5 and older only. See also GitHub issue [#32](https://github.com/taw00/element-rpm/issues/32). Install "Flatpak" instead—see above—or upgrade to a newer OpenSUSE.
--->
+- - >
 
 ### [Fedora and CentOS]
 
@@ -92,7 +119,7 @@ sudo dnf install -y dnf-plugins-core distribution-gpg-keys
 sudo dnf copr enable taw/element
 ```
 
-<!--
+< ! - -
 .&nbsp;.&nbsp;.&nbsp;alternative&nbsp;.&nbsp;.&nbsp;.
 ```bash
 # Install GPG keys
@@ -101,7 +128,7 @@ sudo rpm --import https://download.copr.fedorainfracloud.org/results/taw/element
 # Configure and enable the Element repository (fc31, fc32, etc ... doesn't matter)
 sudo dnf install https://download.copr.fedorainfracloud.org/results/taw/element/fedora-32-x86_64/01571621-toddpkgs-element-repo/toddpkgs-element-repo-1.7-5.fc32.taw.noarch.rpm
 ```
--->
+- - >
 
 **Install&nbsp;.&nbsp;.&nbsp;.**
 ```bash
@@ -168,7 +195,8 @@ sudo zypper update
 
 I do this as a hobby, but I will try to be timely with my updates.
 
-<!--
+< ! - -
+
 ## I live on the edge! Do you have test packages available?
 
 Yes!
@@ -178,16 +206,19 @@ Yes!
 2. Disable the stable repository and enable the testing repository...
 ```
 # Fedora and RHEL/CentOS only
-sudo dnf config-manager - - set-disabled element-stable
-sudo dnf config-manager - - set-enabled riot-testing
-sudo dnf list - - refresh |grep element
+sudo dnf config-manager --set-disabled element-stable
+sudo dnf config-manager --set-enabled riot-testing
+sudo dnf list --refresh |grep element
 ```
--->
+- - >
 
 
 # Disclaimer
 
 I built these for my own use. I offer these builds for your own convenience (and have now for a long time). If it 'splodes your computer, I am sorry, but buyer beware. :) I am in no way affiliated with the originators of Element—[New Vector Ltd/Element](https://element.io/)—but I do thank them for their wonderful application and the community appreciates their welcoming approach to contributors like myself.
+
+=========================================================================================================
+-->
 
 # Questions or comments&nbsp;.&nbsp;.&nbsp;.
 
