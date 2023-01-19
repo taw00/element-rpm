@@ -92,7 +92,7 @@ Successful builds:
   - Note, Leap is a bear to build for and may be behind in versions.
 
 Alternative builds:
-* **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Element-team supplied Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
+* **Flatpak:** OpenSUSE Leap and EL8(RHEL/CentOS) folks can use the Flatpak: <https://flathub.org/apps/details/im.riot.Riot> Ideally, we'd have reasonably current native builds available for Leap and RHEL/CentOS, but alas. Using a Flatpak (or, for that matter, a Snap or an AppImage) is a brute-force solution, but it is a solution.
 
 <! - -
 Unsuccessful and Struggling builds:
